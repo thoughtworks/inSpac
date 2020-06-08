@@ -1,0 +1,43 @@
+version: 2.1
+executors:
+  my-executor:
+    docker:
+      - image: cimg/openjdk:8.0.252
+orbs:
+  gradle: circleci/gradle@2.1.0
+jobs:
+  clean:
+    description: /
+      clean project before building
+    executor: my-executor
+    steps:
+      - checkout
+      - run:
+          command: ./gradlew clean
+          name: clean
+  dokka:
+    description: /
+      automatically create api document
+    executor: my-executor
+    steps:
+      - checkout
+      - run:
+          command: ./gradlew dokka
+          name: Run dokka
+      - store_artifacts:
+          path: build/dokka
+          prefix: dokka
+workflows:
+  build:
+    jobs:
+      - clean
+      - gradle/test:
+          executor: my-executor
+          requires:
+              - clean
+          filters:
+            branches:
+              only: master
+      - dokka:
+          requires:
+            - gradle/test
