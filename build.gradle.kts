@@ -25,7 +25,7 @@ tasks.test {
 }
 
 tasks.register<Copy>("initGitHooks") {
-    from(".git/hooks/")
+    from("./pre-push")
     into("./.git/hooks")
     // set file mode as 755
     fileMode = 0b000_111_101_101

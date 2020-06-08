@@ -6,21 +6,40 @@ executors:
 orbs:
   gradle: circleci/gradle@2.1.0
 jobs:
-  clean:
-    description: /
-      clean project before building
+  buid_test:
+    description: |
+      Checkout, build and test a Gradle project.
     executor: my-executor
     steps:
       - checkout
       - run:
-          command: ./gradlew clean
-          name: clean
-  dokka:
+          command: >-
+            find . -name 'build.gradle.kts' | sort | xargs cat | shasum | awk '{print
+            $1}' > /tmp/gradle_cache_seed
+          name: Generate Cache Checksum
+      - restore_cache:
+          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
+      - run:
+          command: ./gradlew clean build
+          name: Build and test
+      - save_cache:
+          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
+          paths:
+            - ~/.gradle
+      - gradle/collect_test_results
+  document:
     description: /
-      automatically create api document
+      automatically create api document by dokka
     executor: my-executor
     steps:
       - checkout
+      - run:
+          command: >-
+            find . -name 'build.gradle.kts' | sort | xargs cat | shasum | awk '{print
+            $1}' > /tmp/gradle_cache_seed
+          name: Generate Cache Checksum
+      - restore_cache:
+          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
       - run:
           command: ./gradlew dokka
           name: Run dokka
@@ -28,16 +47,12 @@ jobs:
           path: build/dokka
           prefix: dokka
 workflows:
-  build:
+  checkout-build-test-document:
     jobs:
-      - clean
-      - gradle/test:
-          executor: my-executor
-          requires:
-              - clean
+      - buid_test:
           filters:
             branches:
               only: master
-      - dokka:
+      - document:
           requires:
-            - gradle/test
+            - buid_test
