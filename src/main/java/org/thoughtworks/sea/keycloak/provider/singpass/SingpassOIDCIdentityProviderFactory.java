@@ -3,7 +3,6 @@ package org.thoughtworks.sea.keycloak.provider.singpass;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
 import org.keycloak.broker.provider.AbstractIdentityProviderFactory;
 import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
@@ -16,35 +15,40 @@ public class SingpassOIDCIdentityProviderFactory
 
   public static final String PROVIDER_ID = "singpass";
 
+  @Override
   public String getName() {
     return "Singpass";
   }
 
   @Override
   public SingpassOIDCIdentityProvider create(KeycloakSession session, IdentityProviderModel model) {
-    return new SingpassOIDCIdentityProvider(session, new OIDCIdentityProviderConfig(model));
+    return new SingpassOIDCIdentityProvider(session, new SingpassOIDCIdentityProviderConfig(model));
   }
 
-  public OIDCIdentityProviderConfig createConfig() {
-    return new OIDCIdentityProviderConfig();
+  @Override
+  public SingpassOIDCIdentityProviderConfig createConfig() {
+    return new SingpassOIDCIdentityProviderConfig();
   }
 
+  @Override
   public String getId() {
     return PROVIDER_ID;
   }
 
+  @Override
   public Map<String, String> parseConfig(KeycloakSession session, InputStream inputStream) {
     return parseOIDCConfig(session, inputStream);
   }
 
-  protected static Map<String, String> parseOIDCConfig(KeycloakSession session, InputStream inputStream) {
+  protected static Map<String, String> parseOIDCConfig(
+      KeycloakSession session, InputStream inputStream) {
     OIDCConfigurationRepresentation rep;
     try {
       rep = JsonSerialization.readValue(inputStream, OIDCConfigurationRepresentation.class);
     } catch (IOException e) {
       throw new RuntimeException("failed to load openid connect metadata", e);
     }
-    OIDCIdentityProviderConfig config = new OIDCIdentityProviderConfig();
+    SingpassOIDCIdentityProviderConfig config = new SingpassOIDCIdentityProviderConfig();
     config.setIssuer(rep.getIssuer());
     config.setLogoutUrl(rep.getLogoutEndpoint());
     config.setAuthorizationUrl(rep.getAuthorizationEndpoint());

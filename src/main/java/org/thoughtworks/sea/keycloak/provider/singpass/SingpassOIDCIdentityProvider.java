@@ -1,23 +1,26 @@
 package org.thoughtworks.sea.keycloak.provider.singpass;
 
-import org.keycloak.broker.oidc.AbstractOAuth2IdentityProvider;
-import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
-import org.keycloak.broker.provider.ExchangeExternalToken;
+import org.keycloak.broker.oidc.OIDCIdentityProvider;
+import org.keycloak.broker.provider.IdentityBrokerException;
 import org.keycloak.models.KeycloakSession;
+import org.keycloak.representations.JsonWebToken;
 
 /** @author yuexie.zhou */
-public class SingpassOIDCIdentityProvider
-    extends AbstractOAuth2IdentityProvider<OIDCIdentityProviderConfig>
-    implements ExchangeExternalToken {
+public class SingpassOIDCIdentityProvider extends OIDCIdentityProvider {
 
-  public static final String DEFAULT_SCOPE = "openid";
-
-  public SingpassOIDCIdentityProvider(KeycloakSession session, OIDCIdentityProviderConfig config) {
+  public SingpassOIDCIdentityProvider(
+      KeycloakSession session, SingpassOIDCIdentityProviderConfig config) {
     super(session, config);
   }
 
   @Override
-  protected String getDefaultScopes() {
-    return DEFAULT_SCOPE;
+  protected JsonWebToken validateToken(String encodedIdToken, boolean ignoreAudience) {
+    if (encodedIdToken == null) {
+      throw new IdentityBrokerException("No token from server.");
+    }
+
+    JsonWebToken token = new JsonWebToken();
+
+    return token;
   }
 }

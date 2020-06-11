@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.thoughtworks.sea</groupId>
-  <artifactId>keycloak-social-singpass</artifactId>
+  <artifactId>keycloak-idp-singpass</artifactId>
   <version>1.0.0</version>
-  <name>Keycloak Social SingPass</name>
+  <name>Keycloak identity provider SingPass</name>
 
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -38,6 +38,29 @@
       <artifactId>keycloak-services</artifactId>
       <version>10.0.2</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <version>8.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.23.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
