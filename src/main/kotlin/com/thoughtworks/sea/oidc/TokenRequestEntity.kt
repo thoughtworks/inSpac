@@ -1,5 +1,8 @@
 package com.thoughtworks.sea.oidc
 
+import com.thoughtworks.sea.oidc.Constants.TOKEN_REQUEST_DEFAULT_CONTENT_TYPE
+import com.thoughtworks.sea.oidc.Constants.TOKEN_REQUEST_DEFAULT_GRANT_TYPE
+
 data class TokenRequestEntity(
     val url: String,
     val tokenRequestHeader: TokenRequestHeader,
@@ -11,10 +14,10 @@ data class TokenRequestBody(
     val clientId: String,
     val clientSecret: String,
     val redirectUri: String,
-    val grantType: String? = "authorization_code"
+    val grantType: String? = TOKEN_REQUEST_DEFAULT_GRANT_TYPE
 )
 
-data class TokenRequestHeader(val contentType: String? = "APPLICATION_FORM_URLENCODED")
+data class TokenRequestHeader(val contentType: String? = TOKEN_REQUEST_DEFAULT_CONTENT_TYPE)
 
 data class TokenRequestParams(
     val host: String,
