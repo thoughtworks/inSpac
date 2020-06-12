@@ -1,4 +1,4 @@
-package org.thoughtworks.sea.keycloak.provider.singpass.SingpassResponse;
+package org.keycloak.provider.singpass.SingpassResponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;

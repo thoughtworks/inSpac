@@ -16,6 +16,12 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-core</artifactId>
+      <version>10.0.2</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.keycloak/keycloak-server-spi-private -->
     <dependency>
       <groupId>org.keycloak</groupId>

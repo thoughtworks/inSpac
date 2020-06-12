@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-org.thoughtworks.sea.keycloak.provider.singpass.SingpassOIDCIdentityProviderFactory
+org.keycloak.provider.singpass.SingpassIdentityProviderFactory
