@@ -26,6 +26,12 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider
 
     JsonWebToken token = new JsonWebToken();
 
+    log.debug(getSingpassConfig().getPrivateKeySignatureVerifier());
+
     return token;
+  }
+
+  private SingpassIdentityProviderConfig getSingpassConfig() {
+    return (SingpassIdentityProviderConfig) super.getConfig();
   }
 }

@@ -10,4 +10,12 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
   }
 
   public SingpassIdentityProviderConfig() {}
+
+  public void setPrivateKeySignatureVerifier(String privateKey) {
+    getConfig().put("privateKeySignatureVerifier", privateKey);
+  }
+
+  public String getPrivateKeySignatureVerifier() {
+    return getConfig().get("privateKeySignatureVerifier");
+  }
 }
