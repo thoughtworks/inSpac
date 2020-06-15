@@ -1,20 +1,23 @@
-package org.keycloak.provider.singpass;
+package org.thoughtworks.provider.singpass;
 
 import org.keycloak.broker.provider.AbstractIdentityProviderFactory;
-import org.keycloak.broker.social.SocialIdentityProviderFactory;
 import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
 
 /** @author yuexie.zhou */
 public class SingpassIdentityProviderFactory
-    extends AbstractIdentityProviderFactory<SingpassIdentityProvider>
-    implements SocialIdentityProviderFactory<SingpassIdentityProvider> {
+    extends AbstractIdentityProviderFactory<SingpassIdentityProvider> {
 
   public static final String PROVIDER_ID = "singpass";
 
   @Override
   public String getName() {
     return "Singpass";
+  }
+
+  @Override
+  public SingpassIdentityProviderConfig createConfig() {
+    return new SingpassIdentityProviderConfig();
   }
 
   @Override

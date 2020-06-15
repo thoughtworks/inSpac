@@ -1,4 +1,4 @@
-package org.keycloak.provider.singpass;
+package org.thoughtworks.provider.singpass;
 
 import static org.junit.Assert.assertNotNull;
 

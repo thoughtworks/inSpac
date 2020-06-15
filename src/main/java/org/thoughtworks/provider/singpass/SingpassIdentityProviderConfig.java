@@ -1,4 +1,4 @@
-package org.keycloak.provider.singpass;
+package org.thoughtworks.provider.singpass;
 
 import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
 import org.keycloak.models.IdentityProviderModel;
@@ -11,6 +11,8 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
 
     System.out.println("SingpassIdentityProviderConfig: model");
   }
+
+  public SingpassIdentityProviderConfig() {}
 
   public void setPrivateKeySignatureVerifier(String privateKey) {
     System.out.println("SingpassIdentityProviderConfig: set value");

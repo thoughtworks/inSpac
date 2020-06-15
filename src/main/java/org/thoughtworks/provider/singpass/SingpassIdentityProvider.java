@@ -1,16 +1,13 @@
-package org.keycloak.provider.singpass;
+package org.thoughtworks.provider.singpass;
 
 import org.jboss.logging.Logger;
 import org.keycloak.broker.oidc.OIDCIdentityProvider;
-import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
 import org.keycloak.broker.provider.IdentityBrokerException;
-import org.keycloak.broker.social.SocialIdentityProvider;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.representations.JsonWebToken;
 
 /** @author yuexie.zhou */
-public class SingpassIdentityProvider extends OIDCIdentityProvider
-    implements SocialIdentityProvider<OIDCIdentityProviderConfig> {
+public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   private static final Logger log = Logger.getLogger(SingpassIdentityProvider.class);
 

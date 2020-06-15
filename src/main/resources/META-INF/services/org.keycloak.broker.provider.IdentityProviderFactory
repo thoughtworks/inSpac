@@ -15,5 +15,4 @@
 # limitations under the License.
 #
 
-org.keycloak.provider.singpass.mapper.SingpassUserAttributeMapper
-org.keycloak.provider.singpass.mapper.SingpassUsernameTemplateMapper
+org.thoughtworks.provider.singpass.SingpassIdentityProviderFactory
