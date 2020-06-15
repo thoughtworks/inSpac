@@ -16,6 +16,10 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider
 
   public SingpassIdentityProvider(KeycloakSession session, SingpassIdentityProviderConfig config) {
     super(session, config);
+
+    System.out.println("SingpassIdentityProvider: ");
+    System.out.println(config.getPrivateKeySignatureVerifier());
+    System.out.println(getConfig().toString());
   }
 
   @Override
