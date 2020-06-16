@@ -237,20 +237,22 @@
           <kc-tooltip>{{:: 'identity-provider.validating-public-key.tooltip' | translate}}</kc-tooltip>
         </div>
 
-        <div class="form-group clearfix">
-          <label class="col-md-2 control-label" for="privateKey">Private Key</label>
-          <div class="col-md-6">
-            <textarea class="form-control" id="privateKey" ng-model="identityProvider.config.privateKey"></textarea>
-          </div>
-          <kc-tooltip>Private key tooltip</kc-tooltip>
-        </div>
-
         <div class="form-group clearfix" data-ng-hide="identityProvider.config.useJwksUrl == 'true'">
           <label class="col-md-2 control-label" for="publicKeySignatureVerifierKeyId">{{:: 'validating-public-key-id' | translate}}</label>
           <div class="col-md-6">
             <input class="form-control" id="publicKeySignatureVerifierKeyId" ng-model="identityProvider.config.publicKeySignatureVerifierKeyId"/>
           </div>
           <kc-tooltip>{{:: 'identity-provider.validating-public-key-id.tooltip' | translate}}</kc-tooltip>
+        </div>
+
+        <div class="form-group clearfix">
+          <label class="col-md-2 control-label" for="privateKey">{{::
+            'singpass.validating-private-key-id' | translate}}</label>
+          <div class="col-md-6">
+            <textarea class="form-control" id="privateKey"
+                      ng-model="identityProvider.config.privateKey"></textarea>
+          </div>
+          <kc-tooltip>{{:: 'singpass.validating-private-key.tooltip' | translate}}</kc-tooltip>
         </div>
 
       </div>
