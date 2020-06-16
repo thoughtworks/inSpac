@@ -1,7 +1,7 @@
 {
   "themes": [
     {
-      "name": "singpass-theme",
+      "name": "singpass",
       "types": [
         "admin"
       ]

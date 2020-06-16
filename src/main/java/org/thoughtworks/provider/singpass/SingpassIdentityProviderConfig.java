@@ -14,16 +14,16 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
 
   public SingpassIdentityProviderConfig() {}
 
-  public void setPrivateKeySignatureVerifier(String privateKey) {
+  public void setPrivateKey(String privateKey) {
     System.out.println("SingpassIdentityProviderConfig: set value");
     System.out.println(privateKey);
 
-    getConfig().put("privateKeySignatureVerifier", privateKey);
+    getConfig().put("privateKey", privateKey);
   }
 
-  public String getPrivateKeySignatureVerifier() {
+  public String getPrivateKey() {
     System.out.println("SingpassIdentityProviderConfig: get value");
 
-    return getConfig().get("privateKeySignatureVerifier");
+    return getConfig().get("privateKey");
   }
 }

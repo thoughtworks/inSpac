@@ -24,7 +24,7 @@ public class SingpassIdentityProviderTest {
     IdentityProviderModel model = new IdentityProviderModel();
     config = new SingpassIdentityProviderConfig(model);
     config.setDefaultScope("openid");
-    config.setPrivateKeySignatureVerifier(
+    config.setPrivateKey(
         "-----BEGIN PRIVATE KEY-----\n"
             + "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC7di8TGHWqMkGm\n"
             + "SMAsp8K4HrsqqPMJz8TBSsE6R2gRg0u6vzQDZjdHi/arUBbx/x7dsyI8stKW/FLR\n"
