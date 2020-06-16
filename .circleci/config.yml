@@ -22,6 +22,8 @@ jobs:
       - run:
           command: ./gradlew clean build
           name: Build and test
+      - store_artifacts:
+          path: build/libs
       - save_cache:
           key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
           paths:
