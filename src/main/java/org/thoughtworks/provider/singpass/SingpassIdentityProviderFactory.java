@@ -15,7 +15,6 @@ public class SingpassIdentityProviderFactory
     return "Singpass";
   }
 
-  @Override
   public SingpassIdentityProviderConfig createConfig() {
     return new SingpassIdentityProviderConfig();
   }

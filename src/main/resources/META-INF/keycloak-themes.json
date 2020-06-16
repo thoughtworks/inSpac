@@ -1,0 +1,10 @@
+{
+  "themes": [
+    {
+      "name": "singpass-theme",
+      "types": [
+        "admin"
+      ]
+    }
+  ]
+}
