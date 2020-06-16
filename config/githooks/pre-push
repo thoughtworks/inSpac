@@ -5,5 +5,5 @@ set -x
 # run the tests with the gradle wrapper
 ./gradlew clean build
 
-# return the './gradlew build' exit code
+# return the './gradlew clean build' exit code
 exit $?

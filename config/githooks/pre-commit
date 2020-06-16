@@ -2,9 +2,9 @@
 set -x
 # From gist at https://gist.github.com/chadmaughan/5889802
 
-# run the tests with the gradle wrapper
+# format the codes with the gradle wrapper
 echo "Formatting *.kt, *.kts files..."
 ./gradlew formatKotlin
 
-# return the './gradlew build' exit code
+# return the './gradlew formatKotlin' exit code
 exit $?

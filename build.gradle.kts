@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("jvm") version "1.3.71"
     `java-library`
@@ -22,6 +24,10 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
     }
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn("formatKotlin", "lintKotlin", "initGitHooks")
 }
 
 tasks.register<Copy>("initGitHooks") {
