@@ -6,13 +6,14 @@
 
   <groupId>org.thoughtworks.sea</groupId>
   <artifactId>keycloak-idp-singpass</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>Keycloak identity provider SingPass</name>
 
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <keycloak.version>10.0.0</keycloak.version>
+    <keycloak.version>8.0.0</keycloak.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
