@@ -12,6 +12,8 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
     System.out.println("SingpassIdentityProviderConfig: model");
   }
 
+  public SingpassIdentityProviderConfig() {}
+
   public void setPrivateKey(String privateKey) {
     System.out.println("SingpassIdentityProviderConfig: set value");
     System.out.println(privateKey);
