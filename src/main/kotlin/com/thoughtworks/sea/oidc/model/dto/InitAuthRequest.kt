@@ -2,7 +2,7 @@ package com.thoughtworks.sea.oidc.model.dto
 
 import java.util.UUID.randomUUID
 
-data class SPCPLoginRequest(
+data class InitAuthRequest(
     val host: String,
     val endPoint: String,
     val clientId: String,

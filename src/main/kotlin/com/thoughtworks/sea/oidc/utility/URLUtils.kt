@@ -1,18 +1,18 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.dto.SPCPLoginRequest
+import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
 
 class URLUtils {
     companion object {
         @JvmStatic
-        fun generateLoginURL(spcpLoginRequest: SPCPLoginRequest): String =
-            "https://${spcpLoginRequest.host}" +
-                    "${spcpLoginRequest.endPoint}?" +
-                    "scope=${spcpLoginRequest.scope}&" +
-                    "response_type=${spcpLoginRequest.responseType}&" +
-                    "client_id=${spcpLoginRequest.clientId}&" +
-                    "nonce=${spcpLoginRequest.nonce}&" +
-                    "state=${spcpLoginRequest.state}&" +
-                    "redirect_uri=${spcpLoginRequest.redirectURI}"
+        fun generateInitAuthURL(initAuthRequest: InitAuthRequest): String =
+            "https://${initAuthRequest.host}" +
+                    "${initAuthRequest.endPoint}?" +
+                    "scope=${initAuthRequest.scope}&" +
+                    "response_type=${initAuthRequest.responseType}&" +
+                    "client_id=${initAuthRequest.clientId}&" +
+                    "nonce=${initAuthRequest.nonce}&" +
+                    "state=${initAuthRequest.state}&" +
+                    "redirect_uri=${initAuthRequest.redirectURI}"
     }
 }
