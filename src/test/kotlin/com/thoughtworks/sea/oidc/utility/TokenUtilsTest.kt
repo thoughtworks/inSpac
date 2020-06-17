@@ -35,7 +35,7 @@ internal class TokenUtilsTest {
         val expectedHttpEntity = HttpEntity(bodyMap, headerMap)
 
         // when
-        val tokenRequest = TokenUtils.buildHttpEntityForRestTemplate(tokenRequestParams)
+        val tokenRequest = TokenUtils.buildTokenRequest(tokenRequestParams)
 
         // then
         assertEquals("https://test.com/test/token", tokenRequest.url)
