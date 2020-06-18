@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.utility
+package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.model.InitAuthRequest
+import com.thoughtworks.sea.oidc.model.InitAuthRequest
 
 class URLUtils {
     companion object {

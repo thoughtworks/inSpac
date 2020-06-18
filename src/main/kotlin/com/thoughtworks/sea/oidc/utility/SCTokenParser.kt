@@ -1,7 +1,7 @@
-package com.thoughtworks.sea.utility
+package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.model.ParsedTokenResult
-import com.thoughtworks.sea.model.TokenResponse
+import com.thoughtworks.sea.oidc.model.ParsedTokenResult
+import com.thoughtworks.sea.oidc.model.TokenResponse
 
 class SCTokenParser {
     fun parseToken(token: TokenResponse): ParsedTokenResult {

@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.model
+package com.thoughtworks.sea.oidc.model
 
 /** Those are params for generating TokenRequest for restTemplate. */
 data class TokenRequestParams(

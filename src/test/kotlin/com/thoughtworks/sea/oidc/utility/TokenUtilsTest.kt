@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.utility
+package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.model.TokenRequestParams
+import com.thoughtworks.sea.oidc.model.TokenRequestParams
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -36,7 +36,9 @@ internal class TokenUtilsTest {
 
         // when
         val tokenRequest =
-            TokenUtils.buildTokenRequest(tokenRequestParams)
+            TokenUtils.buildTokenRequest(
+                tokenRequestParams
+            )
 
         // then
         assertEquals("https://test.com/test/token", tokenRequest.url)

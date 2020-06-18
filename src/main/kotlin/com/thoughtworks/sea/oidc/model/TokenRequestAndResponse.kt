@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.model
+package com.thoughtworks.sea.oidc.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.http.HttpEntity
