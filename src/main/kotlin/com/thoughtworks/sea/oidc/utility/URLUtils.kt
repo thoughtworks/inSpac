@@ -1,9 +1,15 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.InitAuthRequest
+import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
 
+/** A utility class for handling and processing URL. */
 class URLUtils {
     companion object {
+        /**
+         * Generate a initiated authentication URL
+         * @param InitAuthRequest a InitAuthRequest DTO model
+         * @return Initiate authentication URL
+         */
         @JvmStatic
         fun generateInitAuthURL(initAuthRequest: InitAuthRequest): String =
             "https://${initAuthRequest.host}" +

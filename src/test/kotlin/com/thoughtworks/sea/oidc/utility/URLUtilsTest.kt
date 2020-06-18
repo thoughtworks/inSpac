@@ -1,6 +1,6 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.InitAuthRequest
+import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
