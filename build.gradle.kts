@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation(platform(kotlin("bom")))
     implementation(kotlin("stdlib-jdk8"))
-    implementation(group = "org.springframework", name = "spring-web", version = "5.2.6.RELEASE")
+    implementation("org.springframework:spring-web:5.2.6.RELEASE")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
 }
