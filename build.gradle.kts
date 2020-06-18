@@ -15,6 +15,7 @@ dependencies {
     implementation(platform(kotlin("bom")))
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework:spring-web:5.2.6.RELEASE")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
 }
