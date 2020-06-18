@@ -8,11 +8,16 @@ import java.security.PrivateKey;
 import java.text.ParseException;
 import org.jboss.logging.Logger;
 import org.keycloak.broker.oidc.OIDCIdentityProvider;
+import org.keycloak.broker.provider.BrokeredIdentityContext;
 import org.keycloak.broker.provider.IdentityBrokerException;
+import org.keycloak.common.util.Time;
 import org.keycloak.jose.jws.JWSInput;
 import org.keycloak.jose.jws.JWSInputException;
 import org.keycloak.models.KeycloakSession;
+import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.JsonWebToken;
+import org.keycloak.util.JsonSerialization;
+import org.thoughtworks.provider.singpass.SingpassResponse.SingpassJsonWebToken;
 import org.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 
 /** @author yuexie.zhou */
@@ -29,12 +34,44 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
   }
 
   @Override
+  public BrokeredIdentityContext getFederatedIdentity(String response) {
+    AccessTokenResponse tokenResponse;
+    try {
+      tokenResponse = JsonSerialization.readValue(response, AccessTokenResponse.class);
+    } catch (IOException e) {
+      throw new IdentityBrokerException("Could not decode access token response.", e);
+    }
+    String accessToken = verifyAccessToken(tokenResponse);
+
+    String encodedIdToken = tokenResponse.getIdToken();
+
+    JsonWebToken idToken = validateToken(encodedIdToken);
+
+    try {
+      BrokeredIdentityContext identity = extractIdentity(tokenResponse, accessToken, idToken);
+
+      if (getConfig().isStoreToken()) {
+        if (tokenResponse.getExpiresIn() > 0) {
+          long accessTokenExpiration = Time.currentTime() + tokenResponse.getExpiresIn();
+          tokenResponse.getOtherClaims().put(ACCESS_TOKEN_EXPIRATION, accessTokenExpiration);
+          response = JsonSerialization.writeValueAsString(tokenResponse);
+        }
+        identity.setToken(response);
+      }
+
+      return identity;
+    } catch (Exception e) {
+      throw new IdentityBrokerException("Could not fetch attributes from userinfo endpoint.", e);
+    }
+  }
+
+  @Override
   protected JsonWebToken validateToken(String encodedIdToken, boolean ignoreAudience) {
     if (encodedIdToken == null) {
       throw new IdentityBrokerException("No token from server.");
     }
 
-    JsonWebToken token = new JsonWebToken();
+    SingpassJsonWebToken token;
     try {
       // convert string to object
       //      ObjectMapper mapper = new ObjectMapper();
@@ -55,7 +92,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       if (!verify(jws)) {
         throw new IdentityBrokerException("token signature validation failed");
       }
-      token = jws.readJsonContent(JsonWebToken.class);
+      token = jws.readJsonContent(SingpassJsonWebToken.class);
     } catch (JWSInputException e) {
       throw new IdentityBrokerException("Invalid token", e);
     } catch (ParseException e) {
@@ -91,8 +128,16 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
           "Wrong issuer from token. Got: " + iss + " expected: " + getConfig().getIssuer());
     }
 
-    System.out.println(token.toString());
     return token;
+  }
+
+  private String verifyAccessToken(AccessTokenResponse tokenResponse) {
+    String accessToken = tokenResponse.getToken();
+    if (accessToken == null) {
+      throw new IdentityBrokerException("No access_token from server.");
+    } else {
+      return accessToken;
+    }
   }
 
   private SingpassIdentityProviderConfig getSingpassConfig() {
