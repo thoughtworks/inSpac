@@ -8,7 +8,7 @@
 #[ "$current_branch" != "$develop_branch" ] && exit 0
 
 # regex to validate in commit msg
-commit_regex='\[#[0-9]+\](\[[a-zA-Z& ]+\])*:.*'
+commit_regex='\[#[0-9]+\]\[[a-zA-Z& ]+\]:.*'
 error_msg="Commit aborted. Please write the commit message in correct format, e.g., [#51][Jason & Jane]: Commit Message."
 
 # Compatible with IntelliJ IDEA Git Hooks check.
