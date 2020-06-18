@@ -14,6 +14,7 @@ import org.keycloak.common.util.Time;
 import org.keycloak.jose.jws.JWSInput;
 import org.keycloak.jose.jws.JWSInputException;
 import org.keycloak.models.KeycloakSession;
+import org.keycloak.protocol.oidc.OIDCLoginProtocol;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.JsonWebToken;
 import org.keycloak.util.JsonSerialization;
@@ -23,6 +24,8 @@ import org.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 /** @author yuexie.zhou */
 public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
+  // Maybe changed by OIDCIdentityProvider
+  public static final String BROKER_NONCE_PARAM = "BROKER_NONCE";
   private static final Logger log = Logger.getLogger(SingpassIdentityProvider.class);
 
   public SingpassIdentityProvider(KeycloakSession session, SingpassIdentityProviderConfig config) {
@@ -35,7 +38,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   @Override
   public BrokeredIdentityContext getFederatedIdentity(String response) {
-    AccessTokenResponse tokenResponse;
+    AccessTokenResponse tokenResponse = null;
     try {
       tokenResponse = JsonSerialization.readValue(response, AccessTokenResponse.class);
     } catch (IOException e) {
@@ -49,6 +52,15 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
     try {
       BrokeredIdentityContext identity = extractIdentity(tokenResponse, accessToken, idToken);
+
+      if (!identity.getId().equals(idToken.getSubject())) {
+        throw new IdentityBrokerException(
+            "Mismatch between the subject in the id_token and the subject from the user_info endpoint");
+      }
+
+      identity
+          .getContextData()
+          .put(BROKER_NONCE_PARAM, idToken.getOtherClaims().get(OIDCLoginProtocol.NONCE_PARAM));
 
       if (getConfig().isStoreToken()) {
         if (tokenResponse.getExpiresIn() > 0) {
