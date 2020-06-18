@@ -1,6 +1,6 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.dto.TokenRequest
+import com.thoughtworks.sea.model.TokenRequest
 import com.thoughtworks.sea.oidc.model.dto.TokenRequestParams
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap
@@ -27,9 +27,11 @@ class TokenUtils {
             val headerMap = LinkedMultiValueMap<String, String>()
             headerMap.add("content_type", params.contentType)
 
-            return TokenRequest(url, HttpEntity(
-                bodyMap, headerMap
-            ))
+            return TokenRequest(
+                url, HttpEntity(
+                    bodyMap, headerMap
+                )
+            )
         }
     }
 }
