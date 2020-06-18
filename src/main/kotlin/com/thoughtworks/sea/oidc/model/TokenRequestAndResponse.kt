@@ -26,7 +26,7 @@ data class TokenResponse(
     val refreshToken: String,
     /**
      *  The ID Token is a security token that contains Claims about an End-User.
-     *  The ID Token is represented as a JSON Web Token (JWT).
+     *  The ID Token is represented as a JSON Web Encryption (JWE).
      */
     @JsonProperty("id_token")
     val idToken: String,
