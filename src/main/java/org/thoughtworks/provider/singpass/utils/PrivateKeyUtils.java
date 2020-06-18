@@ -16,7 +16,7 @@ public class PrivateKeyUtils {
   private static final String PKCS1_TYPE = "RSA PRIVATE KEY";
   private static final String PKCS8_TYPE = "PRIVATE KEY";
 
-  public static PrivateKey getPrivateKey(String pemPrivateKey) throws IOException {
+  public static PrivateKey parsePrivateKey(String pemPrivateKey) throws IOException {
     PemObject pemObject = new PemReader(new StringReader(pemPrivateKey)).readPemObject();
 
     AsymmetricKeyParameter keyParameter;

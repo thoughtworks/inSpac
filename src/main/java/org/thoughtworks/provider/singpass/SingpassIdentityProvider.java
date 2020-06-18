@@ -45,7 +45,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       // https://connect2id.com/products/nimbus-jose-jwt/examples/jwe-with-preset-cek
       logger.info(encodedIdToken);
       JWEObject jweObject = JWEObject.parse(encodedIdToken);
-      PrivateKey privateKey = PrivateKeyUtils.getPrivateKey(getSingpassConfig().getPrivateKey());
+      PrivateKey privateKey = PrivateKeyUtils.parsePrivateKey(getSingpassConfig().getPrivateKey());
       jweObject.decrypt(new RSADecrypter(privateKey));
 
       System.out.println("JWE payload");
