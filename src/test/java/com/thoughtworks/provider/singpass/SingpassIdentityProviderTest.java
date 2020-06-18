@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.singpass;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -26,6 +26,17 @@ public class SingpassIdentityProviderTest {
     config = new SingpassIdentityProviderConfig(model);
     config.setDefaultScope("openid");
     config.setClientId("client_id");
+    config.setValidateSignature(true);
+    config.setPublicKeySignatureVerifier(
+        "-----BEGIN PUBLIC KEY-----\n"
+            + "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu3YvExh1qjJBpkjALKfC\n"
+            + "uB67KqjzCc/EwUrBOkdoEYNLur80A2Y3R4v2q1AW8f8e3bMiPLLSlvxS0a0YyaiT\n"
+            + "2+4/ENjwy+dUa1o9XdiWLmHWWMWi7je1IK4zsDxoIt9nSOxaZmhu4aZeP+GhrMiV\n"
+            + "LnV0xKDl/4n2QZbD1GkdkG4ZuyqHJsmGcGtXLU1U6r6p6ZDrCTkBXjX96EDobHfX\n"
+            + "VFfi/RJ7VOD2aP2p4G7I104tNBYmB9+mkHr4AuOT9PhmOqq4a9Fo1E6VLnlo4FW/\n"
+            + "2ZK10gUU0f5wacnNillER0NGNwFWoTj2ASF9LiR6/39b4satRLAy8RxMclva8iK6\n"
+            + "yQIDAQAB\n"
+            + "-----END PUBLIC KEY-----\n");
     config.setPrivateKey(
         "-----BEGIN PRIVATE KEY-----\n"
             + "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC7di8TGHWqMkGm\n"
@@ -55,6 +66,8 @@ public class SingpassIdentityProviderTest {
             + "FKM9rIqep3tZy6qqgo63peDk+RPV3UVgnUwq0+mBwhnHPWQf2nfYnZZHwsldfHWP\n"
             + "y0U6Qc7UNI3EjJEJPTI4Zifg\n"
             + "-----END PRIVATE KEY-----");
+
+//    when(session.getContext().getRealm()).thenReturn()
   }
 
   @Test

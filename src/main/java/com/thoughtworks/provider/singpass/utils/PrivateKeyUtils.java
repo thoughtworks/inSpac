@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass.utils;
+package com.thoughtworks.provider.singpass.utils;
 
 import java.io.IOException;
 import java.io.StringReader;

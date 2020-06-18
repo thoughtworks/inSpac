@@ -1,8 +1,12 @@
 # Keycloak-idp-singpass
 
-## Dependency
+## Dependency Requirement
 
-- Keycloak 10.0.2+
+- Keycloak 10.0.1
+
+## Install
+
+1. Copy `keycloak-idp-singpass-*.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
 
 ## Singpass Note
 

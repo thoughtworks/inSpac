@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass.SingpassResponse;
+package com.thoughtworks.provider.singpass.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;

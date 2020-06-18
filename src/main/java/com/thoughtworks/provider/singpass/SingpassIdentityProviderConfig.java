@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.singpass;
 
 import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
 import org.keycloak.models.IdentityProviderModel;

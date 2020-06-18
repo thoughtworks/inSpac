@@ -1,8 +1,10 @@
-package org.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.singpass;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
+import com.thoughtworks.provider.singpass.representations.SingpassJsonWebToken;
+import com.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.text.ParseException;
@@ -18,8 +20,6 @@ import org.keycloak.protocol.oidc.OIDCLoginProtocol;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.JsonWebToken;
 import org.keycloak.util.JsonSerialization;
-import org.thoughtworks.provider.singpass.SingpassResponse.SingpassJsonWebToken;
-import org.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 
 /** @author yuexie.zhou */
 public class SingpassIdentityProvider extends OIDCIdentityProvider {
@@ -42,7 +42,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     try {
       tokenResponse = JsonSerialization.readValue(response, AccessTokenResponse.class);
     } catch (IOException e) {
-      throw new IdentityBrokerException("Could not decode access token response.", e);
+      throw new IdentityBrokerException("Could not decode access token responses.", e);
     }
     String accessToken = verifyAccessToken(tokenResponse);
 

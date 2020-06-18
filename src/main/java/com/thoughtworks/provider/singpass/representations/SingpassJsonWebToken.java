@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass.SingpassResponse;
+package com.thoughtworks.provider.singpass.representations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

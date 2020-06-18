@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass.utils;
+package com.thoughtworks.provider.singpass.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package org.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.singpass;
 
 import java.io.IOException;
 import java.io.InputStream;
