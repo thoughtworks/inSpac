@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.token
+package com.thoughtworks.sea.utility
 
 import com.thoughtworks.sea.model.TokenResponse
 import org.junit.jupiter.api.Assertions.assertEquals

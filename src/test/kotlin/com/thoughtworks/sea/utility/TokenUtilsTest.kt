@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.sea.utility
 
-import com.thoughtworks.sea.oidc.model.dto.TokenRequestParams
+import com.thoughtworks.sea.model.TokenRequestParams
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -14,12 +14,12 @@ internal class TokenUtilsTest {
     internal fun `should return correct artifact from tokenUtils`() {
         // given
         val tokenRequestParams = TokenRequestParams(
-                host = "test.com",
-                endPoint = "/test/token",
-                code = "code",
-                clientId = "clientid",
-                clientSecret = "clientsecret",
-                redirectUri = "https://google.com"
+            host = "test.com",
+            endPoint = "/test/token",
+            code = "code",
+            clientId = "clientid",
+            clientSecret = "clientsecret",
+            redirectUri = "https://google.com"
         )
 
         val bodyMap = LinkedMultiValueMap<String, String>()
@@ -35,7 +35,8 @@ internal class TokenUtilsTest {
         val expectedHttpEntity = HttpEntity(bodyMap, headerMap)
 
         // when
-        val tokenRequest = TokenUtils.buildTokenRequest(tokenRequestParams)
+        val tokenRequest =
+            TokenUtils.buildTokenRequest(tokenRequestParams)
 
         // then
         assertEquals("https://test.com/test/token", tokenRequest.url)

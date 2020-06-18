@@ -1,7 +1,7 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.sea.utility
 
 import com.thoughtworks.sea.model.TokenRequest
-import com.thoughtworks.sea.oidc.model.dto.TokenRequestParams
+import com.thoughtworks.sea.model.TokenRequestParams
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.model.dto
+package com.thoughtworks.sea.model
 
 import java.util.UUID.randomUUID
 
