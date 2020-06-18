@@ -55,6 +55,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       if (!verify(jws)) {
         throw new IdentityBrokerException("token signature validation failed");
       }
+      token = jws.readJsonContent(JsonWebToken.class);
     } catch (JWSInputException e) {
       throw new IdentityBrokerException("Invalid token", e);
     } catch (ParseException e) {
