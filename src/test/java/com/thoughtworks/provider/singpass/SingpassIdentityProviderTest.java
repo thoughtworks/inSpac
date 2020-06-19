@@ -1,7 +1,9 @@
 package com.thoughtworks.provider.singpass;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,7 @@ public class SingpassIdentityProviderTest {
     config = new SingpassIdentityProviderConfig(model);
     config.setDefaultScope("openid");
     config.setClientId("client_id");
-    config.setValidateSignature(true);
+    config.setValidateSignature(false);
     config.setPublicKeySignatureVerifier(
         "-----BEGIN PUBLIC KEY-----\n"
             + "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu3YvExh1qjJBpkjALKfC\n"
@@ -67,7 +69,7 @@ public class SingpassIdentityProviderTest {
             + "y0U6Qc7UNI3EjJEJPTI4Zifg\n"
             + "-----END PRIVATE KEY-----");
 
-//    when(session.getContext().getRealm()).thenReturn()
+    //    when(session.getContext().getRealm()).thenReturn()
   }
 
   @Test
@@ -84,6 +86,7 @@ public class SingpassIdentityProviderTest {
 
     // then
     assertNotNull(token);
+    assertArrayEquals(token.getAudience(), Collections.singletonList("client_id").toArray());
   }
 
   @Test

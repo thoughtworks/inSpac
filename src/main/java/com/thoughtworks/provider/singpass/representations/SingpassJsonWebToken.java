@@ -46,6 +46,7 @@ public class SingpassJsonWebToken extends JsonWebToken {
 
   @Override
   public JsonWebToken audience(String... audience) {
+    this.audience = audience;
     this.aud = audience;
     return this;
   }

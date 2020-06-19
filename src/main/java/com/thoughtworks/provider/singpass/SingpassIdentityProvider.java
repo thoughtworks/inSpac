@@ -3,7 +3,6 @@ package com.thoughtworks.provider.singpass;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
-import com.thoughtworks.provider.singpass.representations.SingpassJsonWebToken;
 import com.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 import java.io.IOException;
 import java.security.PrivateKey;
@@ -38,7 +37,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   @Override
   public BrokeredIdentityContext getFederatedIdentity(String response) {
-    AccessTokenResponse tokenResponse = null;
+    AccessTokenResponse tokenResponse;
     try {
       tokenResponse = JsonSerialization.readValue(response, AccessTokenResponse.class);
     } catch (IOException e) {
@@ -83,7 +82,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       throw new IdentityBrokerException("No token from server.");
     }
 
-    SingpassJsonWebToken token;
+    JsonWebToken token;
     try {
       // convert string to object
       //      ObjectMapper mapper = new ObjectMapper();
@@ -104,7 +103,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       if (!verify(jws)) {
         throw new IdentityBrokerException("token signature validation failed");
       }
-      token = jws.readJsonContent(SingpassJsonWebToken.class);
+      token = jws.readJsonContent(JsonWebToken.class);
     } catch (JWSInputException e) {
       throw new IdentityBrokerException("Invalid token", e);
     } catch (ParseException e) {
