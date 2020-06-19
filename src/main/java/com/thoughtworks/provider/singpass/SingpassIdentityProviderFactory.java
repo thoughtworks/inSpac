@@ -32,9 +32,6 @@ public class SingpassIdentityProviderFactory
 
   @Override
   public SingpassIdentityProvider create(KeycloakSession session, IdentityProviderModel model) {
-    System.out.println("SingpassIdentityProviderFactory: init provider");
-    System.out.println(model.toString());
-
     return new SingpassIdentityProvider(session, new SingpassIdentityProviderConfig(model));
   }
 

@@ -29,10 +29,6 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   public SingpassIdentityProvider(KeycloakSession session, SingpassIdentityProviderConfig config) {
     super(session, config);
-
-    System.out.println("SingpassIdentityProvider: ");
-    System.out.println(config.getPrivateKey());
-    System.out.println(getConfig().toString());
   }
 
   @Override
@@ -95,9 +91,6 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       JWEObject jweObject = JWEObject.parse(encodedIdToken);
       PrivateKey privateKey = PrivateKeyUtils.parsePrivateKey(getSingpassConfig().getPrivateKey());
       jweObject.decrypt(new RSADecrypter(privateKey));
-
-      System.out.println("JWE payload");
-      System.out.println(jweObject.getPayload().toString());
 
       JWSInput jws = new JWSInput(jweObject.getPayload().toString());
       if (!verify(jws)) {
