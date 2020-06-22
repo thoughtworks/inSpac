@@ -44,4 +44,15 @@ internal class TokenUtilsTest {
         assertEquals("https://test.com/test/token", tokenRequest.url)
         assertEquals(expectedHttpEntity, tokenRequest.httpEntity)
     }
+
+    @Test
+    internal fun `should return jws when decrypt jwe success`() {
+        val idToken = MockJOSEData.JWE
+        val expectedJWS = MockJOSEData.JWS
+        val privateKey = this::class.java.getResource("/certs/servicePrivateKey.pem").readText()
+
+        val actualJWS = TokenUtils.decryptJWE(idToken, privateKey)
+
+        assertEquals(expectedJWS, actualJWS.serialize())
+    }
 }
