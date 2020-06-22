@@ -1,6 +1,7 @@
 package com.thoughtworks.provider.singpass;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Collections;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.keycloak.broker.provider.BrokeredIdentityContext;
 import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.representations.JsonWebToken;
@@ -99,5 +101,65 @@ public class SingpassIdentityProviderTest {
 
     // when
     Assertions.assertDoesNotThrow(() -> singpassIdentityProvider.getFederatedIdentity(response));
+  }
+
+  @Test
+  void should_parse_sub_success_when_sub_only_have_uuid() {
+    String uuid = "c302a626-b1de-11ea-b3de-0242ac130010";
+    String subject = "u=" + uuid;
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject(subject);
+
+    BrokeredIdentityContext identity =
+        singpassIdentityProvider.extractIdentity(null, null, jsonWebToken);
+
+    assertEquals(subject, identity.getId());
+    assertEquals("none", identity.getFirstName());
+    assertEquals(uuid, identity.getLastName());
+    assertEquals("none", identity.getUsername());
+    assertEquals(uuid + SingpassIdentityProvider.EMAIL_HOST, identity.getEmail());
+  }
+
+  @Test
+  void should_parse_sub_success_when_sub_has_nric_and_uuid() {
+    String nric = "R12312312D";
+    String uuid = "c302a626-b1de-11ea-b3de-0242ac130010";
+    String subject = "s=" + nric + "," + "u=" + uuid;
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject(subject);
+
+    BrokeredIdentityContext identity =
+        singpassIdentityProvider.extractIdentity(null, null, jsonWebToken);
+
+    assertEquals(subject, identity.getId());
+    assertEquals(nric, identity.getFirstName());
+    assertEquals(uuid, identity.getLastName());
+    assertEquals(nric, identity.getUsername());
+    assertEquals(nric + SingpassIdentityProvider.EMAIL_HOST, identity.getEmail());
+  }
+
+  @Test
+  void should_parse_sub_success_when_sub_has_nric_and_uuid_and_country() {
+    String nric = "R12312312D";
+    String uuid = "c302a626-b1de-11ea-b3de-0242ac130010";
+    String country = "SG";
+    String subject = "s=" + nric + "," + "u=" + uuid + "," + "c=" + country;
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject(subject);
+
+    BrokeredIdentityContext identity =
+        singpassIdentityProvider.extractIdentity(null, null, jsonWebToken);
+
+    assertEquals(subject, identity.getId());
+    assertEquals(nric, identity.getFirstName());
+    assertEquals(uuid, identity.getLastName());
+    assertEquals(nric, identity.getUsername());
+    assertEquals(nric + SingpassIdentityProvider.EMAIL_HOST, identity.getEmail());
   }
 }

@@ -8,7 +8,7 @@
 
 Copy `keycloak-idp-singpass-*.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
 
-## Config
+## Config Singpass IDP
 
 Generated PrivateKey and PublicKey in [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo/), *generate config **Key Size** must be greater than `2048bit`*
 
@@ -34,6 +34,8 @@ singpass public key exchanged in two ways:
 
 1. X509 certificate – this can be obtained via email by making a request to SingPass
 2. JWKS URL – this is a set of keys containing signing public keys. This can be obtained via JWKS URL(https://stg-saml-internet.singpass.gov.sg/mga/sps/oauth/oauth20/jwks/SingPassOP). The signing key which should be used for verification will be indicated by KID in the header of JWS message
+
+
 
 ## Singpass Note
 
