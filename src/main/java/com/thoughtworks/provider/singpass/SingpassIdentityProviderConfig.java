@@ -66,12 +66,10 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
     }
 
     public static LinkToType fromString(String str) {
-      for (LinkToType toType : LinkToType.values()) {
-        if (toType.name().equals(str)) return toType;
-      }
-
-
-      return LinkToType.SUB;
+      return Arrays.stream(LinkToType.values())
+          .filter(toType -> toType.name().equals(str))
+          .findFirst()
+          .orElse(SUB);
     }
 
     public String parse(String subject) {
