@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Collections;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -89,18 +88,6 @@ public class SingpassIdentityProviderTest {
     // then
     assertNotNull(token);
     assertArrayEquals(token.getAudience(), Collections.singletonList("client_id").toArray());
-  }
-
-  @Test
-  void should_success_when_parse_response() {
-    // given
-    String response =
-        "{\"access_token\":\"random string\",\"refresh_token\":\"random string\",\"scope\":\"openid\",\"token_type\":\"bearer\",\"id_token\": \"eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBLU9BRVAiLCJraWQiOiJiemEwZFhmNkZqbGExRlFyVkttQVR1WmI5LTRNOTBMeER1ZjN1akxZYnFnIn0.LXallKksW19_hV9qaSd_WmDup5TGC76WXTgkJZVT3wmj0bQtStpztCD1B3jYWFnoE9OWWHrfCld7UvOFTT5SLe9l4OfC4Fs6bJz7cM8yiFsHykztTtl1I7XY3Qwl5v8MBnK7eayBjRInbUM70bZdKl8rNKSHZwsp4Gld9ckl40B6KV6WuQL2NttpUxaWiCgcizbGFHK7ScfM797cgTdGM-9R8--V3jfgiw7UwAVCfLC392ecpitI_Lsxjkw4RZwuaNrJ51svKnb5sF3E9TR0Ztbaylp54q803bOaR5CmAEoHwj3z6nd8iaLJa0E8nK2JK3lAvulOATTKrB08hbZUng.k4LSvbdrLnUmoJ5ECl0-KA.9t5zyClkPiUWyJ7Rouw1sSD2KdXCRnKIidNnxZwa6upOjVzIKSylMAhSQpnfCQz5bwAnjSSVAu4Pa756WRK8qziJmipzo9t1CYwe7CmqO1FKyFbiJi589Nz1BjP57dzjfpbETgaRs2qp1x5uwPd0Hvo6QwUqUJoiugyXzFUGJBrJXmd7YBpivdTY_gqjpuA5L4dsAXIyWLOp6YaUaNG4Y8Y53rILcPOTHj2Ryc_xvRA2t-QSpoEX507CLN__WmluHL2MvbEFmWn0Lo_LFJqrupKfLT2rI07T8qyBnFQKszJS2xCLXf8Dn7VKxuy-ZUg4vvamWwQgM2rlTFIxoSamWxNUwngH2xzsUbBlg6v2U0cBP_pW1H1nPSwqXHYUpk3TZcCkeZZ8sXhjBKa0zZP5zGKSuE3K3lZxxYP8HRnlmR8WX-okHEXFPzp_jNuizedQrk8PX56XpTrbfEb1skLRvsYs7z0gZonr2mPnTKwkxR9676qfs-QugpPZAxb0WXOMD8rBB1vAkVAuU06u-rg2OxKMH2hCgUwnCYrzsii7MVyLRZ6Wa2omxhYSPors3oTm6gv040JpaM8HcO4AJLRu5opQfsulbXhflcSin-HRVk_dLOLoWMZbL94Aa2OmfMlYh-IhgneNjzzEsjkpuXmwZ-xTBrfiqtgpuUTN0CPhPUOAqipb2oxc9BT0IkSxPkmU-EdavE4mZF3ySsaaeWD3afB6clc9DmuaxeB1O9NtD8HQyPe4Zzm4utiX0OLI_YtFDurSyMB8rYZpdKyjkbYZL-_IcUouAkSiM7EedrzUMLzh0rs3JuApCqfVV2sWpuO1XQplmfT_JTOoLmZYh8eyBqmmgghnRjg9SyRYGbbDEv17C4_1TJr0_NoEmmh4BT_5ERuEZy136m-I8wtVNJh0grY4j6h9w-zbUwpJYINCvD4.P1RwZwpm9df_ZF090vNGQg\"}";
-    SingpassIdentityProvider singpassIdentityProvider =
-        new SingpassIdentityProvider(session, config);
-
-    // when
-    Assertions.assertDoesNotThrow(() -> singpassIdentityProvider.getFederatedIdentity(response));
   }
 
   @Test

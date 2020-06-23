@@ -4,6 +4,12 @@
 
 - Keycloak 10.0.1
 
+## Feature
+
+- Support auto register with singpass id_token info
+- Support encrypted private key config
+- Support `CP`
+
 ## Install
 
 Copy `keycloak-idp-singpass-*.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
@@ -35,7 +41,11 @@ singpass public key exchanged in two ways:
 1. X509 certificate – this can be obtained via email by making a request to SingPass
 2. JWKS URL – this is a set of keys containing signing public keys. This can be obtained via JWKS URL(https://stg-saml-internet.singpass.gov.sg/mga/sps/oauth/oauth20/jwks/SingPassOP). The signing key which should be used for verification will be indicated by KID in the header of JWS message
 
+## Config auto redirect
 
+Keycloak support custom Authentication flow:
+
+1. 
 
 ## Singpass Note
 

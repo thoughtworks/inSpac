@@ -86,31 +86,27 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     String id = idToken.getSubject();
     BrokeredIdentityContext identity = new BrokeredIdentityContext(id);
 
-    String[] splitPart = id.split(",");
+    String userName = id;
+    String firstName = "";
+    String lastName = "";
+    String email = "";
 
-    String nric;
-    String uuid;
-    String email;
-
-    boolean subOnlyHaveUUID = splitPart.length == 1;
-    if (subOnlyHaveUUID) {
-      nric = "none";
-      uuid = splitPart[0].split("=")[1];
-      email = uuid + EMAIL_HOST;
-    } else {
-      nric = splitPart[0].split("=")[1];
-      uuid = splitPart[1].split("=")[1];
-      email = nric + EMAIL_HOST;
+    SingpassIdentityProviderConfig singpassConfig = getSingpassConfig();
+    if (singpassConfig.isAutoRegister()) {
+      userName = singpassConfig.getUserNameBySub(id);
+      firstName = singpassConfig.getFirstNameBySub(id);
+      lastName = singpassConfig.getLastNameBySub(id);
+      email = userName + EMAIL_HOST;
     }
 
     identity.getContextData().put(VALIDATED_ID_TOKEN, idToken);
 
     identity.setId(id);
-    identity.setFirstName(nric);
-    identity.setLastName(uuid);
+    identity.setFirstName(firstName);
+    identity.setLastName(lastName);
     identity.setEmail(email);
     identity.setBrokerUserId(getConfig().getAlias() + "." + id);
-    identity.setUsername(nric);
+    identity.setUsername(userName);
 
     if (tokenResponse != null && tokenResponse.getSessionState() != null) {
       identity.setBrokerSessionId(getConfig().getAlias() + "." + tokenResponse.getSessionState());
