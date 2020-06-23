@@ -10,7 +10,10 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
     super(model);
   }
 
-  public SingpassIdentityProviderConfig() {}
+  public SingpassIdentityProviderConfig() {
+    this.setValidateSignature(true);
+    this.setUseJwksUrl(false);
+  }
 
   public void setPrivateKey(String privateKey) {
     getConfig().put("privateKey", privateKey);
