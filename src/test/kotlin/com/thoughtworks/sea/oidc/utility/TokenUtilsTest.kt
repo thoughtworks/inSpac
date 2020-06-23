@@ -3,6 +3,7 @@ package com.thoughtworks.sea.oidc.utility
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.http.HttpEntity
@@ -54,5 +55,16 @@ internal class TokenUtilsTest {
         val actualJWS = TokenUtils.decryptJWE(idToken, privateKey)
 
         assertEquals(expectedJWS, actualJWS.serialize())
+    }
+
+    @Test
+    internal fun `should return true when verify valid jws`() {
+        val idToken = MockJOSEData.JWE
+        val privateKey = this::class.java.getResource("/certs/servicePrivateKey.pem").readText()
+        val publicKey = this::class.java.getResource("/certs/signPublicKey.pub").readText()
+
+        val signedJWT = TokenUtils.decryptJWE(idToken, privateKey)
+
+        assertTrue(TokenUtils.verifyJWS(signedJWT, publicKey))
     }
 }
