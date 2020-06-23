@@ -155,67 +155,68 @@
         <kc-tooltip>{{:: 'singpass-support-cp.tooltip' | translate}}</kc-tooltip>
       </div>
 
-      <div data-ng-show="identityProvider.config.useJwksUrl == 'false'">
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="autoRegister">{{:: 'singpass-auto-register' |
+          translate}}</label>
+        <div class="col-md-6">
+          <input ng-model="identityProvider.config.autoRegister" id="autoRegister"
+                 onoffswitchvalue
+                 on-text="{{:: 'onText' | translate}}" off-text="{{:: 'offText' | translate}}"/>
+        </div>
+        <kc-tooltip>{{:: 'singpass-auto-register.tooltip' | translate}}</kc-tooltip>
+      </div>
+
+      <div data-ng-show="identityProvider.config.autoRegister == 'true'">
         <div class="form-group">
-          <label class="col-md-2 control-label" for="autoRegister">{{:: 'singpass-auto-register' |
+          <label class="col-md-2 control-label" for="userNameLinkToType">{{::
+            'singpass-user-name-link-to' |
             translate}}</label>
           <div class="col-md-6">
-            <input ng-model="identityProvider.config.autoRegister" id="autoRegister"
-                   onoffswitchvalue
-                   on-text="{{:: 'onText' | translate}}" off-text="{{:: 'offText' | translate}}"/>
+            <div>
+              <select class="form-control" id="userNameLinkToType"
+                      ng-init="identityProvider.config.userNameLinkToType = 'NRIC'"
+                      ng-model="identityProvider.config.userNameLinkToType">
+                <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
+                <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
+                <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
+              </select>
+            </div>
           </div>
-          <kc-tooltip>{{:: 'singpass-auto-register.tooltip' | translate}}</kc-tooltip>
+          <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
         </div>
-
-        <div data-ng-show="identityProvider.config.autoRegister == 'true'">
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="userNameLinkToType">{{::
-              'singpass-link-username' |
-              translate}}</label>
-            <div class="col-md-6">
-              <div>
-                <select class="form-control" id="userNameLinkToType"
-                        ng-model="identityProvider.config.userNameLinkToType">
-                  <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
-                  <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
-                  <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
-                </select>
-              </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="firstNameLinkToType">{{::
+            'singpass-first-name-link-to' |
+            translate}}</label>
+          <div class="col-md-6">
+            <div>
+              <select class="form-control" id="firstNameLinkToType"
+                      ng-init="identityProvider.config.userNameLinkToType = 'NRIC'"
+                      ng-model="identityProvider.config.firstNameLinkToType">
+                <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
+                <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
+                <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
+              </select>
             </div>
-            <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
           </div>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="firstNameLinkToType">{{::
-              'singpass-first-name-link-to' |
-              translate}}</label>
-            <div class="col-md-6">
-              <div>
-                <select class="form-control" id="firstNameLinkToType"
-                        ng-model="identityProvider.config.firstNameLinkToType">
-                  <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
-                  <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
-                  <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
-                </select>
-              </div>
+          <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="lastNameLinkToType">{{::
+            'singpass-last-name-link-to' |
+            translate}}</label>
+          <div class="col-md-6">
+            <div>
+              <select class="form-control" id="lastNameLinkToType"
+                      ng-init="identityProvider.config.userNameLinkToType = 'UUID'"
+                      ng-model="identityProvider.config.lastNameLinkToType">
+                <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
+                <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
+                <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
+              </select>
             </div>
-            <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
           </div>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="lastNameLinkToType">{{::
-              'singpass-last-name-link-to' |
-              translate}}</label>
-            <div class="col-md-6">
-              <div>
-                <select class="form-control" id="lastNameLinkToType"
-                        ng-model="identityProvider.config.lastNameLinkToType">
-                  <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
-                  <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
-                  <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
-                </select>
-              </div>
-            </div>
-            <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
-          </div>
+          <kc-tooltip>{{:: 'singpass-name-link-to.tooltip' | translate}}</kc-tooltip>
         </div>
       </div>
 
@@ -354,6 +355,7 @@
           translate}}</label>
         <div class="col-md-6">
           <input ng-model="identityProvider.config.validateSignature" id="validateSignature"
+                 ng-init="identityProvider.config.validateSignature = 'true'"
                  onoffswitchvalue on-text="{{:: 'onText' | translate}}"
                  off-text="{{:: 'offText' | translate}}"/>
         </div>
@@ -366,7 +368,9 @@
           <label class="col-md-2 control-label" for="useJwksUrl">{{:: 'use-jwks-url' |
             translate}}</label>
           <div class="col-md-6">
-            <input ng-model="identityProvider.config.useJwksUrl" id="useJwksUrl" onoffswitchvalue
+            <input ng-model="identityProvider.config.useJwksUrl" id="useJwksUrl"
+                   ng-init="identityProvider.config.useJwksUrl = 'false'"
+                   onoffswitchvalue
                    on-text="{{:: 'onText' | translate}}" off-text="{{:: 'offText' | translate}}"/>
           </div>
           <kc-tooltip>{{:: 'identity-provider.use-jwks-url.tooltip' | translate}}</kc-tooltip>
@@ -384,7 +388,7 @@
 
         <div class="form-group clearfix"
              data-ng-hide="identityProvider.config.useJwksUrl == 'true'">
-          <label class="col-md-2 control-label" for="publicKeySignatureVerifierKey">{{::
+          <label class="col-md-2 control-label" for="publicKeySignatureVerifier">{{::
             'validating-public-key' | translate}}</label>
           <div class="col-md-6">
             <textarea class="form-control" id="publicKeySignatureVerifier"
