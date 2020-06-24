@@ -50,7 +50,6 @@ class ParserUtils {
             // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
             // TODO: `iat` need to verify date range, should not later than now
 
-            //    iss: req.get('host'),
             //    aud, client id
             //    sub,
             val nonce = jsonObject.getAsString("nonce")
@@ -58,7 +57,7 @@ class ParserUtils {
                 throw InvalidJWTClaimException("Nonce is missing")
             }
             if (nonce != oidcConfig.nonce) {
-                throw InvalidJWTClaimException("Nonce is not equal to previous")
+                throw InvalidJWTClaimException("Nonce is not equal to OIDC config")
             }
             val iat = jsonObject.getAsNumber("iat") ?: throw InvalidJWTClaimException("Iat is missing")
             val exp = jsonObject.getAsNumber("exp") ?: throw InvalidJWTClaimException("Exp is missing")
@@ -67,6 +66,10 @@ class ParserUtils {
             }
             if (exp.toLong() < Instant.now().toEpochMilli()) {
                 throw InvalidJWTClaimException("Exp is expired")
+            }
+            val iss = jsonObject.getAsString("iss") ?: throw InvalidJWTClaimException("Iss is missing")
+            if (iss != oidcConfig.iss) {
+                throw InvalidJWTClaimException("Iss is not equal to OIDC config")
             }
             TODO("Not yet implemented")
         }
