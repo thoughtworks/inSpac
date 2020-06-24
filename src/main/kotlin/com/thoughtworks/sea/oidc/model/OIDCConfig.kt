@@ -1,6 +1,5 @@
 package com.thoughtworks.sea.oidc.model
 
 data class OIDCConfig(
-    val nonce: String,
-    val iat: Long
+    val nonce: String
 )
