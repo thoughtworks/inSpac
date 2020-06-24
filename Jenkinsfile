@@ -20,7 +20,7 @@ pipeline {
       archiveArtifacts artifacts: 'build/dokka', fingerprint: true
     }
     always {
-      junit 'build/reports/**/*.xml'
+      junit 'build/reports/tests/test/*'
     }
   }
 }
