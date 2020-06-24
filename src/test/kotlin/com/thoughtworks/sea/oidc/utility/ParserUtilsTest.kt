@@ -1,5 +1,6 @@
 package com.thoughtworks.sea.oidc.utility
 
+import com.nimbusds.jwt.SignedJWT
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -18,11 +19,8 @@ class ParserUtilsTest {
 
     @Test
     internal fun `should return true when verify valid jws`() {
-        val idToken = MockJOSEData.JWE
-        val privateKey = this::class.java.getResource("/certs/servicePrivateKey.pem").readText()
-        val publicKey = this::class.java.getResource("/certs/signPublicKey.pub").readText()
-
-        val signedJWT = ParserUtils.decryptJWE(idToken, privateKey)
+        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+        val publicKey = this::class.java.getResource("/certs/idpPublicKey.pub").readText()
 
         assertTrue(ParserUtils.verifyJWS(signedJWT, publicKey))
     }

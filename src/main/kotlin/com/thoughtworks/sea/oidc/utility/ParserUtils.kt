@@ -13,6 +13,13 @@ import java.security.spec.X509EncodedKeySpec
 
 class ParserUtils {
     companion object {
+        private const val RSA_ALGORITHM = "RSA"
+        private const val PRIVATE_KEY_HEADER = "-----BEGIN PRIVATE KEY-----"
+        private const val PRIVATE_KEY_FOOTER = "-----END PRIVATE KEY-----"
+        private const val PUBLIC_KEY_HEADER = "-----BEGIN PUBLIC KEY-----"
+        private const val PUBLIC_KEY_FOOTER = "-----END PUBLIC KEY-----"
+        private const val EMPTY_STRING = ""
+
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
             val jweObject = JWEObject.parse(idToken)
             val privateKey = parsePrivateKey(privateKeyPem)
@@ -21,29 +28,30 @@ class ParserUtils {
             return jweObject.payload.toSignedJWT()
         }
 
-        private fun parsePrivateKey(privateKeyPem: String): PrivateKey {
-            val keyFactory = KeyFactory.getInstance("RSA")
-
-            val encodedPrivateKey = privateKeyPem
-                .replace("-----BEGIN PRIVATE KEY-----\n", "")
-                .replace("-----END PRIVATE KEY-----\n", "")
-            val keySpec = PKCS8EncodedKeySpec(Base64.decode(encodedPrivateKey))
-
-            return keyFactory.generatePrivate(keySpec)
-        }
-
         internal fun verifyJWS(signedJWT: SignedJWT, publicKeyPem: String): Boolean {
             val publicKey = parsePublicKey(publicKeyPem)
 
             return signedJWT.verify(RSASSAVerifier(publicKey))
         }
 
+        private fun parsePrivateKey(privateKeyPem: String): PrivateKey {
+            val keyFactory = KeyFactory.getInstance(RSA_ALGORITHM)
+
+            val encodedPrivateKey = privateKeyPem
+                .replace(PRIVATE_KEY_HEADER, EMPTY_STRING)
+                .replace(PRIVATE_KEY_FOOTER, EMPTY_STRING)
+            val keySpec = PKCS8EncodedKeySpec(Base64.decode(encodedPrivateKey))
+
+            return keyFactory.generatePrivate(keySpec)
+        }
+
         private fun parsePublicKey(publicKeyPem: String): RSAPublicKey {
+            val keyFactory = KeyFactory.getInstance(RSA_ALGORITHM)
+
             val encodedPublicKeyPem = publicKeyPem
-                .replace("-----BEGIN PUBLIC KEY-----", "")
-                .replace("-----END PUBLIC KEY-----", "")
+                .replace(PUBLIC_KEY_HEADER, EMPTY_STRING)
+                .replace(PUBLIC_KEY_FOOTER, EMPTY_STRING)
             val keySpec = X509EncodedKeySpec(Base64.decode(encodedPublicKeyPem))
-            val keyFactory = KeyFactory.getInstance("RSA")
 
             return keyFactory.generatePublic(keySpec) as RSAPublicKey
         }
