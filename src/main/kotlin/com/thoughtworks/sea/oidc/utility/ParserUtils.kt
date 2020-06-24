@@ -7,6 +7,8 @@ import com.nimbusds.jose.util.X509CertUtils
 import com.nimbusds.jwt.SignedJWT
 import com.sun.org.apache.xml.internal.security.utils.Base64
 import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
+import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
+import com.thoughtworks.sea.oidc.model.OIDCConfig
 import java.security.KeyFactory
 import java.security.PrivateKey
 import java.security.interfaces.RSAPublicKey
@@ -39,6 +41,18 @@ class ParserUtils {
             }
 
             return signedJWT.verify(RSASSAVerifier(publicKey))
+        }
+
+        internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
+            val jsonObject = signedJWT.payload.toJSONObject()
+            val nonce = jsonObject.getAsString("nonce")
+            if (nonce.isNullOrBlank()) {
+                throw InvalidJWTClaimException("Nonce is missing")
+            }
+            if (nonce != oidcConfig.nonce) {
+                throw InvalidJWTClaimException("Nonce is not equal to previous")
+            }
+            TODO("Not yet implemented")
         }
 
         private fun parsePrivateKey(privateKeyPem: String): PrivateKey {
