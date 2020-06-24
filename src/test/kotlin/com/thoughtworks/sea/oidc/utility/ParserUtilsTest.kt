@@ -1,9 +1,11 @@
 package com.thoughtworks.sea.oidc.utility
 
 import com.nimbusds.jwt.SignedJWT
-import org.junit.jupiter.api.Assertions
+import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class ParserUtilsTest {
     @Test
@@ -14,14 +16,32 @@ class ParserUtilsTest {
 
         val actualJWS = ParserUtils.decryptJWE(idToken, privateKey)
 
-        Assertions.assertEquals(expectedJWS, actualJWS.serialize())
+        assertEquals(expectedJWS, actualJWS.serialize())
     }
 
     @Test
-    internal fun `should return true when verify valid jws`() {
+    internal fun `should return true when verify valid jws with public key`() {
         val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
         val publicKey = this::class.java.getResource("/certs/idpPublicKey.pub").readText()
 
         assertTrue(ParserUtils.verifyJWS(signedJWT, publicKey))
+    }
+
+    @Test
+    internal fun `should return true when verify valid jws with cert`() {
+        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+        val publicKeyCert = this::class.java.getResource("/certs/idp.crt").readText()
+
+        assertTrue(ParserUtils.verifyJWS(signedJWT, publicKeyCert))
+    }
+
+    @Test
+    internal fun `should throw exception when verify valid jws with invalid key`() {
+        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+
+        val exception = assertThrows<InvalidArgumentException> {
+            ParserUtils.verifyJWS(signedJWT, "invalidKey")
+        }
+        assertEquals("Invalid Public Key or Certificate", exception.message)
     }
 }

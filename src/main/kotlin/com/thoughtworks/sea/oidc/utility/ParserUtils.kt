@@ -3,8 +3,10 @@ package com.thoughtworks.sea.oidc.utility
 import com.nimbusds.jose.JWEObject
 import com.nimbusds.jose.crypto.RSADecrypter
 import com.nimbusds.jose.crypto.RSASSAVerifier
+import com.nimbusds.jose.util.X509CertUtils
 import com.nimbusds.jwt.SignedJWT
 import com.sun.org.apache.xml.internal.security.utils.Base64
+import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
 import java.security.KeyFactory
 import java.security.PrivateKey
 import java.security.interfaces.RSAPublicKey
@@ -18,6 +20,7 @@ class ParserUtils {
         private const val PRIVATE_KEY_FOOTER = "-----END PRIVATE KEY-----"
         private const val PUBLIC_KEY_HEADER = "-----BEGIN PUBLIC KEY-----"
         private const val PUBLIC_KEY_FOOTER = "-----END PUBLIC KEY-----"
+        private const val CERTIFICATE_HEADER = "-----BEGIN CERTIFICATE-----"
         private const val EMPTY_STRING = ""
 
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
@@ -28,8 +31,12 @@ class ParserUtils {
             return jweObject.payload.toSignedJWT()
         }
 
-        internal fun verifyJWS(signedJWT: SignedJWT, publicKeyPem: String): Boolean {
-            val publicKey = parsePublicKey(publicKeyPem)
+        internal fun verifyJWS(signedJWT: SignedJWT, key: String): Boolean {
+            val publicKey = when {
+                key.startsWith(PUBLIC_KEY_HEADER) -> parsePublicKey(key)
+                key.startsWith(CERTIFICATE_HEADER) -> extractPublicKeyFromCertificate(key)
+                else -> throw InvalidArgumentException("Invalid Public Key or Certificate")
+            }
 
             return signedJWT.verify(RSASSAVerifier(publicKey))
         }
@@ -43,6 +50,12 @@ class ParserUtils {
             val keySpec = PKCS8EncodedKeySpec(Base64.decode(encodedPrivateKey))
 
             return keyFactory.generatePrivate(keySpec)
+        }
+
+        private fun extractPublicKeyFromCertificate(certificate: String): RSAPublicKey {
+            val x509Certificate = X509CertUtils.parse(certificate)
+
+            return x509Certificate.publicKey as RSAPublicKey
         }
 
         private fun parsePublicKey(publicKeyPem: String): RSAPublicKey {
