@@ -14,6 +14,7 @@ import java.security.PrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
+import java.time.Instant
 
 class ParserUtils {
     companion object {
@@ -49,7 +50,6 @@ class ParserUtils {
             // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
             // TODO: `iat` need to verify date range, should not later than now
 
-            //    exp: Date.now() + 24 * 60 * 60 * 1000,
             //    iss: req.get('host'),
             //    aud, client id
             //    sub,
@@ -60,7 +60,14 @@ class ParserUtils {
             if (nonce != oidcConfig.nonce) {
                 throw InvalidJWTClaimException("Nonce is not equal to previous")
             }
-            jsonObject.getAsNumber("iat") ?: throw InvalidJWTClaimException("Iat is missing")
+            val iat = jsonObject.getAsNumber("iat") ?: throw InvalidJWTClaimException("Iat is missing")
+            val exp = jsonObject.getAsNumber("exp") ?: throw InvalidJWTClaimException("Exp is missing")
+            if (exp.toLong() < iat.toLong()) {
+                throw InvalidJWTClaimException("Exp should after iat")
+            }
+            if (exp.toLong() < Instant.now().toEpochMilli()) {
+                throw InvalidJWTClaimException("Exp is expired")
+            }
             TODO("Not yet implemented")
         }
 
