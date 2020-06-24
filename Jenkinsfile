@@ -2,11 +2,15 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      sh './gradlew clean build'
+      steps{
+        sh './gradlew clean build'
+      }
     }
 
      stage('Document') {
-      sh './gradlew dokka'
+      steps{
+        sh './gradlew dokka'
+      }
     }
   }
 
