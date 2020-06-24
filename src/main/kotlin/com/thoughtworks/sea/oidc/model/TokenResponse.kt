@@ -1,16 +1,6 @@
 package com.thoughtworks.sea.oidc.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.springframework.http.HttpEntity
-import org.springframework.util.LinkedMultiValueMap
-
-/** Those are params for getting token by using restTemplate. */
-data class TokenRequest(
-    /** Getting token url. */
-    val url: String,
-    /** HttpEntity contains request body and header. */
-    val httpEntity: HttpEntity<LinkedMultiValueMap<String, String>>
-)
 
 /** Those are token response from IDP. */
 data class TokenResponse(
