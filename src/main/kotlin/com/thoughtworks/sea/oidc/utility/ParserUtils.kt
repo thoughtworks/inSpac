@@ -45,6 +45,14 @@ class ParserUtils {
 
         internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
             val jsonObject = signedJWT.payload.toJSONObject()
+            // TODO: Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
+            // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
+            // TODO: `iat` need to verify date range, should not later than now
+
+            //    exp: Date.now() + 24 * 60 * 60 * 1000,
+            //    iss: req.get('host'),
+            //    aud, client id
+            //    sub,
             val nonce = jsonObject.getAsString("nonce")
             if (nonce.isNullOrBlank()) {
                 throw InvalidJWTClaimException("Nonce is missing")
@@ -52,6 +60,7 @@ class ParserUtils {
             if (nonce != oidcConfig.nonce) {
                 throw InvalidJWTClaimException("Nonce is not equal to previous")
             }
+            jsonObject.getAsNumber("iat") ?: throw InvalidJWTClaimException("Iat is missing")
             TODO("Not yet implemented")
         }
 
