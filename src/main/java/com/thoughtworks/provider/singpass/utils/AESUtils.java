@@ -6,7 +6,6 @@ import java.util.Objects;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.lang.StringUtils;
 
 public class AESUtils {
 
