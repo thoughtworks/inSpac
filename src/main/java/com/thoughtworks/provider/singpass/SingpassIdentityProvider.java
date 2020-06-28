@@ -3,6 +3,7 @@ package com.thoughtworks.provider.singpass;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
+import com.thoughtworks.provider.singpass.utils.AESUtils;
 import com.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
 import java.io.IOException;
 import java.security.PrivateKey;
@@ -34,7 +35,7 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     JsonWebToken token;
     try {
       JWEObject jweObject = JWEObject.parse(encodedIdToken);
-      PrivateKey privateKey = PrivateKeyUtils.parsePrivateKey(getSingpassConfig().getPrivateKey());
+      PrivateKey privateKey = PrivateKeyUtils.parsePrivateKey(getPrivateKey());
       jweObject.decrypt(new RSADecrypter(privateKey));
 
       JWSInput jws = new JWSInput(jweObject.getPayload().toString());
@@ -50,6 +51,8 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
       throw new IdentityBrokerException("JWE decrypt failed", e);
     } catch (IOException e) {
       throw new IdentityBrokerException("Read private key failed", e);
+    } catch (Exception e) {
+      throw new IdentityBrokerException("decrypt private key failed", e);
     }
 
     String iss = token.getIssuer();
@@ -120,5 +123,11 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   private SingpassIdentityProviderConfig getSingpassConfig() {
     return (SingpassIdentityProviderConfig) super.getConfig();
+  }
+
+  private String getPrivateKey() throws Exception {
+    String encryptedPrivateKey = getSingpassConfig().getPrivateKey();
+
+    return AESUtils.decrypt(encryptedPrivateKey, this.getConfig().getClientSecret());
   }
 }

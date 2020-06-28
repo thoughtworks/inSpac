@@ -113,9 +113,10 @@ public class SingpassIdentityProviderTest {
     config = new SingpassIdentityProviderConfig(model);
     config.setDefaultScope("openid");
     config.setClientId("client_id");
+    config.setClientSecret("tIo0D7UpXjpxsVvKo9o9");
     config.setValidateSignature(false);
     config.setPrivateKey(
-        IOUtils.toString(this.getClass().getResourceAsStream("/keycloakPrivateKey.pem"), "UTF-8"));
+        IOUtils.toString(this.getClass().getResourceAsStream("/keycloakEncryptedPrivateKey.txt"), "UTF-8"));
     config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
     config.getConfig().put("userNameLinkToType", LinkToType.UUID.name());
     config.getConfig().put("lastNameLinkToType", LinkToType.SUB.name());
