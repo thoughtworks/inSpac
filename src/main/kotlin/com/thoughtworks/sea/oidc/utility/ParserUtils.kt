@@ -4,6 +4,7 @@ import com.nimbusds.jose.JWEObject
 import com.nimbusds.jose.crypto.RSADecrypter
 import com.nimbusds.jose.crypto.RSASSAVerifier
 import com.nimbusds.jose.util.X509CertUtils
+import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import com.sun.org.apache.xml.internal.security.utils.Base64
 import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
@@ -25,8 +26,11 @@ class ParserUtils {
         private const val PUBLIC_KEY_FOOTER = "-----END PUBLIC KEY-----"
         private const val CERTIFICATE_HEADER = "-----BEGIN CERTIFICATE-----"
         private const val EMPTY_STRING = ""
+
         private const val ISSUED_AT_CLAIM = "iat"
         private const val EXPIRATION_TIME_CLAIM = "exp"
+        private const val NONCE_CLAIM = "nonce"
+        private const val SUBJECT_UUID_PREFIX = "u="
 
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
             val jweObject = JWEObject.parse(idToken)
@@ -52,10 +56,34 @@ class ParserUtils {
             // TODO: `iat` need to verify date range, should not later than now
             val jwtClaimsSet = signedJWT.jwtClaimsSet
 
-            val nonce = jwtClaimsSet.getStringClaim("nonce") ?: throw InvalidJWTClaimException("Nonce is missing")
-            if (nonce != oidcConfig.nonce) {
-                throw InvalidJWTClaimException("Nonce is not equal to OIDC config")
+            verifyNonce(jwtClaimsSet, oidcConfig)
+            verifyIssuedAndExpirationTime(signedJWT)
+            verifyIssuer(jwtClaimsSet, oidcConfig)
+            verifyAudience(jwtClaimsSet, oidcConfig)
+            verifySubject(jwtClaimsSet)
+        }
+
+        private fun verifySubject(jwtClaimsSet: JWTClaimsSet) {
+            val sub = jwtClaimsSet.subject ?: throw InvalidJWTClaimException("Sub is missing")
+            if (!sub.contains(SUBJECT_UUID_PREFIX)) {
+                throw InvalidJWTClaimException("Sud should contain uuid at least")
             }
+        }
+
+        private fun verifyAudience(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
+            if (jwtClaimsSet.audience.none { it == oidcConfig.clientId }) {
+                throw InvalidJWTClaimException("Aud is not equal to OIDC config")
+            }
+        }
+
+        private fun verifyIssuer(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
+            val iss = jwtClaimsSet.issuer ?: throw InvalidJWTClaimException("Iss is missing")
+            if (iss != oidcConfig.host) {
+                throw InvalidJWTClaimException("Iss is not equal to OIDC config")
+            }
+        }
+
+        private fun verifyIssuedAndExpirationTime(signedJWT: SignedJWT) {
             val jsonObject = signedJWT.payload.toJSONObject()
             val iat = jsonObject.getAsNumber(ISSUED_AT_CLAIM) ?: throw InvalidJWTClaimException("Iat is missing")
             val exp = jsonObject.getAsNumber(EXPIRATION_TIME_CLAIM) ?: throw InvalidJWTClaimException("Exp is missing")
@@ -65,16 +93,12 @@ class ParserUtils {
             if (exp.toLong() < Instant.now().toEpochMilli()) {
                 throw InvalidJWTClaimException("Exp is expired")
             }
-            val iss = jwtClaimsSet.issuer ?: throw InvalidJWTClaimException("Iss is missing")
-            if (iss != oidcConfig.host) {
-                throw InvalidJWTClaimException("Iss is not equal to OIDC config")
-            }
-            if (jwtClaimsSet.audience.none { it == oidcConfig.clientId }) {
-                throw InvalidJWTClaimException("Aud is not equal to OIDC config")
-            }
-            val sub = jwtClaimsSet.subject ?: throw InvalidJWTClaimException("Sub is missing")
-            if (!sub.contains("u=")) {
-                throw InvalidJWTClaimException("Sud should contain uuid at least")
+        }
+
+        private fun verifyNonce(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
+            val nonce = jwtClaimsSet.getStringClaim(NONCE_CLAIM) ?: throw InvalidJWTClaimException("Nonce is missing")
+            if (nonce != oidcConfig.nonce) {
+                throw InvalidJWTClaimException("Nonce is not equal to OIDC config")
             }
         }
 
