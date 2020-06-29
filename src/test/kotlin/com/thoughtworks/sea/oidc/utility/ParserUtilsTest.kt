@@ -122,7 +122,7 @@ class ParserUtilsTest {
     @Test
     internal fun `should throw exception when verify jwt claims without iss`() {
         val signedJWT =
-            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6InAtQjhVZldNMzR4OFYzbkdkYlI0bURoR0tJV3JwV013NHdOU1ZYY0FwZU0ifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTI5ODc3NDg2NDcsImV4cCI6MTU5MzA3NDE0ODY0NywiYW1yIjpbInB3ZCJdLCJhdWQiOiIxMjEyMSIsInN1YiI6InM9dW5kZWZpbmVkLHU9LTExIn0.oKUaFIQ9igSSZXonmAn-a2VQwHd9YCnb2Ru_iQa97U-GSZSCSc8VOP-Q7KfIGyblfqhJ-6r_b98q0A5hD2wS7JeexKDpsunKLIeGAXjBeM2BL-OSohs2zroHMgOW2D0ukBJeD0Chx8lzhWE0-Xjah_4klWj7fV3aSt8rmB91MLFqjK7Uw9fIJ3H48dlZtqlWckX6VtvV7MAlVrzLTx94_MRQJV1wsPRR9YDlyYw_WaHXBQh4xHadMYiANaTheOucHBlnV96AtbdO-je42TCs-4Oo_YWFaCBhHl-PwyxoFnwktYogWve1zWgPON-dwgwJ8VpivxlF1KWJTroi0C92LQ")
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDI5MjIzMTAsImV4cCI6MTU5MzQ4OTMyMjMxMCwiYW1yIjpbInB3ZCJdLCJhdWQiOiJjbGllbnRJZCIsInN1YiI6InM9dW5kZWZpbmVkIn0.VvszOm_b1WrRumVJO4Vc775hPs016U73R9cFISfoPt1dMofVN60d6Fc5jLbBA2A8Veo8seefRaZ8-EQ3_mNnwb-vGCqO6sdlEQFralem3WNltVv8Cis58HoCxq5YeFSOXfDlxj2AtylblcZLYJce2fPARITl7IDcjdTdk2F61qhjfIZnNsdXtvKElGeNLJ8UytxXGV3jq1-TUuKVfhvDB5GV0R_eQLkak2J42T0YB0WzXZBtth3hw2XXPgYPpYsf8H22Si-1w2GEwbvuJLGdi4vKZ6ZezUxS3ZteMP78ac4Ql8McP1auu9N_vFc9A341OhpbFkJTe0K_lui293_s4w")
         val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
 
         val exception = assertThrows<InvalidJWTClaimException> {
@@ -134,7 +134,7 @@ class ParserUtilsTest {
     @Test
     internal fun `should throw exception when verify jwt claims with invalid iss`() {
         val signedJWT =
-            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6InAtQjhVZldNMzR4OFYzbkdkYlI0bURoR0tJV3JwV013NHdOU1ZYY0FwZU0ifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTI5ODgwOTI0MjgsImV4cCI6MTU5MzA3NDQ5MjQyOCwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6IjEyMTIxIiwic3ViIjoicz11bmRlZmluZWQsdT0tMTEifQ.bCM7OyLMB-VthSYm7FjYt33zfNigEW76RfeMmCRYwE_MdobFIrZvCp2RCWC5WGxGjc8yrlPGMwXt9BuAJ79M4q6aBHEW3sSafkxegmv8bzQA0HxKJ8EE2E8SDB8LuRT6HNO9tLhMsndZUfX0mrwvEA8Web1irr_PvO1LAC1kFHYKmIHGJtmcojjaDnZ35BsBmLuMtQmvxlkMMNK1kavu46DtJp0bLF-YSjdo3aT0SKCWlMlQTCaILV0-8Ed56dUBjse-oWwR7AYOY7HEbYX02XU-1k3lVsNqwCaOcaF8dkLNflnqjP9qd3_TEH7v4OaMB2fy6PUwwTUVi9fkfDK28Q")
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDMxNTUxMDIsImV4cCI6MTU5MzQ4OTU1NTEwMiwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6ImNsaWVudElkIiwic3ViIjoicz11bmRlZmluZWQifQ.QW4zv1tifHho4t4Hq1iAC_QFow9sTwa86kebzPDasZYZAJ2ZHc2bHJs3ZNyFa43ld-4D2gQ3W3frMo0kQuur-H6_Yob7nMcQiYKLsUcMmgWCTk8II-oo1ACnOq6Df3Dxe7Mwys-DeLonsyriQdVhvMQWZTgr5g6NNEEunXGjhsQhIl_lDnXJNuEviGKEJY3yBAwFMfUg7Fdo0AeoGY13Rjeztu8id4rV-ATI-_2TZMLsxOFn99JFyTt-XXHp3T9vcVh7J4GUsvJcFS1Cbb6Ay2mK0mVeblD9esNJLLz1izfATEhPDtUHhFczIp0ym4Qq8DmqJyZEhqXCxxmxQR7gLQ")
         val oidcConfig = OIDCConfig("qweradsf", "invalidIss", "clientId")
 
         val exception = assertThrows<InvalidJWTClaimException> {
@@ -146,7 +146,7 @@ class ParserUtilsTest {
     @Test
     internal fun `should throw exception when verify jwt claims without aud`() {
         val signedJWT =
-            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6InAtQjhVZldNMzR4OFYzbkdkYlI0bURoR0tJV3JwV013NHdOU1ZYY0FwZU0ifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTI5ODgzODE5NDYsImV4cCI6MTU5MzA3NDc4MTk0NiwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sInN1YiI6InM9dW5kZWZpbmVkLHU9LTExIn0.Tp-nBwBSynU1sAv-eJaBZuYzcuz5LFL6WM_e4pOyIK9Cob7qRDchR81uXf1fRnZ4dq4gKhEtn4EUPMl_d5W10_oM55J4p9IrQ1vPQ60zGF90q3gJx0IrP0N8dUSacksPOReT9BhrtmRbV8T8GMpqRmFn0hngSmng1h_kXfqt5l15z6oTfnyeMT9G9CWoceWb8P3MG0fPeJ0t-O-OaFtgcpdsUzoyY2c1BI5qi52k0L1i9NkL505145H4R8undY9kWzYJk0CguWKdUNA-Aiyo7UrICDTqH63O4Jgq1JcY07Bpc71jI4kwontAwMesAYen7OYpVP0wdu-wL41wwh_GKg")
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDMyMDE4MzUsImV4cCI6MTU5MzQ4OTYwMTgzNSwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sInN1YiI6InM9dW5kZWZpbmVkIn0.YJLOE63t4IJzAl1n8vzmA8axpFjUFjcZunO_pYQHMLCRrErNsJUZ5p2NoxISf58Ti5NQbZ51dJmRcUjkWUR68SrSAudU7PI-U81zRAPKWSjosnayPgScSEUU2mwFJAHnoQrESaUDBj5NVLlSpj0V_OJb_xKLwRKZv3jRY_hvVsxBX2o_ZtnpM2smaLXLUqGqZ2oHb3zry-wo_3eNHQ8XrfnFQoxsaNCeDqMdCipv2ulf19fN0Dig3G9vo05iBl4OI0ITxLkEcl_WE2SvIRSD6tozU4oOJfgi7w1bBGGX-j2_ZN-ohvr3fpTBs8wTOBj57E5jPKfUm4kZYb1MLWOEtA")
         val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
 
         val exception = assertThrows<InvalidJWTClaimException> {
@@ -158,12 +158,36 @@ class ParserUtilsTest {
     @Test
     internal fun `should throw exception when verify jwt claims with invalid aud`() {
         val signedJWT =
-            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6InAtQjhVZldNMzR4OFYzbkdkYlI0bURoR0tJV3JwV013NHdOU1ZYY0FwZU0ifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTI5ODg2NDEyMzgsImV4cCI6MTU5MzA3NTA0MTIzOCwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6IjEyMTIxIiwic3ViIjoicz11bmRlZmluZWQsdT0tMTEifQ.VFPrTmL1cfYaUcfBe5iZKshUvEojxbTnP73S8fXiWVMIUkHUf64WuBDhjyjjsZlW-56sLCgH3E4Ikf09yhp9XdXXsLnO5bCKH-GhHMmWJJn7mzvB-B6CwA5cosvSWmt2QNGogOYDxJWYylg7RbqphRkR5HLJhytmb4-ZINKdUTYqEJrq1dvUNZvOg5_j6UbPtk1mCPQtK-JyUAShmSOwMEw7RvVMwN_mXxcP5n0N1BprAVT9E7mshgqNMziC6PdP-LOS4mOaKfFC21kSTxUjHSbpRJIM9TqVjiLEqC0kHJ0tFovkgAkTSFtYXy5rJKR11nyG2vG8CC2NQSX3G7WJ0A")
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDI5OTIyMTcsImV4cCI6MTU5MzQ4OTM5MjIxNywiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6ImNsaWVudCIsInN1YiI6InM9dW5kZWZpbmVkIn0.huXFQvrdg4C70zkVQXZ3bk6alDVHHMYiixS9B9NKJHKVoT9UfuMy7Hd-fKI_Z28zWnamjxnrAlL9BHl-43rWr2KABn7ULbvfdKmwrITJFCw-GPrJm8oyR2rlYPaMNu0M7uGhMU46LkuKKDoH4eGV5yqNIKB9vpLSyJQx7ouNN_B_jjXNXMxbtth2Ue7CyE79ZFQ_Z7-XxAUn5mN95vOA3oYyyZJU-heLvzDUxw0Pd0kks2Z8Qx4X-2frE5jO0TB4gK6TbvzmTKvqJGateU17uyfjgWW11XxB1B8UQMwQ50USPsaBCQEuurDGnPsx9tK3LJQHeuRg2h1ItzRq28UM7A")
         val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
 
         val exception = assertThrows<InvalidJWTClaimException> {
             ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
         }
         assertEquals("Aud is not equal to OIDC config", exception.message)
+    }
+
+    @Test
+    internal fun `should throw exception when verify jwt claims without sub`() {
+        val signedJWT =
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDE5MTAzODksImV4cCI6MTU5MzQ4ODMxMDM4OSwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6ImNsaWVudElkIn0.f32aPva3VPP4X9ilf2bF8TVznRqocvDu4VU4jivcxETmm0JS4zuD-qPzPzC4XAWhUbJABHV8CgyyCS_6uau_4VDVjPjLU_ucZR2-0uoTG7NEh92XPyXUQa2lHrfo9_7_JHcQQROTPltKF84XGlR8xrgye0Ho1G_PbC13VgMNRdj3o6wKVU-yr2s_QhCjNEFkLYFVRyaRRRQaF_oCY28sjWEQXLPRLWSnhSm-LWDUXX-zXHxaW9b957beEf7mHE1m6cKkLpLZhMSYkw1byjH-CpXaoZ9APuP9b2LH0zZE3KHhgSICgey9DmrmusWy9L53IoYpsZ-7lq-fml5rU5k1fw")
+        val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
+
+        val exception = assertThrows<InvalidJWTClaimException> {
+            ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+        }
+        assertEquals("Sub is missing", exception.message)
+    }
+
+    @Test
+    internal fun `should throw exception when verify jwt claims with invalid sub`() {
+        val signedJWT =
+            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDIxNjYxNzUsImV4cCI6MTU5MzQ4ODU2NjE3NSwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sImF1ZCI6ImNsaWVudElkIiwic3ViIjoicz11bmRlZmluZWQifQ.CxqDiI2lj1ys28ivP52u6ctadTNXcdLeMDFQ6gw1xZ42Z4b_n3uwexItNkiN35ZAvnU38c4h95BwjuaJjZsWRKim5eY8mytf8ahrVox6d2V2HmbPVjcuDHHPN2CK4h4oiJjp_P0bgA12RvmAVrtHhxgk0x-tSLh3tl0kLbm5vZqJKwP1oW1iKyROP95Cw1qjWbUqSkxyT0t6iT6D4heH0AZTs2oC4F8C1-F8uucwXPH_3tS5G3ap9M4x61kRVCj_GDFWDiDnlgTb_VTSBAMbRfODJyMKWA-xrGGJdSzrmaOKCfBPsTrwe8a-E4thZyyLpPDMfOvKHwQCQvEBlEnN3A")
+        val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
+
+        val exception = assertThrows<InvalidJWTClaimException> {
+            ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+        }
+        assertEquals("Sud should contain uuid at least", exception.message)
     }
 }

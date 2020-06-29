@@ -50,7 +50,6 @@ class ParserUtils {
             // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
             // TODO: `iat` need to verify date range, should not later than now
 
-            //    sub,
             val nonce = jsonObject.getAsString("nonce")
             if (nonce.isNullOrBlank()) {
                 throw InvalidJWTClaimException("Nonce is missing")
@@ -74,7 +73,10 @@ class ParserUtils {
             if (aud != oidcConfig.aud) {
                 throw InvalidJWTClaimException("Aud is not equal to OIDC config")
             }
-            TODO("Not yet implemented")
+            val sub = jsonObject.getAsString("sub") ?: throw InvalidJWTClaimException("Sub is missing")
+            if (!sub.contains("u=")) {
+                throw InvalidJWTClaimException("Sud should contain uuid at least")
+            }
         }
 
         private fun parsePrivateKey(privateKeyPem: String): PrivateKey {
