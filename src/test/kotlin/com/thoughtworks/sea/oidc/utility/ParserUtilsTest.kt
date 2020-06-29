@@ -49,7 +49,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims with null or blank nonce`() {
+    internal fun `should throw exception when verify jwt claims without nonce`() {
         val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
         val oidcConfig = OIDCConfig(UUID.randomUUID().toString(), "localhost:5156", "clientId")
 
@@ -141,18 +141,6 @@ class ParserUtilsTest {
             ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
         }
         assertEquals("Iss is not equal to OIDC config", exception.message)
-    }
-
-    @Test
-    internal fun `should throw exception when verify jwt claims without aud`() {
-        val signedJWT =
-            SignedJWT.parse("eyJhbGciOiJSUzI1NiIsImtpZCI6ImFZREkybS1URlpJN19LY0VXMjBfRzkya2N2NFJubDdHdDg2VTdNQXNQN2sifQ.eyJydF9oYXNoIjoiIiwiYXRfaGFzaCI6IiIsIm5vbmNlIjoicXdlcmFkc2YiLCJpYXQiOjE1OTM0MDMyMDE4MzUsImV4cCI6MTU5MzQ4OTYwMTgzNSwiaXNzIjoibG9jYWxob3N0OjUxNTYiLCJhbXIiOlsicHdkIl0sInN1YiI6InM9dW5kZWZpbmVkIn0.YJLOE63t4IJzAl1n8vzmA8axpFjUFjcZunO_pYQHMLCRrErNsJUZ5p2NoxISf58Ti5NQbZ51dJmRcUjkWUR68SrSAudU7PI-U81zRAPKWSjosnayPgScSEUU2mwFJAHnoQrESaUDBj5NVLlSpj0V_OJb_xKLwRKZv3jRY_hvVsxBX2o_ZtnpM2smaLXLUqGqZ2oHb3zry-wo_3eNHQ8XrfnFQoxsaNCeDqMdCipv2ulf19fN0Dig3G9vo05iBl4OI0ITxLkEcl_WE2SvIRSD6tozU4oOJfgi7w1bBGGX-j2_ZN-ohvr3fpTBs8wTOBj57E5jPKfUm4kZYb1MLWOEtA")
-        val oidcConfig = OIDCConfig("qweradsf", "localhost:5156", "clientId")
-
-        val exception = assertThrows<InvalidJWTClaimException> {
-            ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
-        }
-        assertEquals("Aud is missing", exception.message)
     }
 
     @Test

@@ -25,6 +25,8 @@ class ParserUtils {
         private const val PUBLIC_KEY_FOOTER = "-----END PUBLIC KEY-----"
         private const val CERTIFICATE_HEADER = "-----BEGIN CERTIFICATE-----"
         private const val EMPTY_STRING = ""
+        private const val ISSUED_AT_CLAIM = "iat"
+        private const val EXPIRATION_TIME_CLAIM = "exp"
 
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
             val jweObject = JWEObject.parse(idToken)
@@ -45,40 +47,38 @@ class ParserUtils {
         }
 
         internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
-            val jsonObject = signedJWT.payload.toJSONObject()
             // TODO: Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
             // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
             // TODO: `iat` need to verify date range, should not later than now
+            val jwtClaimsSet = signedJWT.jwtClaimsSet
 
-            val nonce = jsonObject.getAsString("nonce")
-            if (nonce.isNullOrBlank()) {
-                throw InvalidJWTClaimException("Nonce is missing")
-            }
+            val nonce = jwtClaimsSet.getStringClaim("nonce") ?: throw InvalidJWTClaimException("Nonce is missing")
             if (nonce != oidcConfig.nonce) {
                 throw InvalidJWTClaimException("Nonce is not equal to OIDC config")
             }
-            val iat = jsonObject.getAsNumber("iat") ?: throw InvalidJWTClaimException("Iat is missing")
-            val exp = jsonObject.getAsNumber("exp") ?: throw InvalidJWTClaimException("Exp is missing")
+            val jsonObject = signedJWT.payload.toJSONObject()
+            val iat = jsonObject.getAsNumber(ISSUED_AT_CLAIM) ?: throw InvalidJWTClaimException("Iat is missing")
+            val exp = jsonObject.getAsNumber(EXPIRATION_TIME_CLAIM) ?: throw InvalidJWTClaimException("Exp is missing")
             if (exp.toLong() < iat.toLong()) {
                 throw InvalidJWTClaimException("Exp should after iat")
             }
             if (exp.toLong() < Instant.now().toEpochMilli()) {
                 throw InvalidJWTClaimException("Exp is expired")
             }
-            val iss = jsonObject.getAsString("iss") ?: throw InvalidJWTClaimException("Iss is missing")
-            if (iss != oidcConfig.iss) {
+            val iss = jwtClaimsSet.issuer ?: throw InvalidJWTClaimException("Iss is missing")
+            if (iss != oidcConfig.host) {
                 throw InvalidJWTClaimException("Iss is not equal to OIDC config")
             }
-            val aud = jsonObject.getAsString("aud") ?: throw InvalidJWTClaimException("Aud is missing")
-            if (aud != oidcConfig.aud) {
+            if (jwtClaimsSet.audience.none { it == oidcConfig.clientId }) {
                 throw InvalidJWTClaimException("Aud is not equal to OIDC config")
             }
-            val sub = jsonObject.getAsString("sub") ?: throw InvalidJWTClaimException("Sub is missing")
+            val sub = jwtClaimsSet.subject ?: throw InvalidJWTClaimException("Sub is missing")
             if (!sub.contains("u=")) {
                 throw InvalidJWTClaimException("Sud should contain uuid at least")
             }
         }
 
+        // not support PKCS#1 private key parse yet
         private fun parsePrivateKey(privateKeyPem: String): PrivateKey {
             val keyFactory = KeyFactory.getInstance(RSA_ALGORITHM)
 
