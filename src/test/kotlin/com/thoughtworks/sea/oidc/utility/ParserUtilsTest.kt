@@ -1,9 +1,16 @@
 package com.thoughtworks.sea.oidc.utility
 
+import com.nimbusds.jose.JWSAlgorithm
+import com.nimbusds.jose.JWSHeader
+import com.nimbusds.jose.crypto.RSASSASigner
+import com.nimbusds.jose.jwk.JWK
+import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
 import com.thoughtworks.sea.oidc.model.OIDCConfig
+import java.time.Instant
+import java.util.Date
 import java.util.UUID
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -155,5 +162,53 @@ class ParserUtilsTest {
             ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
         }
         assertEquals(exceptedMessage, exception.message)
+    }
+
+    private fun generateOIDCConfig(
+        nonce: String = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8",
+        host: String = "localhost:5156",
+        clientId: String = "clientId"
+    ) = OIDCConfig(nonce, host, clientId)
+
+    private class MockPassSignedJWT private constructor(
+        val nonce: String?,
+        val iat: Instant?,
+        val exp: Instant?,
+        val iss: String?,
+        val aud: String?,
+        val sub: String?
+    ) {
+
+        data class Builder(
+            var nonce: String? = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8",
+            var iat: Instant? = Instant.now(),
+            var exp: Instant? = Instant.now().plusSeconds(100),
+            var iss: String? = "localhost:5156",
+            var aud: String? = "clientId",
+            var sub: String? = "u=${UUID.randomUUID()}"
+        ) {
+
+            fun nonce(nonce: String?) = apply { this.nonce = nonce }
+            fun iat(iat: Instant?) = apply { this.iat = iat }
+            fun exp(exp: Instant?) = apply { this.exp = exp }
+            fun iss(iss: String?) = apply { this.iss = iss }
+            fun aud(aud: String?) = apply { this.aud = aud }
+            fun sub(sub: String?) = apply { this.sub = sub }
+            fun build(): SignedJWT {
+                val idpPrivateKey = this::class.java.getResource("/certs/idpPrivateKey.pem").readText()
+                val jwk = JWK.parseFromPEMEncodedObjects(idpPrivateKey)
+                val jwsHeader = JWSHeader.Builder(JWSAlgorithm.RS256).keyID(jwk.keyID).build()
+                val jwtClaimsSet = JWTClaimsSet.Builder().claim("nonce", this.nonce)
+                    .issueTime(Date.from(this.iat))
+                    .expirationTime(Date.from(this.exp))
+                    .issuer(this.iss)
+                    .audience(this.aud)
+                    .subject(this.sub)
+                    .build()
+                return SignedJWT(jwsHeader, jwtClaimsSet).apply {
+                    sign(RSASSASigner(jwk.toRSAKey()))
+                }
+            }
+        }
     }
 }
