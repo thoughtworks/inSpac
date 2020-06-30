@@ -50,10 +50,9 @@ class ParserUtils {
             return signedJWT.verify(RSASSAVerifier(publicKey))
         }
 
+        // Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
+        // Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
         internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
-            // TODO: Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
-            // TODO: Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
-            // TODO: `iat` need to verify date range, should not later than now
             val jwtClaimsSet = signedJWT.jwtClaimsSet
 
             verifyNonce(jwtClaimsSet, oidcConfig)
@@ -86,11 +85,15 @@ class ParserUtils {
         private fun verifyIssuedAndExpirationTime(signedJWT: SignedJWT) {
             val jsonObject = signedJWT.payload.toJSONObject()
             val iat = jsonObject.getAsNumber(ISSUED_AT_CLAIM) ?: throw InvalidJWTClaimException("Iat is missing")
+            val now = Instant.now()
+            if (now.epochSecond < iat.toLong()) {
+                throw InvalidJWTClaimException("Iat should before now")
+            }
             val exp = jsonObject.getAsNumber(EXPIRATION_TIME_CLAIM) ?: throw InvalidJWTClaimException("Exp is missing")
             if (exp.toLong() < iat.toLong()) {
                 throw InvalidJWTClaimException("Exp should after iat")
             }
-            if (exp.toLong() < Instant.now().epochSecond) {
+            if (exp.toLong() < now.epochSecond) {
                 throw InvalidJWTClaimException("Exp is expired")
             }
         }

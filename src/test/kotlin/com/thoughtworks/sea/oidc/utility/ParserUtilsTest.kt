@@ -87,6 +87,14 @@ class ParserUtilsTest {
     }
 
     @Test
+    internal fun `should throw exception when verify jwt claims with iat after now`() {
+        val signedJWT = MockPassSignedJWT.Builder().iat(Instant.now().plusSeconds(999)).build()
+        val oidcConfig = generateOIDCConfig()
+
+        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Iat should before now")
+    }
+
+    @Test
     internal fun `should throw exception when verify jwt claims without exp`() {
         val signedJWT = MockPassSignedJWT.Builder().exp(null).build()
         val oidcConfig = generateOIDCConfig()
