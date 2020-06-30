@@ -5,9 +5,14 @@ import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
 import com.thoughtworks.provider.singpass.utils.AESUtils;
 import com.thoughtworks.provider.singpass.utils.PrivateKeyUtils;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.text.ParseException;
+import java.util.Base64;
 import org.keycloak.broker.oidc.OIDCIdentityProvider;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
 import org.keycloak.broker.provider.IdentityBrokerException;
@@ -24,6 +29,8 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
 
   public SingpassIdentityProvider(KeycloakSession session, SingpassIdentityProviderConfig config) {
     super(session, config);
+
+    config.setPublicKeySignatureVerifier(extractPublicKeyFromCertificate());
   }
 
   @Override
@@ -129,5 +136,20 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     String encryptedPrivateKey = getSingpassConfig().getPrivateKey();
 
     return AESUtils.decrypt(encryptedPrivateKey, this.getConfig().getClientSecret());
+  }
+
+  private String extractPublicKeyFromCertificate() {
+    try {
+      CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+
+      Certificate certificate =
+          certificateFactory.generateCertificate(
+              new ByteArrayInputStream(
+                  this.getSingpassConfig().getPublicKeySignatureVerifier().getBytes()));
+
+      return Base64.getEncoder().encodeToString(certificate.getPublicKey().getEncoded());
+    } catch (CertificateException e) {
+      return this.getSingpassConfig().getPublicKeySignatureVerifier();
+    }
   }
 }

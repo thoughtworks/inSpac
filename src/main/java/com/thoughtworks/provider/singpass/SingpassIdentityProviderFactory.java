@@ -43,7 +43,8 @@ public class SingpassIdentityProviderFactory
     } catch (IOException e) {
       throw new RuntimeException("failed to load openid connect metadata", e);
     }
-    SingpassIdentityProviderConfig config = new SingpassIdentityProviderConfig(new IdentityProviderModel());
+    SingpassIdentityProviderConfig config =
+        new SingpassIdentityProviderConfig(new IdentityProviderModel());
     config.setIssuer(rep.getIssuer());
     config.setLogoutUrl(rep.getLogoutEndpoint());
     config.setAuthorizationUrl(rep.getAuthorizationEndpoint());

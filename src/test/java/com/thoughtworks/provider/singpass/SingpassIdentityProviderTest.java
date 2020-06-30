@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Collections;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -25,9 +26,12 @@ public class SingpassIdentityProviderTest {
   @Mock() private SingpassIdentityProviderConfig config;
 
   @BeforeAll
-  public void setUp() throws IOException {
+  public void setUp() {
     MockitoAnnotations.initMocks(this);
+  }
 
+  @BeforeEach
+  public void beforeEach() throws IOException {
     setSingpassConfig();
   }
 
@@ -120,6 +124,50 @@ public class SingpassIdentityProviderTest {
     assertEquals(uuid + SingpassIdentityProvider.EMAIL_HOST, identity.getEmail());
   }
 
+  @Test
+  void should_success_when_validate_id_token_with_certificate() throws IOException {
+    // given
+    config.setPublicKeySignatureVerifier(
+        IOUtils.toString(
+            this.getClass().getResourceAsStream("/singpassCertificate.cert"), "UTF-8"));
+    // when
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+
+    // then
+    String publicKeySignatureVerifier =
+        singpassIdentityProvider.getConfig().getPublicKeySignatureVerifier();
+    assertEquals(
+        publicKeySignatureVerifier,
+        "MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBddM8pYSeLSDBX2wCNQ9M94MNqcL0opFx+1nhvpDE+BDO6AfsCFzJe13EJqJO0qf3La81bUmAqUhavRlJTmsOs8btcRKonEtPQagHJczqqR9jXiG2XmcyXQ0g3KU0FhUHHB881ERpewRf0SQttv2nte3Ruxy4AnlGRDW4Jbd/480rnCQIv+2eJwnacYm4Kz3SZimafKKw+yU2J3393NsPSow6BRLEgcnbV503swlVpEJrlxUUfx8ylduXqdKPjtuODag3JyEqiR+irSTir1IotIOlAzK36/gRrX1I7nZVVhT7iUfr8HvrcfcBaRvfIUyfflMuqS0TxoNrDImkQWQPhAgMBAAE=");
+  }
+
+  @Test
+  void should_success_when_validate_id_token_with_public_key() throws IOException {
+    // given
+    config.setPublicKeySignatureVerifier(
+        IOUtils.toString(this.getClass().getResourceAsStream("/singpassPublicKey.pem"), "UTF-8"));
+
+    // when
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+
+    // then
+    String publicKeySignatureVerifier =
+        singpassIdentityProvider.getConfig().getPublicKeySignatureVerifier();
+    assertEquals(
+        publicKeySignatureVerifier,
+        "-----BEGIN PUBLIC KEY-----\n"
+            + "MIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBddM8pYSeLSDBX2wCNQ9M9\n"
+            + "4MNqcL0opFx+1nhvpDE+BDO6AfsCFzJe13EJqJO0qf3La81bUmAqUhavRlJTmsOs\n"
+            + "8btcRKonEtPQagHJczqqR9jXiG2XmcyXQ0g3KU0FhUHHB881ERpewRf0SQttv2nt\n"
+            + "e3Ruxy4AnlGRDW4Jbd/480rnCQIv+2eJwnacYm4Kz3SZimafKKw+yU2J3393NsPS\n"
+            + "ow6BRLEgcnbV503swlVpEJrlxUUfx8ylduXqdKPjtuODag3JyEqiR+irSTir1Iot\n"
+            + "IOlAzK36/gRrX1I7nZVVhT7iUfr8HvrcfcBaRvfIUyfflMuqS0TxoNrDImkQWQPh\n"
+            + "AgMBAAE=\n"
+            + "-----END PUBLIC KEY-----");
+  }
+
   private void setSingpassConfig() throws IOException {
     IdentityProviderModel model = new IdentityProviderModel();
     config = new SingpassIdentityProviderConfig(model);
@@ -127,6 +175,8 @@ public class SingpassIdentityProviderTest {
     config.setClientId("client_id");
     config.setClientSecret("tIo0D7UpXjpxsVvKo9o9");
     config.setValidateSignature(false);
+    config.setPublicKeySignatureVerifier(
+        IOUtils.toString(this.getClass().getResourceAsStream("/singpassPublicKey.pem"), "UTF-8"));
     config.setPrivateKey(
         IOUtils.toString(
             this.getClass().getResourceAsStream("/keycloakEncryptedPrivateKey.txt"), "UTF-8"));

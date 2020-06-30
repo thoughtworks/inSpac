@@ -24,7 +24,7 @@ Generated PrivateKey and PublicKey in [Online RSA Key Generator](https://travist
 - Client Secret: A shared secret code mutually agreed between SingPass OP and your RP, provided by singpass.
 - Validate Signatures: turn on
 - Use JWKS URL: turn off
-- Validating Public Key: Singpass public key(SPK)
+- Validating Public Key: Singpass public key OR certificate(SPK)
 
 singpass public key exchanged in two ways:
 
