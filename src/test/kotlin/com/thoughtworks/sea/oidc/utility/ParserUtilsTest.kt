@@ -1,7 +1,13 @@
 package com.thoughtworks.sea.oidc.utility
 
+import com.nimbusds.jose.EncryptionMethod
+import com.nimbusds.jose.JWEAlgorithm
+import com.nimbusds.jose.JWEHeader
+import com.nimbusds.jose.JWEObject
 import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.JWSHeader
+import com.nimbusds.jose.Payload
+import com.nimbusds.jose.crypto.RSAEncrypter
 import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jwt.JWTClaimsSet
@@ -20,8 +26,9 @@ import org.junit.jupiter.api.assertThrows
 class ParserUtilsTest {
     @Test
     internal fun `should return jws when decrypt jwe success`() {
-        val idToken = MockJOSEData.JWE
-        val expectedJWS = MockJOSEData.JWS
+        val signedJWT = MockPassSignedJWT.Builder().build()
+        val expectedJWS = signedJWT.serialize()
+        val idToken = encryptMockPassJWS(signedJWT)
         val privateKey = this::class.java.getResource("/certs/servicePrivateKey.pem").readText()
 
         val actualJWS = ParserUtils.decryptJWE(idToken, privateKey)
@@ -31,7 +38,7 @@ class ParserUtilsTest {
 
     @Test
     internal fun `should return true when verify valid jws with public key`() {
-        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+        val signedJWT = MockPassSignedJWT.Builder().build()
         val publicKey = this::class.java.getResource("/certs/idpPublicKey.pub").readText()
 
         assertTrue(ParserUtils.verifyJWS(signedJWT, publicKey))
@@ -39,7 +46,7 @@ class ParserUtilsTest {
 
     @Test
     internal fun `should return true when verify valid jws with cert`() {
-        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+        val signedJWT = MockPassSignedJWT.Builder().build()
         val publicKeyCert = this::class.java.getResource("/certs/idp.crt").readText()
 
         assertTrue(ParserUtils.verifyJWS(signedJWT, publicKeyCert))
@@ -47,7 +54,7 @@ class ParserUtilsTest {
 
     @Test
     internal fun `should throw exception when verify valid jws with invalid key`() {
-        val signedJWT = SignedJWT.parse(MockJOSEData.JWS)
+        val signedJWT = MockPassSignedJWT.Builder().build()
 
         val exception = assertThrows<InvalidArgumentException> {
             ParserUtils.verifyJWS(signedJWT, "invalidKey")
@@ -168,14 +175,7 @@ class ParserUtilsTest {
         clientId: String = "clientId"
     ) = OIDCConfig(nonce, host, clientId)
 
-    private class MockPassSignedJWT private constructor(
-        val nonce: String?,
-        val iat: Instant?,
-        val exp: Instant?,
-        val iss: String?,
-        val aud: String?,
-        val sub: String?
-    ) {
+    private class MockPassSignedJWT private constructor() {
 
         data class Builder(
             var nonce: String? = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8",
@@ -208,5 +208,18 @@ class ParserUtilsTest {
                 }
             }
         }
+    }
+
+    private fun encryptMockPassJWS(signedJWT: SignedJWT): String {
+        val servicePublicKey = this::class.java.getResource("/certs/servicePublicKey.pub").readText()
+        val jwk = JWK.parseFromPEMEncodedObjects(servicePublicKey)
+        val jweObject = JWEObject(
+            JWEHeader.Builder(JWEAlgorithm.RSA_OAEP_256, EncryptionMethod.A256CBC_HS512)
+                .contentType("JWT")
+                .build(),
+            Payload(signedJWT)
+        )
+        jweObject.encrypt(RSAEncrypter(jwk.toRSAKey()))
+        return jweObject.serialize()
     }
 }
