@@ -90,7 +90,7 @@ class ParserUtils {
             if (exp.toLong() < iat.toLong()) {
                 throw InvalidJWTClaimException("Exp should after iat")
             }
-            if (exp.toLong() < Instant.now().toEpochMilli()) {
+            if (exp.toLong() < Instant.now().epochSecond) {
                 throw InvalidJWTClaimException("Exp is expired")
             }
         }
