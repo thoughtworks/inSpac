@@ -8,6 +8,7 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
 import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import java.time.Instant
 
 class ParserUtils {
@@ -16,6 +17,7 @@ class ParserUtils {
         private const val ISSUED_AT_CLAIM = "iat"
         private const val EXPIRATION_TIME_CLAIM = "exp"
         private const val NONCE_CLAIM = "nonce"
+        private const val SUBJECT_NRIC_PREFIX = "s="
         private const val SUBJECT_UUID_PREFIX = "u="
         private const val COMMA = ","
 
@@ -46,11 +48,16 @@ class ParserUtils {
             verifySubject(jwtClaimsSet)
         }
 
-        internal fun extractUUID(signedJWT: SignedJWT) = signedJWT.jwtClaimsSet.subject
-            .split(COMMA)
-            .find { it.startsWith(SUBJECT_UUID_PREFIX) }
-            .orEmpty()
-            .substring(SUBJECT_UUID_PREFIX.length)
+        internal fun extractSubject(signedJWT: SignedJWT): ParsedSubjectInfo {
+            val subjectInfos = signedJWT.jwtClaimsSet.subject
+                .split(COMMA)
+            val nricNumber = subjectInfos.find { it.startsWith(SUBJECT_NRIC_PREFIX) }
+            val uuid = subjectInfos.find { it.startsWith(SUBJECT_UUID_PREFIX) }.orEmpty()
+            return ParsedSubjectInfo(
+                nricNumber?.substring(SUBJECT_NRIC_PREFIX.length),
+                uuid.substring(SUBJECT_UUID_PREFIX.length)
+            )
+        }
 
         internal fun extract(signedJWT: SignedJWT, key: String) = signedJWT.jwtClaimsSet.getJSONObjectClaim(key)
 

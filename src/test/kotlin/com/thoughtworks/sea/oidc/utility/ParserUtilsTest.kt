@@ -14,6 +14,7 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
 import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
@@ -157,13 +158,14 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return UUID when extract UUID from sub`() {
-        val expectedUUID = UUID.randomUUID().toString()
-        val signedJWT = MockPassSignedJWT.Builder().sub("s=S7515010E,u=$expectedUUID").build()
+    internal fun `should return parsed token result when extract sub in jwt`() {
+        val expectedSubject = ParsedSubjectInfo("S7515010E", UUID.randomUUID().toString())
+        val signedJWT =
+            MockPassSignedJWT.Builder().sub("s=${expectedSubject.nricNumber},u=${expectedSubject.uuid}").build()
 
-        val actualUUID = ParserUtils.extractUUID(signedJWT)
+        val actualSubject = ParserUtils.extractSubject(signedJWT)
 
-        assertEquals(expectedUUID, actualUUID)
+        assertEquals(expectedSubject, actualSubject)
     }
 
     @Test

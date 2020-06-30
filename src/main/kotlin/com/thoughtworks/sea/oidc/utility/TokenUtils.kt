@@ -1,6 +1,6 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.ParsedTokenResult
+import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import com.thoughtworks.sea.oidc.model.TokenRequest
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
 import com.thoughtworks.sea.oidc.model.TokenResponse
@@ -37,10 +37,10 @@ class TokenUtils {
         }
 
         @JvmStatic
-        fun parseToken(token: TokenResponse): ParsedTokenResult {
+        fun parseToken(token: TokenResponse): ParsedSubjectInfo {
             print(token)
             // TODO Yi: will implement parse method
-            return ParsedTokenResult("S3000024B", null)
+            return ParsedSubjectInfo("S3000024B", "null")
         }
     }
 }
