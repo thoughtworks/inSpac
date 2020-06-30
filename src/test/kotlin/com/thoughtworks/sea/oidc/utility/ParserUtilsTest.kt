@@ -12,7 +12,6 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import com.thoughtworks.sea.oidc.exception.InvalidArgumentException
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
 import com.thoughtworks.sea.oidc.model.OIDCConfig
 import java.time.Instant
@@ -50,16 +49,6 @@ class ParserUtilsTest {
         val publicKeyCert = this::class.java.getResource("/certs/idp.crt").readText()
 
         assertTrue(ParserUtils.verifyJWS(signedJWT, publicKeyCert))
-    }
-
-    @Test
-    internal fun `should throw exception when verify valid jws with invalid key`() {
-        val signedJWT = MockPassSignedJWT.Builder().build()
-
-        val exception = assertThrows<InvalidArgumentException> {
-            ParserUtils.verifyJWS(signedJWT, "invalidKey")
-        }
-        assertEquals("Invalid Public Key or Certificate", exception.message)
     }
 
     @Test
