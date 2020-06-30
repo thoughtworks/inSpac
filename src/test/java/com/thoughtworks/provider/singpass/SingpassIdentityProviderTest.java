@@ -53,18 +53,6 @@ public class SingpassIdentityProviderTest {
   }
 
   @Test
-  void should_verify_signature_success_given_cert_file() {
-    SingpassIdentityProvider singpassIdentityProvider =
-        new SingpassIdentityProvider(session, config);
-    String encryptedIdToken =
-        "eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBLU9BRVAiLCJraWQiOiJiemEwZFhmNkZqbGExRlFyVkttQVR1WmI5LTRNOTBMeER1ZjN1akxZYnFnIn0.KLF65DCwjZJZY38ZvhznjV0MiWCADLYbhvw38Ub5_LblvNasv8anUrOgTRK-OscgWUNZRoThYMrI9yIDTBtIeamf-kdNo3HkMF0S15MgJHewXkkXjymcJckdoF0iVy9hklaipEKNihdNcdWXeN2fKxbNzxt-LZ1RHUYG6UPDonW4OPxKcerAGQ-j7W00-ZzagBgTIRVfjsLSueJGoF8fhU_z7X3ByG6ySJiMT_bferRDIMFa-O6qavQhAkoYGXIEu1oC3WNw8r3QzF1pIB8GhrWwyanJClMbrdoBKdMM_4g0F6ievAG-hkOk5TiWod4OksiU0s7kJuw8LKN4t-b1ng.DWHwjnv4fxKX2XW9qs6ExA.az8MS4mn6vbfou-uv_CqIyIbSpbWJ1D5ZIA9Bi0AMw8_aOA-dw81tCGOd1hyRjf6zbJutdeRrNiwpQg-yPVCr9QwYky71l67dhg1uIzlAHvwwWlWADLN7Hk0p7HE5nthLolAX3sfWOud_ASakqah71txhHTLKfEuLs_L2O6UR9LceWT5YUbuawtuuvy4C9dEk6fPvvCJ03v9_GusxWWvkuas8Z2NNSj-pNSA5PiCWLggGyjrntPnO6odqejjLXlclOuwHeNfbbzrjtzuJTKT7ussVxmAiI1FFUKzzTsMxnLOMqHRiUTMP5yH24tnTbBQp1dmgbPBNBx1IomLCf5z8ede_FsTqEWAC5SoSWfcD7Z1Qp1Dxx1MfFUKK2gBFhHQje-R1Vh24Kx7kc95INnp5lHkc4fUtJ_XCHOVQ0VARMHJBBKSstQT5cDxQRaY5TdprZsFqopQXNrDj8rlmq2FQn4Hzxb7WTbL9M60RjDcbQYiZeByo562uuR8-2B-KtIYQgwp8hEcvs5vX4gP7SrKPdymnymtDdveNdesEaKfDXoQ3YNkuGeH9ill7TLP5qC-QgA7FfrJ6-Nrma2bYk3a_llSiZvhXXFsyzkRI1a2FmK8XX8d2fWP-ou1vbQF1tHd-srBglk8hCh4Jvmu5yOjmtZWDrTFx7FJkAWpbZ_fxHvsHtL8gqB3UPsI0cJahtROZii9CeJ4zIjlldeUlke5NsKwm2sgdjhK8uSjoXtRtlFyzpSkntvlWW1AkZHsI5T63LCzQsvr04DQKTmGIXQnjAw5-3fTYSn3KqMFPNtmYa4uzSi-VV_xoNdSEfIPt9P7se8xtF-uKgrtQL1OcFa2d2D25m4hYGcSqEWlNRaP6QnOk8MKuiD5hmRY4nFWA8hpVESnWn1Rw1I8jbocOd5Ing.Vxc3x4yFjoSgKrwfJ73E4A";
-
-    JsonWebToken token = singpassIdentityProvider.validateToken(encryptedIdToken, true);
-
-    assertEquals("s=S8116474F,u=1", token.getSubject());
-  }
-
-  @Test
   void should_parse_sub_success_when_sub_only_have_uuid() {
     String uuid = "c302a626-b1de-11ea-b3de-0242ac130010";
     String subject = "u=" + uuid;
@@ -184,27 +172,5 @@ public class SingpassIdentityProviderTest {
     config.getConfig().put("userNameLinkToType", LinkToType.UUID.name());
     config.getConfig().put("lastNameLinkToType", LinkToType.SUB.name());
     config.getConfig().put("autoRegister", "true");
-    config.setPublicKeySignatureVerifier(
-        "-----BEGIN CERTIFICATE-----"
-            + "MIIDXTCCAkWgAwIBAgIJAPOw0d9auxjGMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV"
-            + "BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX"
-            + "aWRnaXRzIFB0eSBMdGQwHhcNMjAwNjMwMDE0ODIzWhcNMzAwNjI4MDE0ODIzWjBF"
-            + "MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50"
-            + "ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB"
-            + "CgKCAQEAr4flVLO/RsDFmgqOduMebMBGiLcd2+zX6VdkdrnWl4/NMehycSR7aSuM"
-            + "qkDji/dqsoY3Q1VHWUYoWGLrAjZ/JP/Ad2vwI1D3SJLG4xZKtGawM1g3DkG9Y2ef"
-            + "chk1r7+WrMEn81DNJ1ib+462g1yNllgxeDCRaImsgihjztWFRcPu/dvLFu7nVDL0"
-            + "nTsN8Sqldh2ydMlNnmXixL63FUaEYHsYylm/60swGla3ibhOfzCbmjkN44vrktBk"
-            + "ZHhsI0G15QF5vn0Nbz7DfHp2IuxZXwTnNgjz1QSpV1+kxHosJFTa2D1TS1Ki9FgM"
-            + "Ij0av0TqK2MkPq5pnTm0XvZ/O6Hw4wIDAQABo1AwTjAdBgNVHQ4EFgQU286bExRE"
-            + "1REHkJpYZViciymk/+EwHwYDVR0jBBgwFoAU286bExRE1REHkJpYZViciymk/+Ew"
-            + "DAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAEvjMnvcWyBrZCbLWozPv"
-            + "YWu2fQsUGwGLPwhJm6dJmjvDq0/yYv14svvZsVd8NGQxYaqlVA89S1d/1DNOBhZJ"
-            + "rAsqxrKswaR26A2MUB0n9HSRNTa69FkW6nhmuTFeBFF9YE1q2VQsMboCCx0wA+vc"
-            + "sEZgjgQLNb6rsyhvWX9sc7PfwjqJeLXb9EQVvy0JJyLv/tRTZqxn+dOQNa00juc6"
-            + "I5SQxHG8Jnw5j+4ffwYZCshD5eGjMy5kJOAnNZnLRH4OF3ie0Z2ePvKKs5UwBfR+"
-            + "/jRrli4e6hs4j/AlCpMNFiPDwa14FaDyYsOEbSG5XeUzfXwagm/lHxtazubPmO1p"
-            + "VA=="
-            + "-----END CERTIFICATE-----");
   }
 }
