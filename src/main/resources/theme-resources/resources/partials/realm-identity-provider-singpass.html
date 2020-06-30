@@ -179,6 +179,9 @@
                 <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
                 <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
                 <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
+                <option ng-if="identityProvider.config.supportCP == 'true'" value="USERNAME">{{::
+                  'singpass.sub.username' | translate}}
+                </option>
               </select>
             </div>
           </div>
@@ -196,6 +199,9 @@
                 <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
                 <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
                 <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
+                <option ng-if="identityProvider.config.supportCP == 'true'" value="FIRSTNAME">{{::
+                  'singpass.sub.firstName' | translate}}
+                </option>
               </select>
             </div>
           </div>
@@ -213,6 +219,9 @@
                 <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
                 <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
                 <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
+                <option ng-if="identityProvider.config.supportCP == 'true'" value="LASTNAME">{{::
+                  'singpass.sub.lastName' | translate}}
+                </option>
               </select>
             </div>
           </div>
