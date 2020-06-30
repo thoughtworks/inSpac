@@ -17,6 +17,7 @@ class ParserUtils {
         private const val EXPIRATION_TIME_CLAIM = "exp"
         private const val NONCE_CLAIM = "nonce"
         private const val SUBJECT_UUID_PREFIX = "u="
+        private const val COMMA = ","
 
         // not support PKCS#1 private key decrypt yet
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
@@ -44,6 +45,14 @@ class ParserUtils {
             verifyAudience(jwtClaimsSet, oidcConfig)
             verifySubject(jwtClaimsSet)
         }
+
+        internal fun extractUUID(signedJWT: SignedJWT) = signedJWT.jwtClaimsSet.subject
+            .split(COMMA)
+            .find { it.startsWith(SUBJECT_UUID_PREFIX) }
+            .orEmpty()
+            .substring(SUBJECT_UUID_PREFIX.length)
+
+        internal fun extract(signedJWT: SignedJWT, key: String) = signedJWT.jwtClaimsSet.getJSONObjectClaim(key)
 
         private fun verifySubject(jwtClaimsSet: JWTClaimsSet) {
             val sub = jwtClaimsSet.subject ?: throw InvalidJWTClaimException("Sub is missing")

@@ -17,6 +17,7 @@ import com.thoughtworks.sea.oidc.model.OIDCConfig
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
+import net.minidev.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -155,6 +156,27 @@ class ParserUtilsTest {
         assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Sud should contain uuid at least")
     }
 
+    @Test
+    internal fun `should return UUID when extract UUID from sub`() {
+        val expectedUUID = UUID.randomUUID().toString()
+        val signedJWT = MockPassSignedJWT.Builder().sub("s=S7515010E,u=$expectedUUID").build()
+
+        val actualUUID = ParserUtils.extractUUID(signedJWT)
+
+        assertEquals(expectedUUID, actualUUID)
+    }
+
+    @Test
+    internal fun `should return a json object when extract with a key`() {
+        val expectedJsonObject = JSONObject(mapOf("name" to "json", "gender" to "female"))
+        val signedJWT = MockPassSignedJWT.Builder().addition(expectedJsonObject).build()
+        val key = "addition"
+
+        val actualJsonObject = ParserUtils.extract(signedJWT, key)
+
+        assertEquals(expectedJsonObject.toJSONString(), actualJsonObject.toJSONString())
+    }
+
     private fun assertThrowsInvalidJWTClaimException(
         signedJWT: SignedJWT,
         oidcConfig: OIDCConfig,
@@ -180,7 +202,8 @@ class ParserUtilsTest {
             var exp: Instant? = Instant.now().plusSeconds(100),
             var iss: String? = "localhost:5156",
             var aud: String? = "clientId",
-            var sub: String? = "u=${UUID.randomUUID()}"
+            var sub: String? = "u=${UUID.randomUUID()}",
+            var addition: JSONObject? = null
         ) {
 
             fun nonce(nonce: String?) = apply { this.nonce = nonce }
@@ -189,6 +212,7 @@ class ParserUtilsTest {
             fun iss(iss: String?) = apply { this.iss = iss }
             fun aud(aud: String?) = apply { this.aud = aud }
             fun sub(sub: String?) = apply { this.sub = sub }
+            fun addition(addition: JSONObject) = apply { this.addition = addition }
             fun build(): SignedJWT {
                 val idpPrivateKey = this::class.java.getResource("/certs/idpPrivateKey.pem").readText()
                 val jwk = JWK.parseFromPEMEncodedObjects(idpPrivateKey)
@@ -199,6 +223,7 @@ class ParserUtilsTest {
                     .issuer(this.iss)
                     .audience(this.aud)
                     .subject(this.sub)
+                    .claim("addition", this.addition)
                     .build()
                 return SignedJWT(jwsHeader, jwtClaimsSet).apply {
                     sign(RSASSASigner(jwk.toRSAKey()))
