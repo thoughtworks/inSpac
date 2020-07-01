@@ -44,10 +44,8 @@ class TokenUtils {
         fun parseTokenToSubjectInfo(
             token: TokenResponse,
             oidcConfig: OIDCConfig
-        ): ParsedSubjectInfo {
-            return parseToken(token, oidcConfig) {
-                ParserUtils.extractSubject(it)
-            }
+        ): ParsedSubjectInfo = parseToken(token, oidcConfig) {
+            ParserUtils.extractSubject(it)
         }
 
         @JvmStatic
@@ -55,13 +53,8 @@ class TokenUtils {
             token: TokenResponse,
             oidcConfig: OIDCConfig,
             additionKey: String
-        ): JSONObject {
-            val signedJWT = ParserUtils.decryptJWE(token.idToken, oidcConfig.servicePrivateKey)
-            if (ParserUtils.verifyJWS(signedJWT, oidcConfig.idpPublicKey)) {
-                ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
-                return ParserUtils.extract(signedJWT, additionKey)
-            }
-            throw JWSSignatureVerifyException()
+        ): JSONObject = parseToken(token, oidcConfig) {
+            ParserUtils.extract(it, additionKey)
         }
 
         private fun <T> parseToken(
