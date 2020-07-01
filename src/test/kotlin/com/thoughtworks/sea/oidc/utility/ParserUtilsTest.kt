@@ -158,10 +158,21 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return parsed token result when extract sub in jwt`() {
+    internal fun `should return parsed subject info when extract sub in jwt`() {
         val expectedSubject = ParsedSubjectInfo("S7515010E", UUID.randomUUID().toString())
         val signedJWT =
             MockPassSignedJWT.Builder().sub("s=${expectedSubject.nricNumber},u=${expectedSubject.uuid}").build()
+
+        val actualSubject = ParserUtils.extractSubject(signedJWT)
+
+        assertEquals(expectedSubject, actualSubject)
+    }
+
+    @Test
+    internal fun `should return parsed subject info with null nric when extract sub without nric in jwt`() {
+        val expectedSubject = ParsedSubjectInfo(null, UUID.randomUUID().toString())
+        val signedJWT =
+            MockPassSignedJWT.Builder().sub("u=${expectedSubject.uuid}").build()
 
         val actualSubject = ParserUtils.extractSubject(signedJWT)
 

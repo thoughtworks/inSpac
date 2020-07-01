@@ -49,10 +49,10 @@ class ParserUtils {
         }
 
         internal fun extractSubject(signedJWT: SignedJWT): ParsedSubjectInfo {
-            val subjectInfos = signedJWT.jwtClaimsSet.subject
-                .split(COMMA)
+            val subjectInfos = signedJWT.jwtClaimsSet.subject.split(COMMA)
             val nricNumber = subjectInfos.find { it.startsWith(SUBJECT_NRIC_PREFIX) }
             val uuid = subjectInfos.find { it.startsWith(SUBJECT_UUID_PREFIX) }.orEmpty()
+
             return ParsedSubjectInfo(
                 nricNumber?.substring(SUBJECT_NRIC_PREFIX.length),
                 uuid.substring(SUBJECT_UUID_PREFIX.length)
