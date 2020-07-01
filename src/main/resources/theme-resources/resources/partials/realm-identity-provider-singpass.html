@@ -145,14 +145,14 @@
       <legend uncollapsed><span class="text">{{:: 'singpass-custom-config' | translate}}</span>
       </legend>
       <div class="form-group">
-        <label class="col-md-2 control-label" for="supportCP">{{:: 'singpass-support-cp' |
+        <label class="col-md-2 control-label" for="supportFieldForCP">{{::
+          'singpass-support-field-for-cp' |
           translate}}</label>
         <div class="col-md-6">
-          <input ng-model="identityProvider.config.supportCP" id="supportCP"
-                 onoffswitchvalue
-                 on-text="{{:: 'onText' | translate}}" off-text="{{:: 'offText' | translate}}"/>
+          <input ng-model="identityProvider.config.supportFieldForCP" id="supportFieldForCP"
+                 type="text"/>
         </div>
-        <kc-tooltip>{{:: 'singpass-support-cp.tooltip' | translate}}</kc-tooltip>
+        <kc-tooltip>{{:: 'singpass-support-field-for-cp.tooltip' | translate}}</kc-tooltip>
       </div>
 
       <div class="form-group">
@@ -175,10 +175,16 @@
             <div>
               <select class="form-control" id="userNameLinkToType"
                       ng-model="identityProvider.config.userNameLinkToType">
-                <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
-                <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
-                <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
-                <option ng-if="identityProvider.config.supportCP == 'true'" value="USERNAME">{{::
+                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="NRIC">{{::
+                  'singpass.sub.nric' | translate}}
+                </option>
+                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="SUB">{{::
+                  'singpass.sub' | translate}}
+                </option>
+                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="UUID">{{::
+                  'singpass.sub.uuid' | translate}}
+                </option>
+                <option ng-if="identityProvider.config.supportFieldForCP != ''" value="CP_INFO">{{::
                   'singpass.sub.username' | translate}}
                 </option>
               </select>
@@ -197,9 +203,6 @@
                 <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
                 <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
                 <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
-                <option ng-if="identityProvider.config.supportCP == 'true'" value="FIRSTNAME">{{::
-                  'singpass.sub.firstName' | translate}}
-                </option>
               </select>
             </div>
           </div>
@@ -216,9 +219,6 @@
                 <option value="UUID">{{:: 'singpass.sub.uuid' | translate}}</option>
                 <option value="NRIC">{{:: 'singpass.sub.nric' | translate}}</option>
                 <option value="SUB">{{:: 'singpass.sub' | translate}}</option>
-                <option ng-if="identityProvider.config.supportCP == 'true'" value="LASTNAME">{{::
-                  'singpass.sub.lastName' | translate}}
-                </option>
               </select>
             </div>
           </div>
