@@ -12,6 +12,7 @@ import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
+import net.minidev.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -117,6 +118,74 @@ internal class TokenUtilsTest {
             TokenUtils.parseTokenToSubjectInfo(
                 mockTokenResponse,
                 oidcConfig
+            )
+        }
+    }
+
+    @Test
+    internal fun `should return addition JsonObject when parse with addition key`() {
+        // given
+        val idToken = "idToken"
+        val mockTokenResponse = TokenResponse(
+            "accessToken",
+            "refreshToken",
+            idToken,
+            "bearer",
+            200,
+            "openid"
+        )
+        val idpPublicKey = "idpPublicKey"
+        val servicePrivateKey = "servicePrivateKey"
+        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+        val additionKey = "addition"
+
+        mockkObject(ParserUtils)
+        val signedJWT = mockk<SignedJWT>()
+        val expectedJsonObject = mockk<JSONObject>()
+        every { ParserUtils.decryptJWE(idToken, servicePrivateKey) } returns signedJWT
+        every { ParserUtils.verifyJWS(signedJWT, idpPublicKey) } returns true
+        every { ParserUtils.verifyJWTClaims(signedJWT, oidcConfig) } just Runs
+        every { ParserUtils.extract(signedJWT, additionKey) } returns expectedJsonObject
+
+        // when
+        val parseJsonObject = TokenUtils.parseTokenToJsonObject(
+            mockTokenResponse,
+            oidcConfig,
+            additionKey
+        )
+
+        // then
+        assertEquals(expectedJsonObject, parseJsonObject)
+    }
+
+    @Test
+    internal fun `should throw exception when parse invalid token with addition key`() {
+        // given
+        val idToken = "invalidToken"
+        val mockTokenResponse = TokenResponse(
+            "accessToken",
+            "refreshToken",
+            idToken,
+            "bearer",
+            200,
+            "openid"
+        )
+        val idpPublicKey = "idpPublicKey"
+        val servicePrivateKey = "servicePrivateKey"
+        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+
+        mockkObject(ParserUtils)
+        val signedJWT = mockk<SignedJWT>()
+        every { ParserUtils.decryptJWE(idToken, servicePrivateKey) } returns signedJWT
+        every { ParserUtils.verifyJWS(signedJWT, idpPublicKey) } returns false
+
+        // when
+        // then
+        assertThrows<JWSSignatureVerifyException> {
+            TokenUtils.parseTokenToJsonObject(
+                mockTokenResponse,
+                oidcConfig,
+                "addition"
             )
         }
     }

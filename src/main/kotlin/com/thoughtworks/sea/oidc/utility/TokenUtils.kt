@@ -1,11 +1,13 @@
 package com.thoughtworks.sea.oidc.utility
 
+import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.JWSSignatureVerifyException
 import com.thoughtworks.sea.oidc.model.OIDCConfig
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import com.thoughtworks.sea.oidc.model.TokenRequest
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
 import com.thoughtworks.sea.oidc.model.TokenResponse
+import net.minidev.json.JSONObject
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap
 
@@ -43,10 +45,34 @@ class TokenUtils {
             token: TokenResponse,
             oidcConfig: OIDCConfig
         ): ParsedSubjectInfo {
+            return parseToken(token, oidcConfig) {
+                ParserUtils.extractSubject(it)
+            }
+        }
+
+        @JvmStatic
+        fun parseTokenToJsonObject(
+            token: TokenResponse,
+            oidcConfig: OIDCConfig,
+            additionKey: String
+        ): JSONObject {
             val signedJWT = ParserUtils.decryptJWE(token.idToken, oidcConfig.servicePrivateKey)
             if (ParserUtils.verifyJWS(signedJWT, oidcConfig.idpPublicKey)) {
                 ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
-                return ParserUtils.extractSubject(signedJWT)
+                return ParserUtils.extract(signedJWT, additionKey)
+            }
+            throw JWSSignatureVerifyException()
+        }
+
+        private fun <T> parseToken(
+            token: TokenResponse,
+            oidcConfig: OIDCConfig,
+            extract: (signedJWT: SignedJWT) -> T
+        ): T {
+            val signedJWT = ParserUtils.decryptJWE(token.idToken, oidcConfig.servicePrivateKey)
+            if (ParserUtils.verifyJWS(signedJWT, oidcConfig.idpPublicKey)) {
+                ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+                return extract(signedJWT)
             }
             throw JWSSignatureVerifyException()
         }
