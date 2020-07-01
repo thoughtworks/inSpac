@@ -3,5 +3,7 @@ package com.thoughtworks.sea.oidc.model
 data class OIDCConfig(
     val nonce: String,
     val host: String,
-    val clientId: String
+    val clientId: String,
+    val idpPublicKey: String,
+    val servicePrivateKey: String
 )

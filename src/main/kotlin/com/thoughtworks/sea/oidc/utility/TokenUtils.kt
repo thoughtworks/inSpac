@@ -1,5 +1,7 @@
 package com.thoughtworks.sea.oidc.utility
 
+import com.thoughtworks.sea.oidc.exception.JWSSignatureVerifyException
+import com.thoughtworks.sea.oidc.model.OIDCConfig
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import com.thoughtworks.sea.oidc.model.TokenRequest
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
@@ -37,10 +39,16 @@ class TokenUtils {
         }
 
         @JvmStatic
-        fun parseToken(token: TokenResponse): ParsedSubjectInfo {
-            print(token)
-            // TODO Yi: will implement parse method
-            return ParsedSubjectInfo("S3000024B", "null")
+        fun parseTokenToSubjectInfo(
+            token: TokenResponse,
+            oidcConfig: OIDCConfig
+        ): ParsedSubjectInfo {
+            val signedJWT = ParserUtils.decryptJWE(token.idToken, oidcConfig.servicePrivateKey)
+            if (ParserUtils.verifyJWS(signedJWT, oidcConfig.idpPublicKey)) {
+                ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+                return ParserUtils.extractSubject(signedJWT)
+            }
+            throw JWSSignatureVerifyException()
         }
     }
 }
