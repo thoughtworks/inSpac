@@ -1,12 +1,19 @@
 package com.thoughtworks.provider.singpass;
 
+import static java.util.Arrays.asList;
+
+import com.thoughtworks.provider.singpass.representations.Pair;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Objects;
 import org.keycloak.broker.oidc.OIDCIdentityProviderConfig;
 import org.keycloak.models.IdentityProviderModel;
 
 /** @author yuexie.zhou */
 public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
+
+  private static final String SUPPORT_CP_FIELD_SPLIT_REGEX = "\\.";
 
   public SingpassIdentityProviderConfig(IdentityProviderModel model) {
     super(model);
@@ -21,8 +28,16 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
     getConfig().put("userNameLinkToType", LinkToType.SUB.name());
   }
 
-  public boolean isSupportCP() {
-    return Boolean.parseBoolean(this.getConfig().get("supportCP"));
+  public Entry getSupportFieldForCP() {
+    String supportFieldForCP = this.getConfig().get("supportFieldForCP");
+
+    if (Objects.nonNull(supportFieldForCP) && !supportFieldForCP.trim().isEmpty()) {
+      String[] fields = supportFieldForCP.trim().split(SUPPORT_CP_FIELD_SPLIT_REGEX);
+
+      return Pair.of(fields[0], fields[1]);
+    }
+
+    return null;
   }
 
   public boolean isAutoRegister() {
@@ -58,6 +73,7 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
   public enum LinkToType {
     NRIC("s"),
     UUID("u"),
+    CP_INFO("cp"),
     SUB("sub");
 
     public static final String DEFAULT_VAL = "NONE";
@@ -81,7 +97,7 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
         return subject;
       }
 
-      List<String> subPart = Arrays.asList(subject.split(TYPE_SPLIT_SIGN));
+      List<String> subPart = asList(subject.split(TYPE_SPLIT_SIGN));
 
       return subPart.stream()
           .filter(part -> part.contains(this.type + KEY_VALUE_SPLIT_SIGN))

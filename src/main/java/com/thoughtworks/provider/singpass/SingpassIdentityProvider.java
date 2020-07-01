@@ -13,6 +13,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.text.ParseException;
 import java.util.Base64;
+import java.util.Map.Entry;
+import java.util.Objects;
+import org.json.JSONObject;
 import org.keycloak.broker.oidc.OIDCIdentityProvider;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
 import org.keycloak.broker.provider.IdentityBrokerException;
@@ -102,7 +105,32 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     String email = "";
 
     SingpassIdentityProviderConfig singpassConfig = getSingpassConfig();
-    if (singpassConfig.isAutoRegister()) {
+    Entry supportFieldForCP = singpassConfig.getSupportFieldForCP();
+    boolean isSupportCP = Objects.nonNull(supportFieldForCP);
+
+    if (isSupportCP) {
+      String firstField = supportFieldForCP.getKey().toString();
+      String secondField = supportFieldForCP.getValue().toString();
+      Object idTokenField = idToken.getOtherClaims().get(firstField);
+
+      if (Objects.isNull(idTokenField)) {
+        throw new IdentityBrokerException("Support Field For CP: can't get value form id token");
+      }
+
+      JSONObject userInfo = new JSONObject(idTokenField.toString());
+
+      if (!userInfo.has(secondField)) {
+        throw new IdentityBrokerException("Support Field For CP: can't get value form id token");
+      }
+
+      userName = userInfo.getString(secondField);
+
+      if (singpassConfig.isAutoRegister()) {
+        firstName = singpassConfig.getFirstNameBySub(id);
+        lastName = singpassConfig.getLastNameBySub(id);
+        email = userName + EMAIL_HOST;
+      }
+    } else if (singpassConfig.isAutoRegister()) {
       userName = singpassConfig.getUserNameBySub(id);
       firstName = singpassConfig.getFirstNameBySub(id);
       lastName = singpassConfig.getLastNameBySub(id);

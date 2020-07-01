@@ -149,7 +149,8 @@
           'singpass-support-field-for-cp' |
           translate}}</label>
         <div class="col-md-6">
-          <input ng-model="identityProvider.config.supportFieldForCP" id="supportFieldForCP"
+          <input class="form-control" ng-model="identityProvider.config.supportFieldForCP"
+                 id="supportFieldForCP"
                  type="text"/>
         </div>
         <kc-tooltip>{{:: 'singpass-support-field-for-cp.tooltip' | translate}}</kc-tooltip>

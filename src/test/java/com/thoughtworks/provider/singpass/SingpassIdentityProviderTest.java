@@ -8,12 +8,17 @@ import com.thoughtworks.provider.singpass.SingpassIdentityProviderConfig.LinkToT
 import java.io.IOException;
 import java.util.Collections;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
+import org.keycloak.broker.provider.IdentityBrokerException;
 import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.representations.JsonWebToken;
@@ -110,6 +115,84 @@ public class SingpassIdentityProviderTest {
     assertEquals(subject, identity.getLastName());
     assertEquals(uuid, identity.getUsername());
     assertEquals(uuid + SingpassIdentityProvider.EMAIL_HOST, identity.getEmail());
+  }
+
+  @Test
+  void
+      should_set_username_from_id_token_userinfo_when_set_support_field_cp_and_off_auto_register() {
+    // given
+    config.getConfig().put("supportFieldForCP", "userInfo.fullName");
+    config.getConfig().put("autoRegister", "false");
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject("s=R12312312D");
+    String username = "li bobo";
+    JSONObject idTokenUserInfo = new JSONObject();
+    idTokenUserInfo.put("fullName", username);
+    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+
+    // when
+    BrokeredIdentityContext identity =
+        singpassIdentityProvider.extractIdentity(null, null, jsonWebToken);
+
+    // then
+    assertEquals(username, identity.getUsername());
+  }
+
+  @Test
+  void should_set_name_success_when_set_support_cp_field_and_open_auto_register() {
+    // given
+    config.getConfig().put("supportFieldForCP", "userInfo.fullName");
+    config.getConfig().put("autoRegister", "true");
+    config.getConfig().put("userNameLinkToType", LinkToType.CP_INFO.name());
+    config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
+    config.getConfig().put("lastNameLinkToType", LinkToType.SUB.name());
+    String nric = "R12312312D";
+    String sub = "s=" + nric;
+    String username = "li bobo";
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject(sub);
+    JSONObject idTokenUserInfo = new JSONObject();
+    idTokenUserInfo.put("fullName", username);
+    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+
+    // when
+    BrokeredIdentityContext identity =
+        singpassIdentityProvider.extractIdentity(null, null, jsonWebToken);
+
+    // then
+    assertEquals(username, identity.getUsername());
+    assertEquals(nric, identity.getFirstName());
+    assertEquals(sub, identity.getLastName());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "a.b",
+      "userInfo.b"
+  })
+  void should_throw_exception_when_set_support_cp_field_with_invalid_path(String path) {
+    // given
+    config.getConfig().put("supportFieldForCP", path);
+    config.getConfig().put("autoRegister", "false");
+    String NRIC = "R12312312D";
+    JsonWebToken jsonWebToken = new JsonWebToken();
+    jsonWebToken.setSubject("s=" + NRIC);
+    String username = "li bobo";
+    JSONObject idTokenUserInfo = new JSONObject();
+    idTokenUserInfo.put("fullName", username);
+    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    SingpassIdentityProvider singpassIdentityProvider =
+        new SingpassIdentityProvider(session, config);
+
+    // when
+    Assertions.assertThrows(
+        IdentityBrokerException.class,
+        () -> singpassIdentityProvider.extractIdentity(null, null, jsonWebToken),
+        "Support Field For CP: can't get value form id token");
   }
 
   @Test
