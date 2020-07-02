@@ -26,7 +26,7 @@ internal class TokenUtilsTest {
     internal fun `should return correct artifact from tokenUtils`() {
         // given
         val tokenRequestParams = TokenRequestParams(
-            host = "test.com",
+            host = "https://test.com",
             endPoint = "/test/token",
             code = "code",
             clientId = "clientid",

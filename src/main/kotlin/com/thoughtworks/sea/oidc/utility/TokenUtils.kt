@@ -21,7 +21,7 @@ class TokenUtils {
          */
         @JvmStatic
         fun buildTokenRequest(params: TokenRequestParams): TokenRequest {
-            val url = "https://${params.host}${params.endPoint}"
+            val url = "${params.host}${params.endPoint}"
 
             val bodyMap = LinkedMultiValueMap<String, String>()
             bodyMap.add("code", params.code)

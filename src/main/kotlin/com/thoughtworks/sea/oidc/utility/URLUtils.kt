@@ -29,6 +29,6 @@ class URLUtils {
          */
         @JvmStatic
         fun generateCPLogoutURL(cpLogoutParams: CPLogoutParams): String =
-            "https://${cpLogoutParams.host}/cplogout?return_uri=${cpLogoutParams.returnURI}"
+            "${cpLogoutParams.host}/cplogout?return_uri=${cpLogoutParams.returnURI}"
     }
 }

@@ -29,7 +29,7 @@ internal class URLUtilsTest {
 
     @Test
     internal fun `should generate CorpPass Logout URL`() {
-        val logoutParams = CPLogoutParams("test.com", "https://google.com")
+        val logoutParams = CPLogoutParams("https://test.com", "https://google.com")
         val expectedURL = "https://test.com/cplogout?return_uri=https://google.com"
 
         val actualURL = URLUtils.generateCPLogoutURL(logoutParams)
