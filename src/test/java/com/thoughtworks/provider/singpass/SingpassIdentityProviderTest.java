@@ -170,7 +170,7 @@ public class SingpassIdentityProviderTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"a.b", "userInfo.b"})
+  @ValueSource(strings = {"a.b", "customFields.b"})
   void should_throw_exception_when_set_support_cp_field_with_invalid_path(String path) {
     // given
     config.getConfig().put("supportFieldForCP", path);
