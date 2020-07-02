@@ -11,7 +11,7 @@ internal class URLUtilsTest {
     internal fun `should generate SingPass Login URL when calling generateLoginAddress method`() {
 
         val initAuthRequest = InitAuthRequest(
-            "localhost",
+            "http://localhost",
             "/auth2.0",
             "SDK-TEST-001",
             "https://google.com",
@@ -22,7 +22,7 @@ internal class URLUtilsTest {
         val actualURL =
             URLUtils.generateInitAuthURL(initAuthRequest)
         val expectedURL =
-            "https://localhost/auth2.0?scope=openid&response_type=code&client_id=SDK-TEST-001&nonce=UUID-NONCE&state=UUID-STATE&redirect_uri=https://google.com"
+            "http://localhost/auth2.0?scope=openid&response_type=code&client_id=SDK-TEST-001&nonce=UUID-NONCE&state=UUID-STATE&redirect_uri=https://google.com"
 
         assertEquals(actualURL, expectedURL)
     }

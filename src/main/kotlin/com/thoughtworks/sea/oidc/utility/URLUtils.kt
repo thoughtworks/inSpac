@@ -13,7 +13,7 @@ class URLUtils {
          */
         @JvmStatic
         fun generateInitAuthURL(initAuthRequest: InitAuthRequest): String =
-            "https://${initAuthRequest.host}" +
+                    initAuthRequest.host +
                     "${initAuthRequest.endPoint}?" +
                     "scope=${initAuthRequest.scope}&" +
                     "response_type=${initAuthRequest.responseType}&" +
