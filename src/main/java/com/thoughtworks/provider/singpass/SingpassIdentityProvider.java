@@ -13,9 +13,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.text.ParseException;
 import java.util.Base64;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Objects;
-import org.json.JSONObject;
 import org.keycloak.broker.oidc.OIDCIdentityProvider;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
 import org.keycloak.broker.provider.IdentityBrokerException;
@@ -111,19 +111,20 @@ public class SingpassIdentityProvider extends OIDCIdentityProvider {
     if (isSupportCP) {
       String firstField = supportFieldForCP.getKey().toString();
       String secondField = supportFieldForCP.getValue().toString();
-      Object idTokenField = idToken.getOtherClaims().get(firstField);
+      LinkedHashMap<String, String> inIdTokenCustomField =
+          (LinkedHashMap<String, String>) idToken.getOtherClaims().get(firstField);
 
-      if (Objects.isNull(idTokenField)) {
+      if (Objects.isNull(inIdTokenCustomField)) {
         throw new IdentityBrokerException("Support Field For CP: can't get value form id token");
       }
 
-      JSONObject userInfo = new JSONObject(idTokenField.toString());
+      String subCustomField = inIdTokenCustomField.get(secondField);
 
-      if (!userInfo.has(secondField)) {
+      if (Objects.isNull(subCustomField)) {
         throw new IdentityBrokerException("Support Field For CP: can't get value form id token");
       }
 
-      userName = userInfo.getString(secondField);
+      userName = subCustomField;
 
       if (singpassConfig.isAutoRegister()) {
         firstName = singpassConfig.getFirstNameBySub(id);

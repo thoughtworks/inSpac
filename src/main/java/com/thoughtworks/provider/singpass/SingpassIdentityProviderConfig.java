@@ -20,12 +20,7 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
   }
 
   public SingpassIdentityProviderConfig() {
-    this.setValidateSignature(true);
-    this.setUseJwksUrl(false);
-
-    getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
-    getConfig().put("lastNameLinkToType", LinkToType.UUID.name());
-    getConfig().put("userNameLinkToType", LinkToType.SUB.name());
+    setDefaultConfig();
   }
 
   public Entry getSupportFieldForCP() {
@@ -106,5 +101,14 @@ public class SingpassIdentityProviderConfig extends OIDCIdentityProviderConfig {
           .findFirst()
           .orElse(DEFAULT_VAL);
     }
+  }
+
+  private void setDefaultConfig() {
+    this.setValidateSignature(true);
+    this.setUseJwksUrl(false);
+
+    getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
+    getConfig().put("lastNameLinkToType", LinkToType.UUID.name());
+    getConfig().put("userNameLinkToType", LinkToType.SUB.name());
   }
 }

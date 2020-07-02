@@ -7,8 +7,8 @@ import static org.junit.Assert.assertNotNull;
 import com.thoughtworks.provider.singpass.SingpassIdentityProviderConfig.LinkToType;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -121,14 +121,14 @@ public class SingpassIdentityProviderTest {
   void
       should_set_username_from_id_token_userinfo_when_set_support_field_cp_and_off_auto_register() {
     // given
-    config.getConfig().put("supportFieldForCP", "userInfo.fullName");
+    config.getConfig().put("supportFieldForCP", "customFields.fullName");
     config.getConfig().put("autoRegister", "false");
     JsonWebToken jsonWebToken = new JsonWebToken();
     jsonWebToken.setSubject("s=R12312312D");
     String username = "li bobo";
-    JSONObject idTokenUserInfo = new JSONObject();
+    LinkedHashMap<String, String> idTokenUserInfo = new LinkedHashMap();
     idTokenUserInfo.put("fullName", username);
-    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    jsonWebToken.setOtherClaims("customFields", idTokenUserInfo);
     SingpassIdentityProvider singpassIdentityProvider =
         new SingpassIdentityProvider(session, config);
 
@@ -143,7 +143,7 @@ public class SingpassIdentityProviderTest {
   @Test
   void should_set_name_success_when_set_support_cp_field_and_open_auto_register() {
     // given
-    config.getConfig().put("supportFieldForCP", "userInfo.fullName");
+    config.getConfig().put("supportFieldForCP", "customFields.fullName");
     config.getConfig().put("autoRegister", "true");
     config.getConfig().put("userNameLinkToType", LinkToType.CP_INFO.name());
     config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
@@ -153,9 +153,9 @@ public class SingpassIdentityProviderTest {
     String username = "li bobo";
     JsonWebToken jsonWebToken = new JsonWebToken();
     jsonWebToken.setSubject(sub);
-    JSONObject idTokenUserInfo = new JSONObject();
+    LinkedHashMap<String, String> idTokenUserInfo = new LinkedHashMap();
     idTokenUserInfo.put("fullName", username);
-    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    jsonWebToken.setOtherClaims("customFields", idTokenUserInfo);
     SingpassIdentityProvider singpassIdentityProvider =
         new SingpassIdentityProvider(session, config);
 
@@ -170,10 +170,7 @@ public class SingpassIdentityProviderTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {
-      "a.b",
-      "userInfo.b"
-  })
+  @ValueSource(strings = {"a.b", "userInfo.b"})
   void should_throw_exception_when_set_support_cp_field_with_invalid_path(String path) {
     // given
     config.getConfig().put("supportFieldForCP", path);
@@ -182,9 +179,9 @@ public class SingpassIdentityProviderTest {
     JsonWebToken jsonWebToken = new JsonWebToken();
     jsonWebToken.setSubject("s=" + NRIC);
     String username = "li bobo";
-    JSONObject idTokenUserInfo = new JSONObject();
+    LinkedHashMap<String, String> idTokenUserInfo = new LinkedHashMap();
     idTokenUserInfo.put("fullName", username);
-    jsonWebToken.setOtherClaims("userInfo", idTokenUserInfo);
+    jsonWebToken.setOtherClaims("customFields", idTokenUserInfo);
     SingpassIdentityProvider singpassIdentityProvider =
         new SingpassIdentityProvider(session, config);
 
