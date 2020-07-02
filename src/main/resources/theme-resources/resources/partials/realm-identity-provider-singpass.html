@@ -176,16 +176,16 @@
             <div>
               <select class="form-control" id="userNameLinkToType"
                       ng-model="identityProvider.config.userNameLinkToType">
-                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="NRIC">{{::
+                <option ng-if="!identityProvider.config.supportFieldForCP" value="NRIC">{{::
                   'singpass.sub.nric' | translate}}
                 </option>
-                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="SUB">{{::
+                <option ng-if="!identityProvider.config.supportFieldForCP" value="SUB">{{::
                   'singpass.sub' | translate}}
                 </option>
-                <option ng-if="identityProvider.config.supportFieldForCP == ''" value="UUID">{{::
+                <option ng-if="!identityProvider.config.supportFieldForCP" value="UUID">{{::
                   'singpass.sub.uuid' | translate}}
                 </option>
-                <option ng-if="identityProvider.config.supportFieldForCP != ''" value="CP_INFO">{{::
+                <option ng-if="!!identityProvider.config.supportFieldForCP'" value="CP_INFO">{{::
                   'singpass.sub.username' | translate}}
                 </option>
               </select>
