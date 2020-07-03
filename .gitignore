@@ -38,3 +38,10 @@ buildNumber.properties
 hs_err_pid*
 .DS_Store
 
+.gradle
+.idea
+build
+gradle
+gradlew.bat
+gradlew
+deploy/
