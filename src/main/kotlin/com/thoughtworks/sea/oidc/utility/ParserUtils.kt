@@ -11,6 +11,7 @@ import com.thoughtworks.sea.oidc.model.OIDCConfig
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import java.time.Instant
 
+/** A utility class for parsing token. */
 class ParserUtils {
     companion object {
 
@@ -21,6 +22,12 @@ class ParserUtils {
         private const val SUBJECT_UUID_PREFIX = "u="
         private const val COMMA = ","
 
+        /**
+         * The function is used to decrypt JWE to SignedJWT
+         * @param idToken parameter for idToken from token response
+         * @param privateKeyPem parameter for service private key to decrypt JWE
+         * @return SignedJWT that a signed JSON Web Token (JWT) representation of this payload
+         */
         // not support PKCS#1 private key decrypt yet
         internal fun decryptJWE(idToken: String, privateKeyPem: String): SignedJWT {
             val jweObject = JWEObject.parse(idToken)
@@ -30,12 +37,25 @@ class ParserUtils {
             return jweObject.payload.toSignedJWT()
         }
 
+        /**
+         * The function is used to verify the signature of this JWS object with the specified verifier
+         * @param signedJWT parameter for a signed JSON Web Token (JWT) representation of this payload
+         * @param key parameter for IDP public key to verify signature
+         * @return {@code true} if the signature was successfully verified,
+         *         else {@code false}
+         */
         internal fun verifyJWS(signedJWT: SignedJWT, key: String): Boolean {
             val jwk = JWK.parseFromPEMEncodedObjects(key)
 
             return signedJWT.verify(RSASSAVerifier(jwk.toRSAKey()))
         }
 
+        /**
+         * The function is used to verify payload of JWS object
+         * @param signedJWT parameter for a signed JSON Web Token (JWT) representation of this payload
+         * @param oidcConfig parameter for verifying
+         * @throws InvalidJWTClaimException if the payload was unsuccessful verified
+         */
         // Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
         // Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
         internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
@@ -48,6 +68,11 @@ class ParserUtils {
             verifySubject(jwtClaimsSet)
         }
 
+        /**
+         * The function is used to extract nricNumber and uuid from sub of payload
+         * @param signedJWT parameter for a signed JSON Web Token (JWT) representation of this payload
+         * @return ParsedSubjectInfo with nricNumber and uuid
+         */
         internal fun extractSubject(signedJWT: SignedJWT): ParsedSubjectInfo {
             val subjectInfos = signedJWT.jwtClaimsSet.subject.split(COMMA)
             val nricNumber = subjectInfos.find { it.startsWith(SUBJECT_NRIC_PREFIX) }
@@ -59,6 +84,12 @@ class ParserUtils {
             )
         }
 
+        /**
+         * The function is used to extract corresponding value by the key of claims from payload
+         * @param signedJWT parameter for a signed JSON Web Token (JWT) representation of this payload
+         * @param key parameter for the key of claims to get JsonObject
+         * @return The value of a key of payload, {@code null} if not found.
+         */
         internal fun extract(signedJWT: SignedJWT, key: String) = signedJWT.jwtClaimsSet.getJSONObjectClaim(key)
 
         private fun verifySubject(jwtClaimsSet: JWTClaimsSet) {

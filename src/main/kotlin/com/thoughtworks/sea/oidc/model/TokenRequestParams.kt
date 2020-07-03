@@ -2,7 +2,7 @@ package com.thoughtworks.sea.oidc.model
 
 /** Those are params for generating TokenRequest for restTemplate. */
 data class TokenRequestParams(
-    /** IDP host address without "https://" prefix. */
+    /** IDP host address with protocol prefix. */
     val host: String,
     /** IDP issue token endpoint. */
     val endPoint: String,

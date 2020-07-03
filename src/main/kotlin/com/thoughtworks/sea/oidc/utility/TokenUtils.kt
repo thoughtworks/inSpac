@@ -16,7 +16,7 @@ class TokenUtils {
     companion object {
         /**
          * The function is used to build token request
-         * @param TokenRequestParams parameter for building token request
+         * @param params parameter for building token request
          * @return contains url and httpEntity
          */
         @JvmStatic
@@ -40,6 +40,12 @@ class TokenUtils {
             )
         }
 
+        /**
+         * The function is used to parse token to SubjectInfo
+         * @param token parameter for token response from IDP
+         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @return ParsedSubjectInfo with nricNumber and uuid
+         */
         @JvmStatic
         fun parseTokenToSubjectInfo(
             token: TokenResponse,
@@ -48,6 +54,13 @@ class TokenUtils {
             ParserUtils.extractSubject(it)
         }
 
+        /**
+         * The function is used to parse token to JSONObject
+         * @param token parameter for token response from IDP
+         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @param additionKey parameter for the key of claims to get JsonObject
+         * @return JSONObject the value of the given key in payload
+         */
         @JvmStatic
         fun parseTokenToJsonObject(
             token: TokenResponse,
@@ -57,6 +70,13 @@ class TokenUtils {
             ParserUtils.extract(it, additionKey)
         }
 
+        /**
+         * The function is used to parse token to T
+         * @param token parameter for token response from IDP
+         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @param extract parameter for extract corresponding value from payload of signedJWT
+         * @return T
+         */
         private fun <T> parseToken(
             token: TokenResponse,
             oidcConfig: OIDCConfig,

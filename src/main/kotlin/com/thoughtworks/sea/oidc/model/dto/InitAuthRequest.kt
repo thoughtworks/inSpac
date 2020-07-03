@@ -4,7 +4,7 @@ import java.util.UUID.randomUUID
 
 /** Request Body for initiating authentication request. */
 data class InitAuthRequest(
-    /** IDP host address without any protocol prefix. */
+    /** IDP host address with protocol prefix. */
     val host: String,
     /** IDP endpoint for redirecting browser. */
     val endPoint: String,

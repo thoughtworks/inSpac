@@ -8,7 +8,7 @@ class URLUtils {
     companion object {
         /**
          * Generate a initiated authentication URL
-         * @param InitAuthRequest a InitAuthRequest DTO model
+         * @param initAuthRequest a InitAuthRequest DTO model
          * @return Initiate authentication URL
          */
         @JvmStatic
@@ -24,7 +24,7 @@ class URLUtils {
 
         /**
          * Generate a CP logout URL
-         * @param CPLogoutParams parameter for building CP logout URL
+         * @param cpLogoutParams parameter for building CP logout URL
          * @return CP logout URL
          */
         @JvmStatic
