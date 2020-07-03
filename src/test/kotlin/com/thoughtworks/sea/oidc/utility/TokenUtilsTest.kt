@@ -2,7 +2,7 @@ package com.thoughtworks.sea.oidc.utility
 
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.JWSSignatureVerifyException
-import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParseTokenParams
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
 import com.thoughtworks.sea.oidc.model.TokenResponse
@@ -71,20 +71,20 @@ internal class TokenUtilsTest {
         )
         val idpPublicKey = "idpPublicKey"
         val servicePrivateKey = "servicePrivateKey"
-        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+        val parseTokenParams = ParseTokenParams("any", "any", "any", idpPublicKey, servicePrivateKey)
 
         mockkObject(ParserUtils)
         val signedJWT = mockk<SignedJWT>()
         val expectedSubjectInfo = mockk<ParsedSubjectInfo>()
         every { ParserUtils.decryptJWE(idToken, servicePrivateKey) } returns signedJWT
         every { ParserUtils.verifyJWS(signedJWT, idpPublicKey) } returns true
-        every { ParserUtils.verifyJWTClaims(signedJWT, oidcConfig) } just Runs
+        every { ParserUtils.verifyJWTClaims(signedJWT, parseTokenParams) } just Runs
         every { ParserUtils.extractSubject(signedJWT) } returns expectedSubjectInfo
 
         // when
         val parsedSubjectInfo = TokenUtils.parseTokenToSubjectInfo(
             mockTokenResponse,
-            oidcConfig
+            parseTokenParams
         )
 
         // then
@@ -105,7 +105,7 @@ internal class TokenUtilsTest {
         )
         val idpPublicKey = "idpPublicKey"
         val servicePrivateKey = "servicePrivateKey"
-        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+        val parseTokenParams = ParseTokenParams("any", "any", "any", idpPublicKey, servicePrivateKey)
 
         mockkObject(ParserUtils)
         val signedJWT = mockk<SignedJWT>()
@@ -117,7 +117,7 @@ internal class TokenUtilsTest {
         assertThrows<JWSSignatureVerifyException> {
             TokenUtils.parseTokenToSubjectInfo(
                 mockTokenResponse,
-                oidcConfig
+                parseTokenParams
             )
         }
     }
@@ -136,7 +136,7 @@ internal class TokenUtilsTest {
         )
         val idpPublicKey = "idpPublicKey"
         val servicePrivateKey = "servicePrivateKey"
-        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+        val parseTokenParams = ParseTokenParams("any", "any", "any", idpPublicKey, servicePrivateKey)
         val additionKey = "addition"
 
         mockkObject(ParserUtils)
@@ -144,13 +144,13 @@ internal class TokenUtilsTest {
         val expectedJsonObject = mockk<JSONObject>()
         every { ParserUtils.decryptJWE(idToken, servicePrivateKey) } returns signedJWT
         every { ParserUtils.verifyJWS(signedJWT, idpPublicKey) } returns true
-        every { ParserUtils.verifyJWTClaims(signedJWT, oidcConfig) } just Runs
+        every { ParserUtils.verifyJWTClaims(signedJWT, parseTokenParams) } just Runs
         every { ParserUtils.extract(signedJWT, additionKey) } returns expectedJsonObject
 
         // when
         val parseJsonObject = TokenUtils.parseTokenToJsonObject(
             mockTokenResponse,
-            oidcConfig,
+            parseTokenParams,
             additionKey
         )
 
@@ -172,7 +172,7 @@ internal class TokenUtilsTest {
         )
         val idpPublicKey = "idpPublicKey"
         val servicePrivateKey = "servicePrivateKey"
-        val oidcConfig = OIDCConfig("any", "any", "any", idpPublicKey, servicePrivateKey)
+        val parseTokenParams = ParseTokenParams("any", "any", "any", idpPublicKey, servicePrivateKey)
 
         mockkObject(ParserUtils)
         val signedJWT = mockk<SignedJWT>()
@@ -184,7 +184,7 @@ internal class TokenUtilsTest {
         assertThrows<JWSSignatureVerifyException> {
             TokenUtils.parseTokenToJsonObject(
                 mockTokenResponse,
-                oidcConfig,
+                parseTokenParams,
                 "addition"
             )
         }

@@ -2,7 +2,7 @@ package com.thoughtworks.sea.oidc.utility
 
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.JWSSignatureVerifyException
-import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParseTokenParams
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import com.thoughtworks.sea.oidc.model.TokenRequest
 import com.thoughtworks.sea.oidc.model.TokenRequestParams
@@ -43,48 +43,48 @@ class TokenUtils {
         /**
          * The function is used to parse token to SubjectInfo
          * @param token parameter for token response from IDP
-         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @param parseTokenParams parameter for decrypting, verify signature, verify payload
          * @return ParsedSubjectInfo with nricNumber and uuid
          */
         @JvmStatic
         fun parseTokenToSubjectInfo(
             token: TokenResponse,
-            oidcConfig: OIDCConfig
-        ): ParsedSubjectInfo = parseToken(token, oidcConfig) {
+            parseTokenParams: ParseTokenParams
+        ): ParsedSubjectInfo = parseToken(token, parseTokenParams) {
             ParserUtils.extractSubject(it)
         }
 
         /**
          * The function is used to parse token to JSONObject
          * @param token parameter for token response from IDP
-         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @param parseTokenParams parameter for decrypting, verify signature, verify payload
          * @param additionKey parameter for the key of claims to get JsonObject
          * @return JSONObject the value of the given key in payload
          */
         @JvmStatic
         fun parseTokenToJsonObject(
             token: TokenResponse,
-            oidcConfig: OIDCConfig,
+            parseTokenParams: ParseTokenParams,
             additionKey: String
-        ): JSONObject = parseToken(token, oidcConfig) {
+        ): JSONObject = parseToken(token, parseTokenParams) {
             ParserUtils.extract(it, additionKey)
         }
 
         /**
          * The function is used to parse token to T
          * @param token parameter for token response from IDP
-         * @param oidcConfig parameter for decrypting, verify signature, verify payload
+         * @param parseTokenParams parameter for decrypting, verify signature, verify payload
          * @param extract parameter for extract corresponding value from payload of signedJWT
          * @return T
          */
         private fun <T> parseToken(
             token: TokenResponse,
-            oidcConfig: OIDCConfig,
+            parseTokenParams: ParseTokenParams,
             extract: (signedJWT: SignedJWT) -> T
         ): T {
-            val signedJWT = ParserUtils.decryptJWE(token.idToken, oidcConfig.servicePrivateKey)
-            if (ParserUtils.verifyJWS(signedJWT, oidcConfig.idpPublicKey)) {
-                ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+            val signedJWT = ParserUtils.decryptJWE(token.idToken, parseTokenParams.servicePrivateKey)
+            if (ParserUtils.verifyJWS(signedJWT, parseTokenParams.idpPublicKey)) {
+                ParserUtils.verifyJWTClaims(signedJWT, parseTokenParams)
                 return extract(signedJWT)
             }
             throw JWSSignatureVerifyException()

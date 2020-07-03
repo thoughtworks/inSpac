@@ -7,7 +7,7 @@ import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
-import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParseTokenParams
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import java.time.Instant
 
@@ -53,18 +53,18 @@ class ParserUtils {
         /**
          * The function is used to verify payload of JWS object
          * @param signedJWT parameter for a signed JSON Web Token (JWT) representation of this payload
-         * @param oidcConfig parameter for verifying
+         * @param parseTokenParams parameter for verifying
          * @throws InvalidJWTClaimException if the payload was unsuccessful verified
          */
         // Mockpass not implement refresh token yet, `rt_hash` depends on it, and unknown the hash algorithm
         // Mockpass not implement access token yet, `at_hash` depends on it, and unknown the hash algorithm
-        internal fun verifyJWTClaims(signedJWT: SignedJWT, oidcConfig: OIDCConfig) {
+        internal fun verifyJWTClaims(signedJWT: SignedJWT, parseTokenParams: ParseTokenParams) {
             val jwtClaimsSet = signedJWT.jwtClaimsSet
 
-            verifyNonce(jwtClaimsSet, oidcConfig)
+            verifyNonce(jwtClaimsSet, parseTokenParams)
             verifyIssuedAndExpirationTime(signedJWT)
-            verifyIssuer(jwtClaimsSet, oidcConfig)
-            verifyAudience(jwtClaimsSet, oidcConfig)
+            verifyIssuer(jwtClaimsSet, parseTokenParams)
+            verifyAudience(jwtClaimsSet, parseTokenParams)
             verifySubject(jwtClaimsSet)
         }
 
@@ -99,16 +99,16 @@ class ParserUtils {
             }
         }
 
-        private fun verifyAudience(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
-            if (jwtClaimsSet.audience.none { it == oidcConfig.clientId }) {
-                throw InvalidJWTClaimException("Aud is not equal to OIDC config")
+        private fun verifyAudience(jwtClaimsSet: JWTClaimsSet, parseTokenParams: ParseTokenParams) {
+            if (jwtClaimsSet.audience.none { it == parseTokenParams.clientId }) {
+                throw InvalidJWTClaimException("Aud is not equal to client id")
             }
         }
 
-        private fun verifyIssuer(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
+        private fun verifyIssuer(jwtClaimsSet: JWTClaimsSet, parseTokenParams: ParseTokenParams) {
             val iss = jwtClaimsSet.issuer ?: throw InvalidJWTClaimException("Iss is missing")
-            if (iss != oidcConfig.host) {
-                throw InvalidJWTClaimException("Iss is not equal to OIDC config")
+            if (iss != parseTokenParams.host) {
+                throw InvalidJWTClaimException("Iss is not equal to idp host")
             }
         }
 
@@ -128,10 +128,10 @@ class ParserUtils {
             }
         }
 
-        private fun verifyNonce(jwtClaimsSet: JWTClaimsSet, oidcConfig: OIDCConfig) {
+        private fun verifyNonce(jwtClaimsSet: JWTClaimsSet, parseTokenParams: ParseTokenParams) {
             val nonce = jwtClaimsSet.getStringClaim(NONCE_CLAIM) ?: throw InvalidJWTClaimException("Nonce is missing")
-            if (nonce != oidcConfig.nonce) {
-                throw InvalidJWTClaimException("Nonce is not equal to OIDC config")
+            if (nonce != parseTokenParams.nonce) {
+                throw InvalidJWTClaimException("Nonce is not equal to the nonce in init auth request")
             }
         }
     }

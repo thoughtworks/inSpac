@@ -2,7 +2,7 @@ package com.thoughtworks.sea.oidc.utility
 
 import com.nimbusds.jwt.SignedJWT
 import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
-import com.thoughtworks.sea.oidc.model.OIDCConfig
+import com.thoughtworks.sea.oidc.model.ParseTokenParams
 import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
 import java.time.Instant
 import java.util.UUID
@@ -44,41 +44,41 @@ class ParserUtilsTest {
     @Test
     internal fun `should throw exception when verify jwt claims without nonce`() {
         val signedJWT = MockPassJWT.JWSBuilder().nonce(null).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Nonce is missing")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Nonce is missing")
     }
 
     @Test
-    internal fun `should throw exception when verify nonce of jwt claims not equal to OIDCConfig`() {
+    internal fun `should throw exception when verify nonce of jwt claims not equal to the nonce in init auth request`() {
         val signedJWT = MockPassJWT.JWSBuilder().nonce("different nonce").build()
-        val oidcConfig = generateOIDCConfig(nonce = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8")
+        val parseTokenParams = generateParseTokenParams(nonce = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8")
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Nonce is not equal to OIDC config")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Nonce is not equal to the nonce in init auth request")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims without iat`() {
         val signedJWT = MockPassJWT.JWSBuilder().iat(null).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Iat is missing")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Iat is missing")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims with iat after now`() {
         val signedJWT = MockPassJWT.JWSBuilder().iat(Instant.now().plusSeconds(999)).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Iat should before now")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Iat should before now")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims without exp`() {
         val signedJWT = MockPassJWT.JWSBuilder().exp(null).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Exp is missing")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Exp is missing")
     }
 
     @Test
@@ -88,9 +88,9 @@ class ParserUtilsTest {
             .exp(now.minusSeconds(100))
             .iat(now)
             .build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Exp should after iat")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Exp should after iat")
     }
 
     @Test
@@ -100,49 +100,49 @@ class ParserUtilsTest {
             .exp(now.minusSeconds(50))
             .iat(now.minusSeconds(100))
             .build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Exp is expired")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Exp is expired")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims without iss`() {
         val signedJWT = MockPassJWT.JWSBuilder().iss(null).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Iss is missing")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Iss is missing")
     }
 
     @Test
-    internal fun `should throw exception when verify iss of jwt claims not equal to OIDCConfig`() {
+    internal fun `should throw exception when verify iss of jwt claims not equal to idp host`() {
         val signedJWT = MockPassJWT.JWSBuilder().iss("invalidIss").build()
-        val oidcConfig = generateOIDCConfig(host = "localhost:5156")
+        val parseTokenParams = generateParseTokenParams(host = "localhost:5156")
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Iss is not equal to OIDC config")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Iss is not equal to idp host")
     }
 
     @Test
-    internal fun `should throw exception when verify aud of jwt claims not equal to OIDCConfig`() {
+    internal fun `should throw exception when verify aud of jwt claims not equal to client id`() {
         val signedJWT = MockPassJWT.JWSBuilder().aud("invalidAud").build()
-        val oidcConfig = generateOIDCConfig(clientId = "clientId")
+        val parseTokenParams = generateParseTokenParams(clientId = "clientId")
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Aud is not equal to OIDC config")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Aud is not equal to client id")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims without sub`() {
         val signedJWT = MockPassJWT.JWSBuilder().sub(null).build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Sub is missing")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Sub is missing")
     }
 
     @Test
     internal fun `should throw exception when verify jwt claims with invalid sub`() {
         val signedJWT = MockPassJWT.JWSBuilder().sub("s=1000").build()
-        val oidcConfig = generateOIDCConfig()
+        val parseTokenParams = generateParseTokenParams()
 
-        assertThrowsInvalidJWTClaimException(signedJWT, oidcConfig, "Sud should contain uuid at least")
+        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Sud should contain uuid at least")
     }
 
     @Test
@@ -180,18 +180,18 @@ class ParserUtilsTest {
 
     private fun assertThrowsInvalidJWTClaimException(
         signedJWT: SignedJWT,
-        oidcConfig: OIDCConfig,
+        parseTokenParams: ParseTokenParams,
         exceptedMessage: String
     ) {
         val exception = assertThrows<InvalidJWTClaimException> {
-            ParserUtils.verifyJWTClaims(signedJWT, oidcConfig)
+            ParserUtils.verifyJWTClaims(signedJWT, parseTokenParams)
         }
         assertEquals(exceptedMessage, exception.message)
     }
 
-    private fun generateOIDCConfig(
+    private fun generateParseTokenParams(
         nonce: String = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8",
         host: String = "localhost:5156",
         clientId: String = "clientId"
-    ) = OIDCConfig(nonce, host, clientId, "idpPublicKey", "servicePrivateKey")
+    ) = ParseTokenParams(nonce, host, clientId, "idpPublicKey", "servicePrivateKey")
 }

@@ -1,7 +1,7 @@
 package com.thoughtworks.sea.oidc.model
 
 /** Those are used to decrypt, verify signature, verify payload */
-data class OIDCConfig(
+data class ParseTokenParams(
     /** The parameter of initiate authentication request
      * you should save it when initiate authentication request. */
     val nonce: String,
