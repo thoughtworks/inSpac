@@ -64,6 +64,21 @@ JWE header include:
 - [Key Encryption Algorithm (alg)](https://tools.ietf.org/html/rfc7518#section-4.1) used to encrypt the content encryption key (CEK)
 - [Content Encryption Algorithm (enc)](https://tools.ietf.org/html/rfc7518#section-5.1) used in conjunction with the CEK to encrypt the content.
 
+## Roadmap
+
+1. Document
+    1. Keycloak basic introduction
+    2. Demo
+    3. Keycloak installation
+    4. Keycloak integration
+        Keycloak setup
+        SP setup
+        keycloak SDK setup
+        Check if it works
+    5. Common mistakes
+    6. Supporter list
+2. E2E
+
 
 ## Quote
 
