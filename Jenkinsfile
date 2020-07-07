@@ -26,8 +26,10 @@ pipeline {
      }
 
      stage('Docker build'){
-       echo "==Build sea-oidc docker image=="
-       sh 'docker build -t ${IMAGE_NAME_TAGGED_LATEST} .'
+       steps{
+          echo "==Build sea-oidc docker image=="
+          sh 'docker build -t ${IMAGE_NAME_TAGGED_LATEST} .'
+       }
      }
 
      stage('Deploy to QA') {
