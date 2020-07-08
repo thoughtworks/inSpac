@@ -1,8 +1,14 @@
 # KeyCloak Basic Introduction
 
+- [What is KeyCloak](#what-is-keycloak)
+- [Core Concepts and Terms](#core-concepts-and-terms)
+- [Workflow](#workflow)
+
+
 ## What is KeyCloak
 
 Keycloak is an open source software product to allow single sign-on with Identity Management and Access Management aimed at modern applications and services.
+
 
 ## Core Concepts and Terms
 
@@ -41,6 +47,7 @@ When a user logs in, a session is created to manage the login session. A session
 
 **events**\
 Events are audit streams that admins can view and hook into.
+
 
 ## Workflow
 
