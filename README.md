@@ -2,7 +2,7 @@
 
 ## Documentation
 
-- [KeyCloak Basic Introduction](KeyCloak-Basic-Introduction.md)
+- [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
 
 ## Dependency Requirement
 

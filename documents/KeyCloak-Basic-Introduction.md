@@ -58,5 +58,5 @@ Events are audit streams that admins can view and hook into.
 ![Login Flow](/images/login_flow.png)
 
 **Logout**\
-For logout you need to add `Logout URL` in `OpenID Connect Config`\
+If you want to logout at IDP side, you need to add `Logout URL` in `OpenID Connect Config`\
 ![Logout Config](/images/logout_config.png)
