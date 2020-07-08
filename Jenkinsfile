@@ -25,10 +25,13 @@ pipeline {
        }
      }
 
+//   TODO: 判断dokka是否更新，如果文件未更新，跳过打包部署
      stage('Docker build'){
        steps{
-          echo "==Build sea-oidc docker image=="
-          sh 'docker build -t ${IMAGE_NAME_TAGGED_LATEST} .'
+          echo "==Build sea-oidc-document docker image=="
+          sh "docker build -t ${IMAGE_NAME_TAGGED_LATEST} ."
+
+          sh "docker images --filter=dangling=true | xargs docker rmi || true"
        }
      }
 
