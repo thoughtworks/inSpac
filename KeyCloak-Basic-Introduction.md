@@ -51,9 +51,10 @@ Events are audit streams that admins can view and hook into.
 
 ## Workflow
 
-Overview\
+**Overview**\
 ![Keycloak Overview](/images/keycloak_overview.png)
 
+**Login Flow**\
 ![Login Flow](/images/login_flow.png)
 
 For logout you need to add `Logout URL` in `OpenID Connect Config`\
