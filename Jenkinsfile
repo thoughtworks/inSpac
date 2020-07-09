@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label 'SSO-AGENT' }
 
   environment {
     APPLICATION_NAME = 'SEA-OIDC-Document'
@@ -7,6 +7,8 @@ pipeline {
     QA_USER = 'ubuntu'
     SSH_PORT = '63710'
     NETWORK_NAME = 'host'
+    FILE_NAME = 'sea-oidc-document.tar'
+    PUBLISH_PORT = '8280'
 
     IMAGE_NAME = "${APPLICATION_NAME}".toLowerCase()
     IMAGE_NAME_TAGGED_LATEST = "${IMAGE_NAME}:latest"
@@ -25,7 +27,6 @@ pipeline {
        }
      }
 
-//   TODO: 判断dokka是否更新，如果文件未更新，跳过打包部署
      stage('Docker build'){
        steps{
           echo "==Build sea-oidc-document docker image=="
@@ -51,7 +52,7 @@ pipeline {
             }
 
           sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker load -i ${FILE_NAME}\""
-          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker run -d --name=${APPLICATION_NAME} --restart=always --net=${NETWORK_NAME} -e'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
+          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker run -p ${PUBLISH_PORT}:80 -d --name=${APPLICATION_NAME} --restart=always -e 'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
 
        }
      }
