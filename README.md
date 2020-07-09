@@ -3,6 +3,7 @@
 ## Documentation
 
 - [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
+- [Keycloak Plugin Integration With SP](documents/Keycloak-Plugin-Integration-With-SP.md)
 
 ## Dependency Requirement
 
