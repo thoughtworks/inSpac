@@ -41,9 +41,8 @@ pipeline {
           def files = findFiles(glob: 'target/*-with-dependencies.jar')
           def filePath = files[0].path
           def fileName = files[0].name
-          echo "${filePath},${fileName}"
-          sh "scp -P -r ${SSH_PORT} ${filePath}${fileName} ${QA_USER}@${QA_HOST}:/home/ubuntu"
-          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${fileName} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\"" 
+          sh "scp -r -P ${SSH_PORT} ${filePath} ${QA_USER}@${QA_HOST}:/home/ubuntu"
+          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${fileName} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\""
         }
       }
     }
