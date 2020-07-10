@@ -11,6 +11,7 @@ pipeline {
     NETWORK_NAME = 'host'
     FILE_NAME = 'sea-sc-document.tar'
     PUBLISH_PORT = '8280'
+    SONAR_CREDS = credentials('SONAR')
 
     WORKSPACE = '/var/jenkins/workspace/SSO-OIDC'
     DOKKA_FOLDER = "${workspace}/build/dokka/sea-oidc"
@@ -26,6 +27,14 @@ pipeline {
       steps{
         sh './gradlew clean build'
       }
+    }
+
+    stage('SONAR ANALYSIS') {
+          steps {
+              script {
+                  sh './gradlew sonarqube -x test -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
+              }
+          }
     }
 
     stage('Document') {
