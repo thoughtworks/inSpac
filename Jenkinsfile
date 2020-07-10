@@ -82,9 +82,9 @@ pipeline {
 
                         sh "scp -r -P ${SSH_PORT} ${DOKKA_FOLDER} ${QA_USER}@${QA_HOST}:/home/ubuntu"
 
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -it ${APPLICATION_NAME} rm -rf  ${CONTAINER_WORKSPACE}/sea-oidc\""
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -it ${APPLICATION_NAME} rm -rf  ${NGINX_CONTAINER_WORKSPACE}/sea-oidc\""
 
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${CONTAINER_WORKSPACE}\""
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${NGINX_CONTAINER_WORKSPACE}\""
 
                         sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"rm -rf /home/ubuntu/sea-oidc\""
 
