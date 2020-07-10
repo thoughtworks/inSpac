@@ -34,25 +34,18 @@ pipeline {
        }
      }
 
-     stage("Echo variables"){
-        steps{
-            script{
-                 SEA_SC_DOCUMENT_CONTAINER_ID = sh(script: "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker inspect --type=image ${IMAGE_NAME_TAGGED_LATEST}\"", returnStatus: true)
-                echo "SEA_SC_DOCUMENT_CONTAINER_ID's value: ${SEA_SC_DOCUMENT_CONTAINER_ID}"
-            }
-        }
-     }
-
      stage('Docker build'){
          steps{
              script {
-                SEA_SC_DOCUMENT_CONTAINER_EXIT = sh(script: "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker inspect --type=image ${IMAGE_NAME_TAGGED_LATEST}\"", returnStatus: true)
+                SEA_SC_DOCUMENT_CONTAINER_EXIT = sh(script: "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker inspect --type=container ${APPLICATION_NAME}\"", returnStatus: true)
                 echo "SEA_SC_DOCUMENT_CONTAINER_EXIT value: ${SEA_SC_DOCUMENT_CONTAINER_EXIT}"
 
                 if ( SEA_SC_DOCUMENT_CONTAINER_EXIT == 0 ){
                         sh "scp -r -P ${SSH_PORT} ${DOKKA_FOLDER} ${QA_USER}@${QA_HOST}:/home/ubuntu"
 
                         sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:/usr/share/nginx/html\""
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker stop ${APPLICATION_NAME} || true && docker restart ${APPLICATION_NAME}\""
 
                     }else{
                        sh "docker build -t ${IMAGE_NAME_TAGGED_LATEST} ."
