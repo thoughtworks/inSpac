@@ -3,7 +3,8 @@
 ## Documentation
 
 - [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
-- [Keycloak Plugin Integration With SP](documents/Keycloak-Plugin-Integration-With-SP.md)
+- [Set Up SEA-SC-Integration-Demo](documents/Set-Up-SEA-SC-Integration-Demo.md)
+- [Common Error](documents/Common-Error.md)
 
 ## Dependency Requirement
 

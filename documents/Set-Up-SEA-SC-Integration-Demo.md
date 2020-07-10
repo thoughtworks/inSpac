@@ -1,4 +1,4 @@
-# How to set up demo
+# How to set up SEA-SC-Integration-Demo 
 
 - [Run keycloak](TODO: need to update)
 - [Import json config into keycloak](#import-json-config-into-keycloak)
