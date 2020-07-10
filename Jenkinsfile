@@ -32,7 +32,7 @@ pipeline {
     stage('SONAR ANALYSIS') {
           steps {
               script {
-                  sh './gradlew sonarqube -x test -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
+                  sh './gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
               }
           }
     }
