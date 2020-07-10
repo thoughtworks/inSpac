@@ -61,32 +61,34 @@ pipeline {
 
         stage('Deploy document to QA') {
             steps {
-                if (SEA_SC_DOCUMENT_CONTAINER_EXIT == 1) {
-                    sh "docker save -o ${FILE_NAME} ${IMAGE_NAME_TAGGED_LATEST}"
+                script {
+                    if (SEA_SC_DOCUMENT_CONTAINER_EXIT == 1) {
+                        sh "docker save -o ${FILE_NAME} ${IMAGE_NAME_TAGGED_LATEST}"
 
-                    sh "scp -P ${SSH_PORT} ${FILE_NAME} ${QA_USER}@${QA_HOST}:/home/ubuntu"
+                        sh "scp -P ${SSH_PORT} ${FILE_NAME} ${QA_USER}@${QA_HOST}:/home/ubuntu"
 
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker stop ${APPLICATION_NAME} || true && docker rm ${APPLICATION_NAME} || true && docker rmi ${IMAGE_NAME_TAGGED_LATEST} || true\""
-                    script {
-                        try {
-                            sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker images --filter=dangling=true | xargs docker rmi || true \""
-                        } catch (Exception e) {
-                            echo "not found none tag images"
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker stop ${APPLICATION_NAME} || true && docker rm ${APPLICATION_NAME} || true && docker rmi ${IMAGE_NAME_TAGGED_LATEST} || true\""
+                        script {
+                            try {
+                                sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker images --filter=dangling=true | xargs docker rmi || true \""
+                            } catch (Exception e) {
+                                echo "not found none tag images"
+                            }
                         }
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker load -i ${FILE_NAME}\""
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker run -p ${PUBLISH_PORT}:80 -d --name=${APPLICATION_NAME} --restart=always -e 'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
+                    } else {
+
+                        sh "scp -r -P ${SSH_PORT} ${DOKKA_FOLDER} ${QA_USER}@${QA_HOST}:/home/ubuntu"
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -it ${APPLICATION_NAME} rm -rf  ${CONTAINER_WORKSPACE}/sea-oidc\""
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${CONTAINER_WORKSPACE}\""
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"rm -rf /home/ubuntu/sea-oidc\""
+
                     }
-
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker load -i ${FILE_NAME}\""
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker run -p ${PUBLISH_PORT}:80 -d --name=${APPLICATION_NAME} --restart=always -e 'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
-                } else {
-
-                    sh "scp -r -P ${SSH_PORT} ${DOKKA_FOLDER} ${QA_USER}@${QA_HOST}:/home/ubuntu"
-
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -it ${APPLICATION_NAME} rm -rf  ${CONTAINER_WORKSPACE}/sea-oidc\""
-
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${CONTAINER_WORKSPACE}\""
-
-                    sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"rm -rf /home/ubuntu/sea-oidc\""
-
                 }
             }
         }
