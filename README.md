@@ -3,7 +3,8 @@
 ## Documentation
 
 - [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
-- [Set Up SEA-SC-Integration-Demo](documents/Set-Up-SEA-SC-Integration-Demo.md)
+- [How to Start SEA-SC-Integration-Demo and Related Service in Local](documents/How-To-Start-SEA-SC-Integration-Demo-And-Related-Service-In-Local.md)
+- [Integration Keycloak Plugin With SP](documents/Integration-Keycloak-Plugin-With-SP.md)
 - [Common Error](documents/Common-Error.md)
 
 ## Dependency Requirement
