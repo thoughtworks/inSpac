@@ -22,7 +22,7 @@ pipeline {
     stage('Deploy To Dev') {
       steps {
         timeout(time: 20, unit: 'SECONDS') {
-          input message: 'Approve Deploy?', ok: 'Yes'
+          input message: 'Approve Deploy To Dev?', ok: 'Yes'
         }
         script {
           def files = findFiles(glob: 'target/*-with-dependencies.jar')
@@ -35,7 +35,7 @@ pipeline {
     stage('Deploy To Qa') {
       steps {
         timeout(time: 20, unit: 'SECONDS') {
-          input message: 'Approve Deploy?', ok: 'Yes'
+          input message: 'Approve Deploy To Qa?', ok: 'Yes'
         }
         script {
           def files = findFiles(glob: 'target/*-with-dependencies.jar')
