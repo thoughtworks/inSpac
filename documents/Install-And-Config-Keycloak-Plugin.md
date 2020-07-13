@@ -52,4 +52,4 @@ Open Encrypted Online: [AES Encryption and Decryption Online Tool](https://www.d
 
 ## [Set Up SP and Keycloak SDK](https://github.com/ThoughtWorksInc/SEA-SC-Integration-Demo#how-to-integration-keycloak)
 
-## [Check If It Works](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/blob/keycloak/documents/Keycloak-Plugin-Integration-With-SP.md#run-sea-sc-integration-demo)
+## [Check If It Works](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/blob/keycloak/documents/How-To-Start-SEA-SC-Integration-Demo-Locally.md#run-sea-sc-integration-demo)
