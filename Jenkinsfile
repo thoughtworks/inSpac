@@ -22,7 +22,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Clean build') {
             steps {
                 sh './gradlew clean build'
             }
@@ -36,14 +36,9 @@ pipeline {
             }
         }
 
-        stage('Build document') {
-            steps {
-                sh './gradlew dokka'
-            }
-        }
-
         stage('Docker build document') {
             steps {
+                sh './gradlew dokka'
                 script {
                     SEA_SC_DOCUMENT_CONTAINER_EXIT = sh(script: "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker inspect --type=container ${APPLICATION_NAME}\"", returnStatus: true)
 
