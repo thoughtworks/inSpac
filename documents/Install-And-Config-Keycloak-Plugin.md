@@ -1,22 +1,21 @@
-# Integration Keycloak Plugin With SP
+# Install And Config Keycloak Plugin - Keycloak-idp-singpass
 
 ## Install Keycloak
- there are two ways to install keycloak:
+ there are two ways to install and start keycloak:
  - [By package](https://www.keycloak.org/docs/latest/getting_started/index.html)
  - [By Docker](https://hub.docker.com/r/jboss/keycloak/)
 
 ## Install Keycloak-idp-singpass plugin for Keycloak
 - build keycloak plugin jar package
-    ![](../images/keycloak_plugin_build_jar.png)
+    ![keycloak_plugin_build_jar](../images/keycloak_plugin_build_jar.png)
 - copy `target/keycloak-idp-singpass-1.0.2-jar-with-dependencies.jar` to `$KEYCLOAK_HOME/standalone/deployments/`    
 
 ## Config IDP By Keycloak-idp-singpass
-1. add an IDP in keycloak
-
+1. after starting keycloak then access the admin page to add an IDP
 ![add IDP](../images/keycloak_add_idp.png)
 
-2. configuration   
-Generated SP's PrivateKey and PublicKey in [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo/), *generate config **Key Size** you can choose `2048bit`*
+2. configuration
+Before starting, generate SP's PrivateKey and PublicKey in [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo/), *generate config **Key Size** you can choose `2048bit`*
 
     - Authorization URL: place singpass authentication request url like `https://host/authorize`
     - Token URL: place singpass exchange token url like `https://host/token`
@@ -47,7 +46,7 @@ Open Encrypted Online: [AES Encryption and Decryption Online Tool](https://www.d
     6. Output Text Format: `Base64`
     7. Copy the output, place in `Encrypted Private Key`
 
-![](../images/encryption_the_example.png)
+![encryption_the_example](../images/encryption_the_example.png)
 
 > Or use `AESUtils.encrypt` in `com.thoughtworks.provider.singpass.utils` (client secret does not need to be processed in advance)
 

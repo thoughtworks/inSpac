@@ -1,14 +1,24 @@
-# How to Start SEA-SC-Integration-Demo and Related Service in Local
+# How to Start SEA-SC-Integration-Demo-Locally
 
-- [Run keycloak](TODO: need to update)
+- [Run keycloak](#Run-keycloak)
 - [Import json config into keycloak](#import-json-config-into-keycloak)
 - [Setup Mockpass](#Set-up-Mockpass)
-- [Run SEA-SC-Integration-Demo](#Run-SEA-SC-Integration-Demo)
+- [Run SEA-SC-Integration-Demo](#run-sea-sc-integration-demo)
+
+## Run keycloak
+### Install Keycloak
+there are two ways to install and start keycloak:
+ - [By package](https://www.keycloak.org/docs/latest/getting_started/index.html)
+ - [By Docker](https://hub.docker.com/r/jboss/keycloak/)
+ 
+### Install Keycloak-idp-singpass plugin for Keycloak
+- build keycloak plugin jar package
+    ![keycloak_plugin_build_jar](../images/keycloak_plugin_build_jar.png)
+- copy `target/keycloak-idp-singpass-1.0.2-jar-with-dependencies.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
 
 ## Import json config into keycloak
 1. download json file - [static/keycloak-realm-configuration.json](/static/keycloak-realm-configuration.json)
 1. import realm setting
-
 ![import](../images/import_realm_setting.png)
 
 ## Set up Mockpass

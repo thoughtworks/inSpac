@@ -3,8 +3,8 @@
 ## Documentation
 
 - [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
-- [How to Start SEA-SC-Integration-Demo and Related Service in Local](documents/How-To-Start-SEA-SC-Integration-Demo-And-Related-Service-In-Local.md)
-- [Integration Keycloak Plugin With SP](documents/Integration-Keycloak-Plugin-With-SP.md)
+- [How to Start SEA-SC-Integration-Demo Locally](documents/How-To-Start-SEA-SC-Integration-Demo-Locally.md)
+- [Integration Keycloak Plugin With SP](documents/Install-And-Config-Keycloak-Plugin.md)
 - [Common Error](documents/Common-Error.md)
 
 ## Dependency Requirement
@@ -18,8 +18,9 @@
 - Support `CP`
 
 ## Install
-
-Copy `keycloak-idp-singpass-*.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
+- build keycloak plugin jar package
+    ![keycloak_plugin_build_jar](./images/keycloak_plugin_build_jar.png)
+- copy `target/keycloak-idp-singpass-1.0.2-jar-with-dependencies.jar` to `$KEYCLOAK_HOME/standalone/deployments/`
 
 ## Config Singpass IDP
 
