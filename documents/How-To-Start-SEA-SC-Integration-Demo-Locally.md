@@ -29,7 +29,7 @@ there are two ways to install and start keycloak:
    export SHOW_LOGIN_PAGE=true
    npm start
    ```
-1. If want to know more detail about how to sign and encrypt - refer to mockpass readme and [lib/express/oidc.js](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/tree/mockpass/)
+1. If want to know more detail about how to sign and encrypt - refer to mockpass readme and [lib/express/oidc.js](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/tree/mockpass/lib/express/oidc.js)
 
 ## Run SEA-SC-Integration-Demo
 
