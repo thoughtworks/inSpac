@@ -15,16 +15,17 @@
 ![add IDP](../images/keycloak_add_idp.png)
 
 2. configuration
+
 Before starting, generate SP's PrivateKey and PublicKey in [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo/), *generate config **Key Size** you can choose `2048bit`*
 
-    - Authorization URL: place singpass authentication request url like `https://host/authorize`
-    - Token URL: place singpass exchange token url like `https://host/token`
-    - Client ID: your client id registered to identity provider
-    - Client Secret: A shared secret code mutually agreed between SingPass OP and your RP, provided by singpass.
-    - Validate Signatures: turn on
-    - Use JWKS URL: turn off
-    - Validating Public Key: [Singpass public key OR certificate(SPK)](#how-to-exchanged-singpass-public-key)
-    - Encrypted Private Key: place [encrypted SP's private key](#how-to-encrypt-SP's-private-key)
+- Authorization URL: place singpass authentication request url like `https://host/authorize`
+- Token URL: place singpass exchange token url like `https://host/token`
+- Client ID: your client id registered to identity provider
+- Client Secret: A shared secret code mutually agreed between SingPass OP and your RP, provided by singpass.
+- Validate Signatures: turn on
+- Use JWKS URL: turn off
+- Validating Public Key: [Singpass public key OR certificate(SPK)](#how-to-exchanged-singpass-public-key)
+- Encrypted Private Key: place [encrypted SP's private key](#how-to-encrypt-SP's-private-key)
 
 ### Tips
 
