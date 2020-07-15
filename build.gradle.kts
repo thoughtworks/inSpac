@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    jacoco
     kotlin("jvm") version "1.3.71"
     `java-library`
     id("org.jetbrains.dokka") version "0.10.1"
@@ -42,4 +43,16 @@ tasks.register<Copy>("initGitHooks") {
     into("./.git/hooks")
     // set file mode as 755
     fileMode = 0b000_111_101_101
+}
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = false
+        html.destination = file("${buildDir}/jacocoHtml")
+    }
+    dependsOn(tasks.test) // tests are required to run before generating the report
 }
