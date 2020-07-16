@@ -28,6 +28,25 @@ pipeline {
             }
         }
 
+        stage('DEPENDENCY CHECK') {
+            steps {
+                script {
+                    def dependencyCheck = true
+                    try {
+                        timeout(time: 20, unit: 'SECONDS') {
+                            input 'Dependency Check?'
+                        }
+                    } catch(e) {
+                        dependencyCheck = false
+                    }
+
+                    if (dependencyCheck){
+                        sh './gradlew dependencyCheckAnalyze'
+                    }
+                }
+            }
+        }
+
         stage('SONAR ANALYSIS') {
             steps {
                 script {

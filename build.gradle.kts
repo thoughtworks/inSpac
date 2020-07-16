@@ -6,6 +6,7 @@ plugins {
     `java-library`
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jmailen.kotlinter") version "2.3.2"
+    id("org.owasp.dependencycheck") version "5.3.2.1"
     id("org.sonarqube") version "2.6.2"
 }
 
