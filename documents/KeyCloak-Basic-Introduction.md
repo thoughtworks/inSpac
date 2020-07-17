@@ -3,6 +3,7 @@
 - [What is KeyCloak](#what-is-keycloak)
 - [Core Concepts and Terms](#core-concepts-and-terms)
 - [Workflow](#workflow)
+- [When to choice KeyCloak](#when-to-choice-keycloak)
 
 
 ## What is KeyCloak
@@ -60,3 +61,8 @@ Events are audit streams that admins can view and hook into.
 **Logout**\
 If you want to logout at IDP side, you need to add `Logout URL` in `OpenID Connect Config`\
 ![Logout Config](/images/logout_config.png)
+
+
+## When to choice KeyCloak
+
+Please open [Google Drive](https://docs.google.com/presentation/d/1JNm5N8vuZvIMBCw3dVIunlKrXK7HhawMI5VDVyMf1cY/edit#slide=id.g8c4364af2a_2_0) for viewing.
