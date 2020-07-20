@@ -7,9 +7,27 @@
 - [Integration Keycloak Plugin With SP](documents/Install-And-Config-Keycloak-Plugin.md)
 - [Common Error](documents/Common-Error.md)
 
-## Dependency Requirement
 
-- Keycloak 10.0.1
+## Dependencies & Plugins Requirement
+
+Dependency | scope
+---- | ---
+org.keycloak:keycloak-core:10.0.1 | provided
+org.keycloak:keycloak-server-spi-private:10.0.1 |  provided
+org.keycloak:keycloak-server-spi:10.0.1 | provided
+org.keycloak:keycloak-services:10.0.1 | provided
+com.nimbusds:nimbus-jose-jwt:8.3 | 
+org.bouncycastle:bcpkix-jdk15on:1.65 | 
+org.junit.jupiter:junit-jupiter:RELEASE | test
+org.mockito:mockito-core:2.23.4 | test
+junit:junit:4.12 | test
+
+
+Plugin |
+:---- |
+org.apache.maven.plugins:maven-assembly-plugin:2.5.5 |
+org.apache.maven.plugins:maven-surefire-plugin:2.22.2 |
+
 
 ## Feature
 
