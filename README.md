@@ -53,3 +53,23 @@ To generate the documentation, use the `dokka` Gradle task:
 ```
 ./gradlew dokka
 ```
+
+
+## Dependencies & Plugins Requirement
+
+Dependency |
+---- | ---
+org.springframework:spring-web:5.2.6.RELEASE |
+com.fasterxml.jackson.core:jackson-databind:2.11.0 |
+org.bouncycastle:bcpkix-jdk15on:1.65 |
+com.nimbusds:nimbus-jose-jwt:8.19 |
+org.junit.jupiter:junit-jupiter:5.6.2 | test
+io.mockk:mockk:1.10.0 | test
+
+
+Plugin |
+:---- |
+org.jetbrains.dokka:0.10.1 |
+org.jmailen.kotlinter:2.3.2 |
+org.owasp.dependencycheck:5.3.2.1 | 
+org.sonarqube:2.6.2
