@@ -74,3 +74,14 @@ org.jetbrains.dokka:0.10.1 |
 org.jmailen.kotlinter:2.3.2 |
 org.owasp.dependencycheck:5.3.2.1 | 
 org.sonarqube:2.6.2 |
+
+
+## Usage
+
+To get the package, use the `build` gradle task:
+
+```
+./gradlew build
+```
+
+After the `build` gradle task, generate a package on `./build/libs/sea-oidc.jar`.
