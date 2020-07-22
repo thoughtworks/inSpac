@@ -76,7 +76,7 @@ io.mockk:mockk:1.10.0 |
 
 Plugin |
 :---- |
-jvm:1.3.71 |
+kotlin:jvm:1.3.71 |
 org.jetbrains.dokka:0.10.1 |
 org.jmailen.kotlinter:2.3.2 |
 org.owasp.dependencycheck:5.3.2.1 | 
