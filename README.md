@@ -3,7 +3,10 @@
 A OIDC 1.0 integration SDK for SEA MU
 
 ## Documentation
+
 - [How to config MockPass for OIDC](documents/How-To-Config-MockPass-For-OIDC.md)
+- [Integration Demo of OIDC](documents/Integration-Demo-Of-OIDC.md)
+- [More OIDC details](https://docs.google.com/presentation/d/1JNm5N8vuZvIMBCw3dVIunlKrXK7HhawMI5VDVyMf1cY/edit#slide=id.p1)
 
 
 ## Setup Project
