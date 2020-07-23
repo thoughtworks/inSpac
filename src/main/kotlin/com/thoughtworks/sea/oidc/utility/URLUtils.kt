@@ -1,6 +1,5 @@
 package com.thoughtworks.sea.oidc.utility
 
-import com.thoughtworks.sea.oidc.model.dto.CPLogoutParams
 import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
 
 /** A utility class for handling and processing URL. */
@@ -21,14 +20,5 @@ class URLUtils {
                     "nonce=${initAuthRequest.nonce}&" +
                     "state=${initAuthRequest.state}&" +
                     "redirect_uri=${initAuthRequest.redirectURI}"
-
-        /**
-         * Generate a CP logout URL
-         * @param cpLogoutParams parameter for building CP logout URL
-         * @return CP logout URL
-         */
-        @JvmStatic
-        fun generateCPLogoutURL(cpLogoutParams: CPLogoutParams): String =
-            "${cpLogoutParams.host}/cplogout?return_uri=${cpLogoutParams.returnURI}"
     }
 }
