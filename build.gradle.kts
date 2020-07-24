@@ -10,6 +10,10 @@ plugins {
     id("org.sonarqube") version "2.6.2"
 }
 
+apply{
+    from("gradle/jacoco.gradle")
+}
+
 repositories {
     jcenter()
 }

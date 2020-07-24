@@ -1,0 +1,42 @@
+apply plugin: 'jacoco'
+
+def coverageExclusions = [
+        'com/thoughtworks/sea/oidc/model/**',
+        'com/thoughtworks/sea/oidc/exception/**',
+]
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.85
+                value = 'COVEREDRATIO'
+            }
+        }
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = 0.85
+                value = 'COVEREDRATIO'
+            }
+        }
+    }
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect({
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+}
+
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect({
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
+test.finalizedBy jacocoTestReport
