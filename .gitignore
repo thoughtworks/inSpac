@@ -5,3 +5,4 @@ out
 .idea/*
 !.idea/codeStyles/
 target/
+node_modules
