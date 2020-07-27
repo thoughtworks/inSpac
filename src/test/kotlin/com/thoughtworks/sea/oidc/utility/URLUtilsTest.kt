@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 internal class URLUtilsTest {
 
     @Test
-    internal fun `should generate SingPass Login URL when calling generateLoginAddress method`() {
+    fun `should generate SingPass Login URL when calling generateLoginAddress method`() {
 
         val initAuthRequest = InitAuthRequest(
             "http://localhost",

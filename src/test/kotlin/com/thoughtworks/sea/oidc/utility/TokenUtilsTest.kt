@@ -23,7 +23,7 @@ import org.springframework.util.LinkedMultiValueMap
 @ExtendWith(MockKExtension::class)
 internal class TokenUtilsTest {
     @Test
-    internal fun `should return correct artifact from tokenUtils`() {
+    fun `should return correct artifact from tokenUtils`() {
         // given
         val tokenRequestParams = TokenRequestParams(
             host = "https://test.com",
@@ -58,7 +58,7 @@ internal class TokenUtilsTest {
     }
 
     @Test
-    internal fun `should return parsed subject info when parse with correct Token`() {
+    fun `should return parsed subject info when parse with correct Token`() {
         // given
         val idToken = "idToken"
         val mockTokenResponse = TokenResponse(
@@ -92,7 +92,7 @@ internal class TokenUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when parse invalid token`() {
+    fun `should throw exception when parse invalid token`() {
         // given
         val idToken = "invalidToken"
         val mockTokenResponse = TokenResponse(
@@ -123,7 +123,7 @@ internal class TokenUtilsTest {
     }
 
     @Test
-    internal fun `should return addition JsonObject when parse with addition key`() {
+    fun `should return addition JsonObject when parse with addition key`() {
         // given
         val idToken = "idToken"
         val mockTokenResponse = TokenResponse(
@@ -159,7 +159,7 @@ internal class TokenUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when parse invalid token with addition key`() {
+    fun `should throw exception when parse invalid token with addition key`() {
         // given
         val idToken = "invalidToken"
         val mockTokenResponse = TokenResponse(

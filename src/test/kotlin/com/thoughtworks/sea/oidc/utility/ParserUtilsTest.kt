@@ -14,7 +14,7 @@ import org.junit.jupiter.api.assertThrows
 
 class ParserUtilsTest {
     @Test
-    internal fun `should return jws when decrypt jwe success`() {
+    fun `should return jws when decrypt jwe success`() {
         val signedJWT = MockPassJWT.JWSBuilder().build()
         val expectedJWS = signedJWT.serialize()
         val idToken = MockPassJWT.encryptMockPassJWS(signedJWT)
@@ -26,7 +26,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return true when verify valid jws with public key`() {
+    fun `should return true when verify valid jws with public key`() {
         val signedJWT = MockPassJWT.JWSBuilder().build()
         val publicKey = this::class.java.getResource("/certs/idpPublicKey.pub").readText()
 
@@ -34,7 +34,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return true when verify valid jws with cert`() {
+    fun `should return true when verify valid jws with cert`() {
         val signedJWT = MockPassJWT.JWSBuilder().build()
         val publicKeyCert = this::class.java.getResource("/certs/idp.crt").readText()
 
@@ -42,7 +42,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims without nonce`() {
+    fun `should throw exception when verify jwt claims without nonce`() {
         val signedJWT = MockPassJWT.JWSBuilder().nonce(null).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -50,7 +50,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify nonce of jwt claims not equal to the nonce in init auth request`() {
+    fun `should throw exception when verify nonce of jwt claims not equal to the nonce in init auth request`() {
         val signedJWT = MockPassJWT.JWSBuilder().nonce("different nonce").build()
         val parseTokenParams = generateParseTokenParams(nonce = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8")
 
@@ -62,7 +62,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims without iat`() {
+    fun `should throw exception when verify jwt claims without iat`() {
         val signedJWT = MockPassJWT.JWSBuilder().iat(null).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -70,7 +70,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims with iat after now`() {
+    fun `should throw exception when verify jwt claims with iat after now`() {
         val signedJWT = MockPassJWT.JWSBuilder().iat(Instant.now().plusSeconds(999)).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -78,7 +78,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims without exp`() {
+    fun `should throw exception when verify jwt claims without exp`() {
         val signedJWT = MockPassJWT.JWSBuilder().exp(null).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -86,7 +86,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims with exp before now`() {
+    fun `should throw exception when verify jwt claims with exp before now`() {
         val now = Instant.now()
         val signedJWT = MockPassJWT.JWSBuilder()
             .exp(now.minusSeconds(50))
@@ -98,7 +98,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims without iss`() {
+    fun `should throw exception when verify jwt claims without iss`() {
         val signedJWT = MockPassJWT.JWSBuilder().iss(null).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -106,7 +106,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify iss of jwt claims not equal to idp host`() {
+    fun `should throw exception when verify iss of jwt claims not equal to idp host`() {
         val signedJWT = MockPassJWT.JWSBuilder().iss("invalidIss").build()
         val parseTokenParams = generateParseTokenParams(host = "localhost:5156")
 
@@ -114,7 +114,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify aud of jwt claims not equal to client id`() {
+    fun `should throw exception when verify aud of jwt claims not equal to client id`() {
         val signedJWT = MockPassJWT.JWSBuilder().aud("invalidAud").build()
         val parseTokenParams = generateParseTokenParams(clientId = "clientId")
 
@@ -122,7 +122,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims without sub`() {
+    fun `should throw exception when verify jwt claims without sub`() {
         val signedJWT = MockPassJWT.JWSBuilder().sub(null).build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -130,7 +130,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should throw exception when verify jwt claims with invalid sub`() {
+    fun `should throw exception when verify jwt claims with invalid sub`() {
         val signedJWT = MockPassJWT.JWSBuilder().sub("s=1000").build()
         val parseTokenParams = generateParseTokenParams()
 
@@ -138,7 +138,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return parsed subject info when extract sub in jwt`() {
+    fun `should return parsed subject info when extract sub in jwt`() {
         val expectedSubject = ParsedSubjectInfo("S7515010E", UUID.randomUUID().toString())
         val signedJWT =
             MockPassJWT.JWSBuilder().sub("s=${expectedSubject.nricNumber},u=${expectedSubject.uuid}").build()
@@ -149,7 +149,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return parsed subject info with null nric when extract sub without nric in jwt`() {
+    fun `should return parsed subject info with null nric when extract sub without nric in jwt`() {
         val expectedSubject = ParsedSubjectInfo(null, UUID.randomUUID().toString())
         val signedJWT =
             MockPassJWT.JWSBuilder().sub("u=${expectedSubject.uuid}").build()
@@ -160,7 +160,7 @@ class ParserUtilsTest {
     }
 
     @Test
-    internal fun `should return a json object when extract with a key`() {
+    fun `should return a json object when extract with a key`() {
         val expectedJsonObject = JSONObject(mapOf("name" to "json", "gender" to "female"))
         val signedJWT = MockPassJWT.JWSBuilder().addition(expectedJsonObject).build()
         val key = "addition"
