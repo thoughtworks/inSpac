@@ -113,20 +113,20 @@ class ParserUtils {
         }
 
         private fun verifyIssuedAndExpirationTime(signedJWT: SignedJWT) {
-            val jsonObject = signedJWT.payload.toJSONObject()
-            val iat = jsonObject.getAsNumber(ISSUED_AT_CLAIM) ?: throw InvalidJWTClaimException("Iat is missing")
+            val iat = getNumberClaimFromJWT(signedJWT, ISSUED_AT_CLAIM)
+            val exp = getNumberClaimFromJWT(signedJWT, EXPIRATION_TIME_CLAIM)
             val now = Instant.now()
-            if (now.epochSecond < iat.toLong()) {
+            if (iat.toLong() > now.epochSecond) {
                 throw InvalidJWTClaimException("Iat should before now")
-            }
-            val exp = jsonObject.getAsNumber(EXPIRATION_TIME_CLAIM) ?: throw InvalidJWTClaimException("Exp is missing")
-            if (exp.toLong() < iat.toLong()) {
-                throw InvalidJWTClaimException("Exp should after iat")
             }
             if (exp.toLong() < now.epochSecond) {
                 throw InvalidJWTClaimException("Exp is expired")
             }
         }
+
+        private fun getNumberClaimFromJWT(signedJWT: SignedJWT, claim: String): Number =
+            signedJWT.payload.toJSONObject().getAsNumber(claim)
+                ?: throw InvalidJWTClaimException("${claim.capitalize()} is missing")
 
         private fun verifyNonce(jwtClaimsSet: JWTClaimsSet, parseTokenParams: ParseTokenParams) {
             val nonce = jwtClaimsSet.getStringClaim(NONCE_CLAIM) ?: throw InvalidJWTClaimException("Nonce is missing")

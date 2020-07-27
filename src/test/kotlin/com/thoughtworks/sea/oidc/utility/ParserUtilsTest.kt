@@ -54,7 +54,11 @@ class ParserUtilsTest {
         val signedJWT = MockPassJWT.JWSBuilder().nonce("different nonce").build()
         val parseTokenParams = generateParseTokenParams(nonce = "a9424553-a6b2-4c1e-9d18-0d7d9b11f4f8")
 
-        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Nonce is not equal to the nonce in init auth request")
+        assertThrowsInvalidJWTClaimException(
+            signedJWT,
+            parseTokenParams,
+            "Nonce is not equal to the nonce in init auth request"
+        )
     }
 
     @Test
@@ -79,18 +83,6 @@ class ParserUtilsTest {
         val parseTokenParams = generateParseTokenParams()
 
         assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Exp is missing")
-    }
-
-    @Test
-    internal fun `should throw exception when verify jwt claims with exp before iat`() {
-        val now = Instant.now()
-        val signedJWT = MockPassJWT.JWSBuilder()
-            .exp(now.minusSeconds(100))
-            .iat(now)
-            .build()
-        val parseTokenParams = generateParseTokenParams()
-
-        assertThrowsInvalidJWTClaimException(signedJWT, parseTokenParams, "Exp should after iat")
     }
 
     @Test
