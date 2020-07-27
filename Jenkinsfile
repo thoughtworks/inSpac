@@ -28,33 +28,6 @@ pipeline {
             }
         }
 
-        stage('DEPENDENCY CHECK') {
-            steps {
-                script {
-                    def dependencyCheck = true
-                    try {
-                        timeout(time: 20, unit: 'SECONDS') {
-                            input 'Dependency Check?'
-                        }
-                    } catch(e) {
-                        dependencyCheck = false
-                    }
-
-                    if (dependencyCheck){
-                        sh './gradlew dependencyCheckAnalyze'
-                    }
-                }
-            }
-        }
-
-        stage('SONAR ANALYSIS') {
-            steps {
-                script {
-                    sh './gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
-                }
-            }
-        }
-
         stage('Docker build document') {
             steps {
                 sh './gradlew dokka'
@@ -103,6 +76,33 @@ pipeline {
                         sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"rm -rf /home/ubuntu/sea-oidc\""
 
                     }
+                }
+            }
+        }
+
+        stage('DEPENDENCY CHECK') {
+            steps {
+                script {
+                    def dependencyCheck = true
+                    try {
+                        timeout(time: 20, unit: 'SECONDS') {
+                            input 'Dependency Check?'
+                        }
+                    } catch(e) {
+                        dependencyCheck = false
+                    }
+
+                    if (dependencyCheck){
+                        sh './gradlew dependencyCheckAnalyze'
+                    }
+                }
+            }
+        }
+
+        stage('SONAR ANALYSIS') {
+            steps {
+                script {
+                    sh './gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
                 }
             }
         }
