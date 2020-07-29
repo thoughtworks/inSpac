@@ -80,25 +80,6 @@ pipeline {
             }
         }
 
-        stage('DEPENDENCY CHECK') {
-            steps {
-                script {
-                    def dependencyCheck = true
-                    try {
-                        timeout(time: 20, unit: 'SECONDS') {
-                            input 'Dependency Check?'
-                        }
-                    } catch(e) {
-                        dependencyCheck = false
-                    }
-
-                    if (dependencyCheck){
-                        sh ''
-                    }
-                }
-            }
-        }
-
         stage('SONAR ANALYSIS') {
             sh './gradlew dependencyCheckAnalyze && ./gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
         }
