@@ -81,7 +81,9 @@ pipeline {
         }
 
         stage('SONAR ANALYSIS') {
-            sh './gradlew dependencyCheckAnalyze && ./gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
+            steps {
+                sh './gradlew dependencyCheckAnalyze && ./gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
+            }
         }
     }
 
