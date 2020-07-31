@@ -11,6 +11,13 @@ pipeline {
         NGINX_PUBLISH_PORT = '8280'
         SONAR_CREDS = credentials('SONAR')
 
+        COMMIT = """${
+            sh(
+                    returnStdout: true,
+                    script: 'git rev-parse --verify HEAD'
+            )
+        }""".trim()
+
         WORKSPACE = '/var/jenkins/workspace/SSO-OIDC'
         DOKKA_FOLDER = "${workspace}/build/dokka/sea-oidc"
         NGINX_CONTAINER_WORKSPACE = "/usr/share/nginx/html"
@@ -83,6 +90,17 @@ pipeline {
         stage('SONAR ANALYSIS') {
             steps {
                 sh './gradlew dependencyCheckAnalyze && ./gradlew sonarqube -Dsonar.host.url=http://${QA_HOST}:9000 -Dsonar.login=${SONAR_CREDS}'
+            }
+        }
+
+        stage('Update jar for Demo') {
+            steps {
+                sshagent(credentials: ['Jenkins-SSO-DEMO']) {
+                    sh "cp /var/jenkins/workspace/SSO-OIDC/build/libs/sea-oidc.jar /var/jenkins/workspace/SSO-DEMO/lib/"
+                    sh "cd /var/jenkins/workspace/SSO-DEMO && git add ./lib/sea-oidc.jar"
+                    sh "cd /var/jenkins/workspace/SSO-DEMO && git commit -m ${COMMIT}"
+                    sh "cd /var/jenkins/workspace/SSO-DEMO && git push git@github.com:ThoughtWorksInc/SEA-SC-Integration-Demo.git HEAD:master"
+                }
             }
         }
     }
