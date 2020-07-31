@@ -7,7 +7,8 @@ pipeline {
     QA_USER = 'ubuntu'
     SSH_PORT = '63710'
     NETWORK_NAME = 'host'
-    FILE = getFileInfo()
+    FILE_NAME = getFileName()
+    FILE_PATH = getFilePath()
   }
   agent { label 'SSO-AGENT' }
     tools {
@@ -23,7 +24,7 @@ pipeline {
     stage('DEPLOY TO DEV') {
       steps {
         script {
-          sh 'docker cp ${FILE.path}${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}/${FILE.name}'
+          sh 'docker cp ${FILE_PATH} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}/${FILE_NAME}'
         }
       }
     }
@@ -33,8 +34,8 @@ pipeline {
           input message: 'Approve Deploy To Qa?', ok: 'Yes'
         }
         script {
-          sh "scp -r -P ${SSH_PORT} ${FILE.path} ${QA_USER}@${QA_HOST}:/home/ubuntu"
-          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${FILE.name} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\""
+          sh "scp -r -P ${SSH_PORT} ${FILE_PATH} ${QA_USER}@${QA_HOST}:/home/ubuntu"
+          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${FILE_NAME} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\""
         }
       }
     }
@@ -48,6 +49,14 @@ pipeline {
 
 }
 
-def getFileInfo(){
+def getFile(){
     return findFiles(glob: 'target/*-with-dependencies.jar')[0]
+}
+
+def getFileName() {
+    return getFile().name
+}
+
+def getFilePath() {
+    return getFile().path
 }
