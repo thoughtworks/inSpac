@@ -7,42 +7,34 @@ pipeline {
     QA_USER = 'ubuntu'
     SSH_PORT = '63710'
     NETWORK_NAME = 'host'
+    FILE = getFileInfo()
   }
   agent { label 'SSO-AGENT' }
     tools {
       maven 'maven-3.6.3'
   }
   stages {
-    stage('Test & Build') {
+    stage('TEST & BUILD') {
       steps {
         sh 'mvn clean package'
       }
     }
 
-    stage('Deploy To Dev') {
+    stage('DEPLOY TO DEV') {
       steps {
-        timeout(time: 20, unit: 'SECONDS') {
-          input message: 'Approve Deploy To Dev?', ok: 'Yes'
-        }
         script {
-          def files = findFiles(glob: 'target/*-with-dependencies.jar')
-          def filePath = files[0].path
-          def fileName = files[0].name
-          sh 'docker cp '+ filePath +' ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}/' + fileName
+          sh 'docker cp ${FILE.path}${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}/${FILE.name}'
         }
       }
     }
-    stage('Deploy To Qa') {
+    stage('DEPLOY TO QA') {
       steps {
         timeout(time: 20, unit: 'SECONDS') {
           input message: 'Approve Deploy To Qa?', ok: 'Yes'
         }
         script {
-          def files = findFiles(glob: 'target/*-with-dependencies.jar')
-          def filePath = files[0].path
-          def fileName = files[0].name
-          sh "scp -r -P ${SSH_PORT} ${filePath} ${QA_USER}@${QA_HOST}:/home/ubuntu"
-          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${fileName} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\""
+          sh "scp -r -P ${SSH_PORT} ${FILE.path} ${QA_USER}@${QA_HOST}:/home/ubuntu"
+          sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/${FILE.name} ${KEYCLOAK_CONTAINER_NAME}:${KEYCLOAK_PLUGIN_PATH}\""
         }
       }
     }
@@ -54,6 +46,8 @@ pipeline {
     }
   }
 
-
 }
 
+def getFileInfo(){
+    return findFiles(glob: 'target/*-with-dependencies.jar')[0]
+}
