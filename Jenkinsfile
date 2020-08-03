@@ -84,7 +84,7 @@ pipeline {
                 sshagent(credentials: ['Jenkins-SSO-DEMO']) {
                     sh "cp /var/jenkins/workspace/SSO-OIDC/build/libs/sea-oidc.jar /var/jenkins/workspace/SSO-DEMO/lib/"
                     sh "cd /var/jenkins/workspace/SSO-DEMO && git add ./lib/sea-oidc.jar"
-                    sh 'cd /var/jenkins/workspace/SSO-DEMO && git commit -m "[#135][Wei]: update the jar"'
+                    sh 'cd /var/jenkins/workspace/SSO-DEMO && git commit -m "[#135][OIDC]: update the jar"'
                     sh "cd /var/jenkins/workspace/SSO-DEMO && git push git@github.com:ThoughtWorksInc/SEA-SC-Integration-Demo.git HEAD:master"
                 }
             }
