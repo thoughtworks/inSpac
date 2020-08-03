@@ -29,31 +29,29 @@ pipeline {
     }
 
     stages {
-        stage('Clean build') {
+        stage('CLEAN BUILD') {
             steps {
                 sh './gradlew clean build'
             }
         }
 
-        stage('Docker build document') {
+        stage('DOCKER BUILD DOCUMENT') {
             steps {
                 sh './gradlew dokka'
                 script {
                     SEA_SC_DOCUMENT_CONTAINER_EXIT = sh(script: "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker inspect --type=container ${APPLICATION_NAME}\"", returnStatus: true)
 
-                    echo "SEA_SC_DOCUMENT_CONTAINER_EXIT value: ${SEA_SC_DOCUMENT_CONTAINER_EXIT}"
-
                     if (SEA_SC_DOCUMENT_CONTAINER_EXIT == 1) {
                         sh "docker build -t ${IMAGE_NAME_TAGGED_LATEST} ."
 
-                        sh "docker images --filter=dangling=true | xargs docker rmi || true"
+                        sh "docker images --filter=dangling=true | awk '{print \$3}'| xargs docker rmi || true"
                     }
                 }
             }
 
         }
 
-        stage('Deploy document to QA') {
+        stage('DEPLOY DOCUMENT TO QA') {
             steps {
                 script {
                     if (SEA_SC_DOCUMENT_CONTAINER_EXIT == 1) {
@@ -62,26 +60,14 @@ pipeline {
                         sh "scp -P ${SSH_PORT} ${FILE_NAME} ${QA_USER}@${QA_HOST}:/home/ubuntu"
 
                         sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker stop ${APPLICATION_NAME} || true && docker rm ${APPLICATION_NAME} || true && docker rmi ${IMAGE_NAME_TAGGED_LATEST} || true\""
-                        script {
-                            try {
-                                sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker images --filter=dangling=true | xargs docker rmi || true \""
-                            } catch (Exception e) {
-                                echo "not found none tag images"
-                            }
-                        }
 
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker load -i ${FILE_NAME}\""
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker run -p ${PUBLISH_PORT}:80 -d --name=${APPLICATION_NAME} --restart=always -e 'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker images --filter=dangling=true| awk '{print \$3}' | xargs docker rmi || true \""
+
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker load -i ${FILE_NAME} && docker run -p ${NGINX_PUBLISH_PORT}:80 -d --name=${APPLICATION_NAME} --restart=always -e 'APP_ENV=qa' ${IMAGE_NAME_TAGGED_LATEST}\""
                     } else {
-
                         sh "scp -r -P ${SSH_PORT} ${DOKKA_FOLDER} ${QA_USER}@${QA_HOST}:/home/ubuntu"
 
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -i ${APPLICATION_NAME} rm -rf  ${NGINX_CONTAINER_WORKSPACE}/sea-oidc\""
-
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${NGINX_CONTAINER_WORKSPACE}\""
-
-                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"rm -rf /home/ubuntu/sea-oidc\""
-
+                        sh "ssh ${QA_USER}@${QA_HOST} -p ${SSH_PORT} \"docker exec -i ${APPLICATION_NAME} rm -rf  ${NGINX_CONTAINER_WORKSPACE}/sea-oidc && docker cp /home/ubuntu/sea-oidc ${APPLICATION_NAME}:${NGINX_CONTAINER_WORKSPACE} && rm -rf /home/ubuntu/sea-oidc\""
                     }
                 }
             }
@@ -93,7 +79,7 @@ pipeline {
             }
         }
 
-        stage('Update jar for Demo') {
+        stage('UPDATE JAR FOR DEMO') {
             steps {
                 sshagent(credentials: ['Jenkins-SSO-DEMO']) {
                     sh "cp /var/jenkins/workspace/SSO-OIDC/build/libs/sea-oidc.jar /var/jenkins/workspace/SSO-DEMO/lib/"
