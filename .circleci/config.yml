@@ -1,60 +1,61 @@
 version: 2.1
-executors:
-  my-executor:
-    docker:
-      - image: cimg/openjdk:8.0.252
+
 orbs:
-  gradle: circleci/gradle@2.1.0
+  gradle: circleci/gradle@2.2.0
+
 jobs:
-  buid_test:
-    description: |
-      Checkout, build and test a Gradle project.
-    executor: my-executor
+  test_build_generate_doc:
+
+    docker:
+      - image: cimg/openjdk:8.0.275
+        environment:
+          TZ: "Asia/Shanghai"
+          resource_class: medium
+
     steps:
       - checkout
-      - run:
-          command: >-
-            find . -name 'build.gradle.kts' | sort | xargs cat | shasum | awk '{print
-            $1}' > /tmp/gradle_cache_seed
-          name: Generate Cache Checksum
+
       - restore_cache:
-          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
+          keys:
+            - v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - restore_cache:
+          keys:
+            - v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
       - run:
-          command: ./gradlew clean build
-          name: Build and test
+          name: Run tests and build artifacts
+          command: ./gradlew build
+
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
       - store_artifacts:
           path: build/libs
-      - save_cache:
-          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
-          paths:
-            - ~/.gradle
+          destination: jar
+
       - gradle/collect_test_results
-  document:
-    description: /
-      automatically create api document by dokka
-    executor: my-executor
-    steps:
-      - checkout
+
       - run:
-          command: >-
-            find . -name 'build.gradle.kts' | sort | xargs cat | shasum | awk '{print
-            $1}' > /tmp/gradle_cache_seed
-          name: Generate Cache Checksum
-      - restore_cache:
-          key: 'gradle-cache-{{ .Branch }}-{{ checksum "/tmp/gradle_cache_seed" }}'
-      - run:
+          name: Genterate API documents with Dokka
           command: ./gradlew dokka
-          name: Run dokka
+
       - store_artifacts:
           path: build/dokka
-          prefix: dokka
+          destination: dokka
+
 workflows:
-  checkout-build-test-document:
+  version: 2
+  test_build_and_generate_doc:
     jobs:
-      - buid_test:
+      - test_build_generate_doc:
           filters:
             branches:
               only: master
-      - document:
-          requires:
-            - buid_test
