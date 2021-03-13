@@ -44,6 +44,14 @@ jobs:
       - gradle/collect_test_results
 
       - run:
+          name: Scan vulnerabilities with Sonarqube
+          command: |
+            ./gradlew sonarqube \
+              -Dsonar.projectKey=${SONARQUBE_HOST_URL} \
+              -Dsonar.host.url=${SONARQUBE_HOST_URL} \
+              -Dsonar.login=${SONARQUBE_PROJECT_KEY}
+
+      - run:
           name: Genterate API documents with Dokka
           command: ./gradlew dokka
 
