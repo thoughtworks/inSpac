@@ -1,7 +1,8 @@
-# SEA-SC-OIDC
-[![CircleCI](https://circleci.com/gh/twlabs/SEA-SC-OpenID.svg?style=svg&circle-token=7fd4a46a778a40b9450e8d17a2c6e6f714c3d551)](https://circleci.com/gh/twlabs/SEA-SC-OpenID)
+# GAC-OIDC [![CircleCI](https://circleci.com/gh/twlabs/SEA-SC-OpenID.svg?style=svg&circle-token=7fd4a46a778a40b9450e8d17a2c6e6f714c3d551)](https://circleci.com/gh/twlabs/SEA-SC-OpenID)
 
-A OIDC 1.0 integration SDK for SEA MU
+Government Authentication SDK for `OpenID Connect 1.0` integration.
+
+Developed by _ThoughtWorks Inc_.
 
 ## Documentation
 
