@@ -1,0 +1,45 @@
+apply plugin: 'jacoco'
+
+def coverageExclusions = [
+        'com/thoughtworks/sea/ssointegrationdemo/common/config/**',
+        'com/thoughtworks/sea/ssointegrationdemo/model/property/**',
+        'com/thoughtworks/sea/ssointegrationdemo/advice/**',
+        'com/thoughtworks/sea/ssointegrationdemo/controller/**',
+        'com/thoughtworks/sea/ssointegrationdemo/SSOIntegrationDemoApplication.kt',
+]
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.0
+                value = 'COVEREDRATIO'
+            }
+        }
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = 0.3
+                value = 'COVEREDRATIO'
+            }
+        }
+    }
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect({
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+}
+
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect({
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
+test.finalizedBy jacocoTestReport

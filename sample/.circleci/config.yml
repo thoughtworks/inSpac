@@ -1,0 +1,64 @@
+version: 2.1
+
+jobs:
+  test_build_deploy:
+    docker:
+      - image: cimg/openjdk:8.0
+        environment:
+          TZ: "Asia/Shanghai"
+
+    resource_class: small
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - restore_cache:
+          keys:
+            - v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
+      - run:
+          name: Run tests and build artifact
+          command: ./gradlew build
+
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: false
+
+      - run:
+          name: Build Docker image
+          command: docker build --build-arg HOSTNAME=${GAC_HOSTNAME} -f ./Dockerfile -t thoughtworks/gac-demo:latest .
+
+      - add_ssh_keys:
+          fingerprints:
+            - "69:67:b4:33:63:4a:f2:bb:4d:d9:30:26:1a:80:6d:91"
+
+      - run:
+          name: Add EC2 hostname to trusted hosts
+          command: ssh-keyscan -p ${SSH_PORT} -H ${SSH_HOSTNAME} >> ~/.ssh/known_hosts
+
+      - run:
+          name: Transfer and Deploy Docker image
+          command: |
+            ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p ${SSH_PORT} "docker stop gac-demo; docker system prune -a -f"
+
+            docker save thoughtworks/gac-demo:latest | gzip | ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p ${SSH_PORT} "gunzip | docker load && \
+            docker-compose -f /home/ubuntu/gac/docker-compose.yaml up -d"
+
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+      - test_build_deploy
