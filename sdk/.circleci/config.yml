@@ -1,0 +1,69 @@
+version: 2.1
+
+orbs:
+  gradle: circleci/gradle@2.2.0
+
+jobs:
+  test_build_generate_doc:
+
+    docker:
+      - image: cimg/openjdk:8.0.275
+        environment:
+          TZ: "Asia/Shanghai"
+          resource_class: medium
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - restore_cache:
+          keys:
+            - v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
+      - run:
+          name: Run tests and build artifacts
+          command: ./gradlew build
+
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ .Branch }}-{{ checksum "build.gradle.kts" }}
+
+      - store_artifacts:
+          path: build/libs
+          destination: jar
+
+      - gradle/collect_test_results
+
+      - run:
+          name: Scan vulnerabilities with Sonarqube
+          command: |
+            ./gradlew sonarqube \
+              -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+              -Dsonar.host.url=${SONARQUBE_HOST_URL} \
+              -Dsonar.login=${SONARQUBE_LOGIN_TOKEN}
+
+      - run:
+          name: Genterate API documents with Dokka
+          command: ./gradlew dokka
+
+      - store_artifacts:
+          path: build/dokka
+          destination: dokka
+
+workflows:
+  version: 2
+  test_build_and_generate_doc:
+    jobs:
+      - test_build_generate_doc:
+          filters:
+            branches:
+              only: master

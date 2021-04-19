@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -x
+# From gist at https://gist.github.com/chadmaughan/5889802
+
+# format the codes with the gradle wrapper
+echo "Formatting *.kt, *.kts files..."
+./gradlew formatKotlin
+
+# return the './gradlew formatKotlin' exit code
+exit $?
