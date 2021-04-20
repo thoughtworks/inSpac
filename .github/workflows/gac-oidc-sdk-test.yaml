@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-sonarcloud:
+  test-sonarqube:
     name: 'Run tests and scan vulnerabilities by SonarQube'
     runs-on: ubuntu-latest
 
@@ -48,35 +48,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run tests
-        run: ./gradlew test
-        working-directory: sdk
-
-      - name: Cache SonarCloud packages
+      - name: Cache SonarQube packages
         uses: actions/cache@v2
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Scan vulnerabilities by SonarQube
+      - name: Scan vulnerabilities
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew sonarqube \
+          ./gradlew build sonarqube --info \
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.links.homepage=https://github.com/Hackl0us/GAC-OpenID-Connect-temp \
-            -Dsonar.java.binaries=build/classes/kotlin \
-            -Dsonar.tests=src/test/kotlin \
-            -Dsonar.sources=src/main/kotlin \
-            -Dsonar.exclusions=**/resources \
-            -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml \
-            -Dsonar.junit.reportPaths=sdk/build/test-results/test
+            -Dsonar.projectVersion=$GITHUB_SHA
         working-directory: sdk
-
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
 #        with:
