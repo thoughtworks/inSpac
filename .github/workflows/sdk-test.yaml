@@ -1,0 +1,55 @@
+name: GAC-OIDC SDK test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'sdk/**'
+      - '.github/workflows/sdk-test.yaml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'sdk/**'
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup timezone
+        run: sudo timedatectl set-timezone "Asia/Shanghai"
+
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-package: 'jdk'
+          java-version: '11'
+          check-latest: true
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('sdk/build.gradle.kts', 'sdk/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run tests
+        run: ./gradlew build
+        working-directory: sdk
+
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
+#        with:
+#          sudo: true

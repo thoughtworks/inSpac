@@ -1,18 +1,18 @@
-name: GAC-OIDC SDK test
+name: GAC sample test
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'sdk/**'
-      - '.github/workflows/gac-oidc-sdk-test.yaml'
+      - 'sample/**'
+      - '.github/workflows/sample-test.yaml'
 
   pull_request:
     branches:
       - main
     paths:
-      - 'sdk/**'
+      - 'sample/**'
 
   workflow_dispatch:
 
@@ -26,9 +26,6 @@ jobs:
         run: sudo timedatectl set-timezone "Asia/Shanghai"
 
       - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2
@@ -44,9 +41,13 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('sample/build.gradle.kts', 'sample/**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Run tests
+        run: ./gradlew build
+        working-directory: sample
 
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3

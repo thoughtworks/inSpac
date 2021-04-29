@@ -1,0 +1,52 @@
+name: GAC Keycloak plugin test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'keycloak-plugin/**'
+      - '.github/workflows/keycloak-plugin-test.yaml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'keycloak-plugin/**'
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup timezone
+        run: sudo timedatectl set-timezone "Asia/Shanghai"
+
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-package: 'jdk'
+          java-version: '11'
+          check-latest: true
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('keycloak-plugin/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
+        working-directory: keycloak-plugin
+
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
+#        with:
+#          sudo: true
