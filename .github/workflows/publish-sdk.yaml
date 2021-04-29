@@ -19,6 +19,7 @@ jobs:
         run: gradle publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: sdk
 
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
