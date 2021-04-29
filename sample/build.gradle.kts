@@ -5,7 +5,6 @@ plugins {
     id("org.springframework.boot") version "2.3.2.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.jmailen.kotlinter") version "2.3.2"
-    id("org.sonarqube") version "2.6.2"
     id("org.owasp.dependencycheck") version "5.3.2.1"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"

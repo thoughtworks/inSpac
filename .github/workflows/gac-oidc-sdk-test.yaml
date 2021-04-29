@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-sonarqube:
-    name: 'Run tests and scan vulnerabilities by SonarQube'
+  test:
+    name: 'Run tests'
     runs-on: ubuntu-latest
 
     steps:
@@ -48,23 +48,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-      - name: Scan vulnerabilities
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./gradlew build sonarqube --info \
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ secrets.SONAR_ORG }} \
-            -Dsonar.projectVersion=$GITHUB_SHA
-        working-directory: sdk
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
 #        with:

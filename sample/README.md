@@ -112,7 +112,6 @@ Plugin |
 org.springframework.boot:2.3.0.RELEASE |
 io.spring.dependency-management:1.0.9.RELEASE |
 org.jmailen.kotlinter:2.3.2 | 
-org.sonarqube:2.6.2 |
 org.owasp.dependencycheck:5.3.2.1 |
 kotlin:jvm:1.3.72 |
 kotlin:plugin.spring:1.3.72 |
