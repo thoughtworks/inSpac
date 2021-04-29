@@ -1,9 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.api.publish.PublishingExtension
 
 plugins {
     jacoco
     kotlin("jvm") version "1.3.71"
     `java-library`
+    `maven-publish`
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jmailen.kotlinter") version "2.3.2"
     id("org.owasp.dependencycheck") version "5.3.2.1"
@@ -26,6 +28,19 @@ dependencies {
     implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
+}
+
+configure<PublishingExtension> {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            maven(url = "https://maven.pkg.github.com/thoughtworks/gac-openid-connect")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
 
 tasks.test {
