@@ -18,7 +18,7 @@ class URLService(
             oidcProperty.clientId,
             oidcProperty.redirectURI
         )
-        // OIDC: Step 2: generate an initiated authentication URL to redirect to SingPass/CorpPass
+        // OIDC: Step 2: generate an initiated authentication URL to redirect to SingPass
         /*
         this example for saving nonce and state to verify token with ServletContext
         or you can choose other save methods
