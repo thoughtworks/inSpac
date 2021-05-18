@@ -1,4 +1,4 @@
-name: GAC sample test
+name: Integration sample test
 
 on:
   push:

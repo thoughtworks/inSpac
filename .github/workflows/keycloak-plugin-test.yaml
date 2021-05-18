@@ -1,4 +1,4 @@
-name: GAC Keycloak plugin test
+name: Keycloak plugin test
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: GAC-OIDC SDK test
+name: SDK test
 
 on:
   push:
