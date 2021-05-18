@@ -1,4 +1,5 @@
-# Keycloak-idp-singpass
+# GAC-OIDC Keycloak Plugin
+[![Keycloak plugin test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/keycloak-plugin-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/keycloak-plugin-test.yaml)
 
 ## Documentation
 

@@ -1,8 +1,10 @@
-# GAC-OIDC [![CircleCI](https://circleci.com/gh/twlabs/SEA-SC-OpenID.svg?style=svg&circle-token=7fd4a46a778a40b9450e8d17a2c6e6f714c3d551)](https://circleci.com/gh/twlabs/SEA-SC-OpenID)
+# GAC-OIDC SDK
+
+[![SDK test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml)
 
 Government Authentication SDK for `OpenID Connect 1.0` integration.
 
-Developed by _ThoughtWorks Inc_.
+Developed by _ThoughtWorks, Inc_.
 
 ## Documentation
 
@@ -86,10 +88,40 @@ org.owasp.dependencycheck:5.3.2.1 |
 
 ## Usage
 
+You can compile SDK by yourself or use the artifact directly.
+
+### Preparation
+No matter which way you choose to get the SDK, you always need to configure the gradle configuration to import the SDK to your project.
+
+``` groovy
+dependencies {
+    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
+ 
+    // Other dependencies
+    }
+```
+
+The configuration snippet above means: all `.jar` files under `lib` folder are going to be imported as gradle dependencies
+
+You can definitely modify configuration based on actual project requirements.
+
+### Compile
 To get the package, use the `build` gradle task:
 
 ```
 ./gradlew build
 ```
 
-After the `build` gradle task, generate a package on `./build/libs/sea-oidc.jar`.
+After the `build` gradle task, you can get the SDK artifact at `./build/libs/com.thoughtworks.gac.oidc-sdk.jar`.
+
+### Download from GitHub Releases
+1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage
+2. Download the SDK (`com.thoughtworks.gac.oidc-sdk.jar`)
+
+### Use SDK
+
+Put it under `lib` directory under the root of project folder (base on the gradle configuration in Preparation session).
+
+
+
+

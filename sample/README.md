@@ -1,20 +1,14 @@
-## SSO Integration Demo
-[![CircleCI](https://circleci.com/gh/twlabs/SEA-SC-Integration-Demo.svg?style=svg&circle-token=a5d3f691ed2c05ef3197b1e7dbca9a196590ec38)](https://circleci.com/gh/twlabs/SEA-SC-Integration-Demo)
+## GAC-OIDC Integration Sample
+[![Integration sample test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml)
 
 ### About Project
-This project is a demo of SSO Integration.
+This project is a demo project for demonstrating the way to integrate SDK / Keycloak plugin into your project.
 
 #### Tech Stack
 - Kotlin
 - Spring Boot
 - Spring Security
 - Gradle
-- Circle CI
-
-#### Branches
-Currently, project only has the `master` branch which contains the stable version of codes and releases.
-
-Circle CI is also focus on `master` branch, it is supposed to automatically pull the latest commits from this repo, compile and deploy the artifacts to remote AWS Lightsail instance. 
 
 #### Swagger UI
 _Swagger UI 2_ has been integrated into the project for conveniently testing APIs.
@@ -81,9 +75,19 @@ to setup your mockPass, you can follow this list:
 4. waiting for online server setup and you can click open browser button on right-bottom to open your mockPass
 5. copy your url into resources/application-local.yaml file to replace mockpass.host
 
-### how to integration SDK
+### How to use SDK
+In this project, the `build.gradle.kts` is configured as below. It means all `.jar` files which are under `lib` folder are going to be imported as dependencies.
+``` groovy
+dependencies {
+    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
+    // Other dependencies
+    }
+```
 
-1. import `sea-oidc.jar`, put in `./lib` directory.
+1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage 
+2. Create `lib` folder under the root directory of project (base on the above gradle configuration), put the SDK under `lib` folder.
+
+
 
 
 ### Dependencies & Plugins Requirement
