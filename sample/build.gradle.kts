@@ -15,9 +15,12 @@ apply{
     from("gradle/jacoco.gradle")
 }
 
-group = "com.thoughtworks"
-version = "0.0.1-SNAPSHOT"
+group = "com.thoughtworks.gac"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+base {
+    archivesBaseName = "com.thoughtworks.gac.oidc-integration-sample"
+}
 
 repositories {
     mavenCentral()

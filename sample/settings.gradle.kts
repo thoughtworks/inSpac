@@ -1,1 +1,1 @@
-rootProject.name = "sso-integration-demo"
+rootProject.name = "gac-oidc-integration-sample"
