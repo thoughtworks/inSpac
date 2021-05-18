@@ -2,24 +2,37 @@ name: Publish GAC-OIDC SDK to GitHub Packages
 
 on:
   release:
-    types: [created]
+    types:
+      - created
+
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+
+#    permissions:
+#      contents: read
+#      packages: write
+
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Publish package
-        run: gradle publish
+
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: sdk/build/libs/com.thoughtworks.gac.oidc-sdk.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: sdk
+
+#      - name: Publish package
+#        run: gradle publish
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        working-directory: sdk
 
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
