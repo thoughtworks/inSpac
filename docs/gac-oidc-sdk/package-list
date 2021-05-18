@@ -1,0 +1,65 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.thoughtworks.sea.oidc.exception////PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.exception/index.html
+$dokka.location:com.thoughtworks.sea.oidc.exception/InvalidJWTClaimException///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.exception/-invalid-j-w-t-claim-exception/index.html
+$dokka.location:com.thoughtworks.sea.oidc.exception/InvalidJWTClaimException/InvalidJWTClaimException/#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.exception/-invalid-j-w-t-claim-exception/-invalid-j-w-t-claim-exception.html
+$dokka.location:com.thoughtworks.sea.oidc.exception/JWSSignatureVerifyException///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.exception/-j-w-s-signature-verify-exception/index.html
+$dokka.location:com.thoughtworks.sea.oidc.exception/JWSSignatureVerifyException/JWSSignatureVerifyException/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.exception/-j-w-s-signature-verify-exception/-j-w-s-signature-verify-exception.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto////PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/InitAuthRequest/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/-init-auth-request.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/clientId/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/client-id.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/endPoint/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/end-point.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/host/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/host.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/nonce/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/nonce.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/redirectURI/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/redirect-u-r-i.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/responseType/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/response-type.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/scope/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/scope.html
+$dokka.location:com.thoughtworks.sea.oidc.model.dto/InitAuthRequest/state/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model.dto/-init-auth-request/state.html
+$dokka.location:com.thoughtworks.sea.oidc.model////PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/ParseTokenParams/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/-parse-token-params.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/clientId/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/client-id.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/host/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/host.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/idpPublicKey/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/idp-public-key.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/nonce/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/nonce.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParseTokenParams/servicePrivateKey/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parse-token-params/service-private-key.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParsedSubjectInfo///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parsed-subject-info/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParsedSubjectInfo/ParsedSubjectInfo/#kotlin.String?#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parsed-subject-info/-parsed-subject-info.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParsedSubjectInfo/nricNumber/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parsed-subject-info/nric-number.html
+$dokka.location:com.thoughtworks.sea.oidc.model/ParsedSubjectInfo/uuid/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-parsed-subject-info/uuid.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequest///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequest/TokenRequest/#kotlin.String#org.springframework.http.HttpEntity[org.springframework.util.LinkedMultiValueMap[kotlin.String,kotlin.String]]/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request/-token-request.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequest/httpEntity/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request/http-entity.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequest/url/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request/url.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/TokenRequestParams/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/-token-request-params.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/clientId/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/client-id.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/clientSecret/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/client-secret.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/code/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/code.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/contentType/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/content-type.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/endPoint/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/end-point.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/grantType/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/grant-type.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/host/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/host.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenRequestParams/redirectUri/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-request-params/redirect-uri.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/index.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/TokenResponse/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/-token-response.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/accessToken/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/access-token.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/expiresIn/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/expires-in.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/idToken/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/id-token.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/refreshToken/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/refresh-token.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/scope/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/scope.html
+$dokka.location:com.thoughtworks.sea.oidc.model/TokenResponse/tokenType/#/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.model/-token-response/token-type.html
+$dokka.location:com.thoughtworks.sea.oidc.utility////PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/index.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/ParserUtils///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-parser-utils/index.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/TokenUtils///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-token-utils/index.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/TokenUtils/buildTokenRequest/#com.thoughtworks.sea.oidc.model.TokenRequestParams/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-token-utils/build-token-request.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/TokenUtils/parseTokenToJsonObject/#com.thoughtworks.sea.oidc.model.TokenResponse#com.thoughtworks.sea.oidc.model.ParseTokenParams#kotlin.String/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-token-utils/parse-token-to-json-object.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/TokenUtils/parseTokenToSubjectInfo/#com.thoughtworks.sea.oidc.model.TokenResponse#com.thoughtworks.sea.oidc.model.ParseTokenParams/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-token-utils/parse-token-to-subject-info.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/URLUtils///PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-u-r-l-utils/index.html
+$dokka.location:com.thoughtworks.sea.oidc.utility/URLUtils/generateInitAuthURL/#com.thoughtworks.sea.oidc.model.dto.InitAuthRequest/PointingToDeclaration/gac-oidc-sdk/com.thoughtworks.sea.oidc.utility/-u-r-l-utils/generate-init-auth-u-r-l.html
+com.thoughtworks.sea.oidc.exception
+com.thoughtworks.sea.oidc.model
+com.thoughtworks.sea.oidc.model.dto
+com.thoughtworks.sea.oidc.utility
+
