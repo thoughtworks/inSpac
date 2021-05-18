@@ -21,6 +21,16 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('sdk/build.gradle.kts', 'sdk/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Compile artifacts
         run: ./gradlew build
         working-directory: sdk
