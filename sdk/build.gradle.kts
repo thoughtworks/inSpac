@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm") version "1.3.71"
     `java-library`
     `maven-publish`
-    id("org.jetbrains.dokka") version "0.10.1"
+    id("org.jetbrains.dokka") version "1.4.32"
     id("org.jmailen.kotlinter") version "2.3.2"
     id("org.owasp.dependencycheck") version "5.3.2.1"
 }
