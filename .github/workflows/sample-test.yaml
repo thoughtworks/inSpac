@@ -35,6 +35,17 @@ jobs:
           java-version: '11'
           check-latest: true
 
+      - name: Create dependency folder
+        run: mkdir lib
+        working-directory: sample
+
+      - name: Fetch latest release
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          file: "com.thoughtworks.gac.oidc-sdk.jar"
+          target: "sample/lib/com.thoughtworks.gac.oidc-sdk.jar"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
