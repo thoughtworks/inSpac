@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.gradle.api.publish.PublishingExtension
 
 plugins {
     jacoco
@@ -11,12 +10,22 @@ plugins {
     id("org.owasp.dependencycheck") version "5.3.2.1"
 }
 
+group = "com.thoughtworks.gac"
+
+base {
+    archivesBaseName = "com.thoughtworks.gac.oidc-sdk"
+}
+
 apply {
     from("gradle/jacoco.gradle")
 }
 
 repositories {
     jcenter()
+}
+
+base {
+    archivesBaseName = "com.thoughtworks.gac.oidc-sdk"
 }
 
 dependencies {
@@ -30,15 +39,24 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.0")
 }
 
-configure<PublishingExtension> {
+publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            maven(url = "https://maven.pkg.github.com/thoughtworks/gac-openid-connect")
+            url = uri("https://maven.pkg.github.com/thoughtworks/GAC-OpenID-Connect")
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("github.package.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("github.package.key") as String? ?: System.getenv("TOKEN")
             }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "com.thoughtworks.gac"
+            artifactId = "oidc-sdk"
+            version = project.findProperty("gac.oidc.version") as String? ?: System.getenv("GAC_SDK_VERSION")
+            from(components["java"])
         }
     }
 }

@@ -1,1 +1,1 @@
-rootProject.name = "sea-oidc"
+rootProject.name = "gac-oidc-sdk"
