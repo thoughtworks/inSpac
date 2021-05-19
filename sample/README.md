@@ -1,42 +1,31 @@
-## GAC-OIDC Integration Sample
+# GAC-OIDC Integration Sample
 [![Integration sample test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml)
 
-### About Project
+## About
 This project is a demo project for demonstrating the way to integrate SDK / Keycloak plugin into your project.
 
-#### Tech Stack
+### Tech Stack
 - Kotlin
 - Spring Boot
 - Spring Security
 - Gradle
 
-#### Swagger UI
-_Swagger UI 2_ has been integrated into the project for conveniently testing APIs.
+## Project Setup
+### Import SDK
+The sample project doesn't contain the SDK / Keycloak Plugin, to run the project locally, you have to manually import the SDK first.
 
-Visit `http://localhost:8080/sso/swagger-ui.html` to access _Swagger UI_. You could change the _Swagger UI_ default URL by modifying context path configuration in the environment profile.
+In this project, the `build.gradle.kts` is configured as below. It means all `.jar` files which are under `lib` folder are going to be imported as dependencies.
+``` groovy
+dependencies {
+    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
+    // Other dependencies
+    }
+```
 
-_Swagger UI_ related configurations are saved and controlled by `SwaggerConfiguration` class which is under the package `com.thoughtworks.sea.ssointegrationdemo.common.config.SwaggerConfiguration`.
+1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage
+2. Create `lib` folder under the `sample` folder (base on the above gradle configuration), put the SDK under `lib` folder.
 
-
-### Commit Regulations
-
-For high-efficiency team cooperation, unified coding standards and avoid service outages, 
-several code inspection steps will be executed by Git Hook before you push commits to the remote repo.
-
-⚠️ If any of the following steps fail, you will be unable to push your commits to remote repo.
-
-1. Commit messages must match the format: `[#Card No.][Author]: Commit Message.`
-
-      * `[#51][Shuchen]: Implement token verification feature. `
-      * `[#52][Shuchen & Xiaomeng]: Remove unused Spring Data gradle dependencies.`
-
-2. If commit message check passes, Git Hook would execute `formatKotlinMain` and `formatKotlinTest` gradle tasks to make sure all codes are format in a same code style before committing codes.
-If codes successfully pass the gradle tasks, your commits will be saved into local staging area, ready for being pushed to remote repo.
-
-3. Before you push commits to remote repo, Git Hook would execute `clean` and `build` gradle tasks to make sure your changes could pass all tests and be built successfully. 
-If codes successfully pass the gradle tasks, all commits will be pushed to remote repo.
-
-### Run the Application
+## Run Application
 
 To successfully run the Spring Boot application, you need to set the right environment profile.
 
@@ -64,33 +53,28 @@ The string between brackets `[ ]` is the environment name, (e.g., `local`, `dev`
 5. Click OK to apply the Settings.
 6. Run the Application.
 
-### mockPass local config
+### Swagger UI
+_Swagger UI 2_ has been integrated into the project for conveniently testing APIs.
 
-to setup your mockPass, you can follow this list:
+Visit `http://localhost:8080/sso/swagger-ui.html` to access _Swagger UI_. You could change the _Swagger UI_ default URL by modifying context path configuration in the environment profile.
 
-1. go to [mockPass Gitpod](https://gitpod.io/#https://github.com/opengovsg/mockpass)
-2. login with your github account and open a new workspace
-3. navigate to lib/express/oidc.js file add a params in line 81:
+_Swagger UI_ related configurations are saved and controlled by `SwaggerConfiguration` class which is under the package `com.thoughtworks.sea.ssointegrationdemo.common.config.SwaggerConfiguration`.
+
+
+### MockPass local config
+
+to setup your MockPass, you can follow this list:
+
+1. Go to [MockPass GitPod](https://gitpod.io/#https://github.com/opengovsg/mockpass)
+2. Login with your GitHub account and open a new workspace
+3. Navigate to lib/express/oidc.js file add a params in line 81:
     `jose.JWE.createEncrypt({format: "compact"}, encryptionKey)` 
-4. waiting for online server setup and you can click open browser button on right-bottom to open your mockPass
-5. copy your url into resources/application-local.yaml file to replace mockpass.host
+4. Waiting for online server setup and you can click open browser button on right-bottom to open your MockPass
+5. Copy your url into resources/application-local.yaml file to replace mockpass.host
 
-### How to use SDK
-In this project, the `build.gradle.kts` is configured as below. It means all `.jar` files which are under `lib` folder are going to be imported as dependencies.
-``` groovy
-dependencies {
-    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
-    // Other dependencies
-    }
-```
+## Dependencies
 
-1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage 
-2. Create `lib` folder under the root directory of project (base on the above gradle configuration), put the SDK under `lib` folder.
-
-
-
-
-### Dependencies & Plugins Requirement
+The project relies on dependencies and plugins below.
 
 Dependency |
 :---- |

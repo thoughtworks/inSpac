@@ -2,9 +2,8 @@
 
 [![SDK test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml)
 
-Government Authentication SDK for `OpenID Connect 1.0` integration.
-
-Developed by _ThoughtWorks, Inc_.
+## About
+An SDK for fast integrating with SingPass platform on `OpenID Connect 1.0` auth scheme.
 
 ## Documentation
 
@@ -13,9 +12,9 @@ Developed by _ThoughtWorks, Inc_.
 - [More OIDC details](https://docs.google.com/presentation/d/1JNm5N8vuZvIMBCw3dVIunlKrXK7HhawMI5VDVyMf1cY/edit#slide=id.p1)
 
 
-## Setup Project
+## Project Setup
 
-### Switch Code Style
+### Code Style
 
 Switching to the Kotlin Coding Conventions code style can be done in `Preferences → Editor → Code Style → Kotlin` dialog. 
 
@@ -33,15 +32,7 @@ To check the Kotlin code style, use the `lintKotlin` Gradle task:
 ./gradlew lintKotlin
 ```
 
-### Enable Git Hooks
-
-To enable the pre-push hooks, use the `initGitHooks` Gradle task:
-
-```
-./gradlew initGitHooks
-```
-
-## Test and Build
+## Test & Build
 
 To run the unit test, use the `test` Gradle task:
 
@@ -54,37 +45,6 @@ To build the project, use the `build` Gradle task:
 ```
 ./gradlew build
 ```
-
-## Generate SDK Documentation
-
-The language used to document Kotlin code (the equivalent of Java's JavaDoc) is called KDoc. For more information check out [Documenting Kotlin Code](https://kotlinlang.org/docs/reference/kotlin-doc.html).
-
-To generate the documentation, use the `dokka` Gradle task:
-
-```
-./gradlew dokka
-```
-
-
-## Dependencies & Plugins Requirement
-
-Dependency |
----- |
-org.springframework:spring-web:5.2.6.RELEASE |
-com.fasterxml.jackson.core:jackson-databind:2.11.0 |
-org.bouncycastle:bcpkix-jdk15on:1.65 |
-com.nimbusds:nimbus-jose-jwt:8.19 |
-org.junit.jupiter:junit-jupiter:5.6.2 |
-io.mockk:mockk:1.10.0 |
-
-
-Plugin |
-:---- |
-kotlin:jvm:1.3.71 |
-org.jetbrains.dokka:0.10.1 |
-org.jmailen.kotlinter:2.3.2 |
-org.owasp.dependencycheck:5.3.2.1 | 
-
 
 ## Usage
 
@@ -105,7 +65,8 @@ The configuration snippet above means: all `.jar` files under `lib` folder are g
 
 You can definitely modify configuration based on actual project requirements.
 
-### Compile
+### Get artifacts
+#### Selection 1: Compile
 To get the package, use the `build` gradle task:
 
 ```
@@ -114,13 +75,33 @@ To get the package, use the `build` gradle task:
 
 After the `build` gradle task, you can get the SDK artifact at `./build/libs/com.thoughtworks.gac.oidc-sdk.jar`.
 
-### Download from GitHub Releases
+#### Selection 2: Download from GitHub Releases
 1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage
 2. Download the SDK (`com.thoughtworks.gac.oidc-sdk.jar`)
 
-### Use SDK
-
+### Use the SDK
 Put it under `lib` directory under the root of project folder (base on the gradle configuration in Preparation session).
+
+
+## Dependencies
+The project relies on dependencies and plugins below.
+
+Dependency |
+---- |
+org.springframework:spring-web:5.2.6.RELEASE |
+com.fasterxml.jackson.core:jackson-databind:2.11.0 |
+org.bouncycastle:bcpkix-jdk15on:1.65 |
+com.nimbusds:nimbus-jose-jwt:8.19 |
+org.junit.jupiter:junit-jupiter:5.6.2 |
+io.mockk:mockk:1.10.0 |
+
+
+Plugin |
+:---- |
+kotlin:jvm:1.3.71 |
+org.jetbrains.dokka:0.10.1 |
+org.jmailen.kotlinter:2.3.2 |
+org.owasp.dependencycheck:5.3.2.1 | 
 
 
 

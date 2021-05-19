@@ -20,7 +20,7 @@ Gov Auth Component for<br> OpenID-Connect
 
 GACs are implemented based on the official public documents: [SingPass Login Specifications](https://public.cloud.myinfo.gov.sg/sglogin/SingPass-login-specs-v0.1.html#section/Overview)
 
-## Artifact & Usage
+## Artifacts & Usage
 ### SDK
 [![SDK test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml)
 
@@ -58,7 +58,7 @@ The Keycloak plugin only works on Keycloak. If you would like to use Keycloak as
 This is a demo project for demonstrating how to use SDK / Keycloak plugin. If you feel confused about using GACs, please check the [`sample` folder](https://github.com/thoughtworks/GAC-OpenID-Connect/tree/main/sample).
 
 
-## Credit
+## Credits
 This is project is licensed under [`MIT`](https://github.com/thoughtworks/GAC-OpenID-Connect/blob/main/LICENSE).
 
 [MockPass](https://github.com/opengovsg/mockpass) is developed by GovTech, used to assist development and testing.
