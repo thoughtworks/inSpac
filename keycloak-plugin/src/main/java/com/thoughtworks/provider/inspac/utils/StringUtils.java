@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.singpass.utils;
+package com.thoughtworks.provider.inspac.utils;
 
 import java.util.Arrays;
 

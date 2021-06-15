@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.inspac;
 
 import java.io.IOException;
 import java.io.InputStream;

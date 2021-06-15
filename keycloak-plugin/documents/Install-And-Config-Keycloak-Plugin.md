@@ -49,7 +49,7 @@ Open Encrypted Online: [AES Encryption and Decryption Online Tool](https://www.d
 
 ![encryption_the_example](../images/encryption_the_example.png)
 
-> Or use `AESUtils.encrypt` in `com.thoughtworks.provider.singpass.utils` (client secret does not need to be processed in advance)
+> Or use `AESUtils.encrypt` in `com.thoughtworks.provider.inspac.utils` (client secret does not need to be processed in advance)
 
 ## [Set Up SP and Keycloak SDK](https://github.com/ThoughtWorksInc/SEA-SC-Integration-Demo#how-to-integration-keycloak)
 

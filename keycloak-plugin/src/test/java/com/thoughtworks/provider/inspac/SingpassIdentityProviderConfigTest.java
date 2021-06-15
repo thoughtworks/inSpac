@@ -1,8 +1,8 @@
-package com.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.inspac;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.thoughtworks.provider.singpass.SingpassIdentityProviderConfig.LinkToType;
+import com.thoughtworks.provider.inspac.SingpassIdentityProviderConfig.LinkToType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

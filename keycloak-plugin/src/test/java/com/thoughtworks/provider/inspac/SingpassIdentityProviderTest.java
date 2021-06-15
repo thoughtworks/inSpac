@@ -1,10 +1,10 @@
-package com.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.inspac;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.thoughtworks.provider.singpass.SingpassIdentityProviderConfig.LinkToType;
+import com.thoughtworks.provider.inspac.SingpassIdentityProviderConfig.LinkToType;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedHashMap;

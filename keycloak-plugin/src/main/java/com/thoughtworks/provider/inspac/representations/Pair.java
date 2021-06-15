@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.singpass.representations;
+package com.thoughtworks.provider.inspac.representations;
 
 import java.util.AbstractMap;
 import java.util.Map;

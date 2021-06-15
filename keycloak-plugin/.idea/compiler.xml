@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="keycloak-idp-singpass" />
+        <module name="keycloak-plugin" />
         <module name="SEA-SC-OpenID" />
       </profile>
     </annotationProcessing>

@@ -1,8 +1,8 @@
-package com.thoughtworks.provider.singpass;
+package com.thoughtworks.provider.inspac;
 
 import static java.util.Arrays.asList;
 
-import com.thoughtworks.provider.singpass.representations.Pair;
+import com.thoughtworks.provider.inspac.representations.Pair;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;

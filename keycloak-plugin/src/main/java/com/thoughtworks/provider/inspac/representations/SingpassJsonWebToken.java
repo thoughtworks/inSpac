@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.singpass.representations;
+package com.thoughtworks.provider.inspac.representations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
