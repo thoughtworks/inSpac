@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.thoughtworks.gac</groupId>
+    <groupId>com.thoughtworks.inspac</groupId>
     <artifactId>oidc-keycloak-plugin</artifactId>
     <version>1.0.2</version>
     <name>Keycloak plugin for SingPass authentication</name>
@@ -81,7 +81,7 @@
 
 
     <build>
-        <finalName>com.thoughtworks.gac.oidc-keycloak-plugin</finalName>
+        <finalName>com.thoughtworks.inspac.oidc-keycloak-plugin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

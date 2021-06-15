@@ -1,5 +1,5 @@
-# GAC-OIDC Keycloak Plugin
-[![Keycloak plugin test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/keycloak-plugin-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/keycloak-plugin-test.yaml)
+# inSpac Keycloak Plugin
+[![Keycloak plugin test](https://github.com/thoughtworks/inSpac/actions/workflows/keycloak-plugin-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/keycloak-plugin-test.yaml)
 
 ## About
 A Keycloak plugin for faster integration with SingPass platform on `OpenID-Connect 1.0` auth scheme.
