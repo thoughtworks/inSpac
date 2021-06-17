@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-com.thoughtworks.provider.inspac.SingpassIdentityProviderFactory
+com.thoughtworks.inspac.keycloak.SingpassIdentityProviderFactory

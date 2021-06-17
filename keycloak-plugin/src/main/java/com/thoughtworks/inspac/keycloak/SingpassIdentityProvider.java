@@ -1,10 +1,10 @@
-package com.thoughtworks.provider.inspac;
+package com.thoughtworks.inspac.keycloak;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
-import com.thoughtworks.provider.inspac.utils.AESUtils;
-import com.thoughtworks.provider.inspac.utils.PrivateKeyUtils;
+import com.thoughtworks.inspac.keycloak.utils.AESUtils;
+import com.thoughtworks.inspac.keycloak.utils.PrivateKeyUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.PrivateKey;

@@ -1,8 +1,7 @@
-package com.thoughtworks.provider.inspac;
+package com.thoughtworks.inspac.keycloak;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.thoughtworks.provider.inspac.SingpassIdentityProviderConfig.LinkToType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -26,7 +25,7 @@ public class SingpassIdentityProviderConfigTest {
   @Test
   void should_get_nric_success_when_invoke_getFirstNameBySub() {
     String subject = "s=R42188888E";
-    config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
+    config.getConfig().put("firstNameLinkToType", SingpassIdentityProviderConfig.LinkToType.NRIC.name());
 
     String nric = config.getFirstNameBySub(subject);
 
@@ -36,7 +35,7 @@ public class SingpassIdentityProviderConfigTest {
   @Test
   void should_get_uuid_success_when_invoke_getFirstNameBySub() {
     String subject = "u=c302a626-b1de-11ea-b3de-0242ac130010";
-    config.getConfig().put("firstNameLinkToType", LinkToType.UUID.name());
+    config.getConfig().put("firstNameLinkToType", SingpassIdentityProviderConfig.LinkToType.UUID.name());
 
     String uuid = config.getFirstNameBySub(subject);
 
@@ -46,7 +45,7 @@ public class SingpassIdentityProviderConfigTest {
   @Test
   void should_get_sub_success_when_invoke_getFirstNameBySub() {
     String subject = "s=R324234E,u=c302a626-b1de-11ea-b3de-0242ac130010";
-    config.getConfig().put("firstNameLinkToType", LinkToType.SUB.name());
+    config.getConfig().put("firstNameLinkToType", SingpassIdentityProviderConfig.LinkToType.SUB.name());
 
     String sub = config.getFirstNameBySub(subject);
 

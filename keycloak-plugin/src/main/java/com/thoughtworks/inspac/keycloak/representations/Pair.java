@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.inspac.representations;
+package com.thoughtworks.inspac.keycloak.representations;
 
 import java.util.AbstractMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.inspac.responses;
+package com.thoughtworks.inspac.keycloak.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;

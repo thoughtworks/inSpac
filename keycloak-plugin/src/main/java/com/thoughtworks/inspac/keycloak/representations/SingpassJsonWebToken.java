@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.inspac.representations;
+package com.thoughtworks.inspac.keycloak.representations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

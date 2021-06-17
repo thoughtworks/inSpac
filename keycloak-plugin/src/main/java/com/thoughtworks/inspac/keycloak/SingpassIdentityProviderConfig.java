@@ -1,8 +1,8 @@
-package com.thoughtworks.provider.inspac;
+package com.thoughtworks.inspac.keycloak;
 
 import static java.util.Arrays.asList;
 
-import com.thoughtworks.provider.inspac.representations.Pair;
+import com.thoughtworks.inspac.keycloak.representations.Pair;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;

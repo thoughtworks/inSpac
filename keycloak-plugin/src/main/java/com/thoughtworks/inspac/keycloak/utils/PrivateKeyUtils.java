@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.inspac.utils;
+package com.thoughtworks.inspac.keycloak.utils;
 
 import java.io.IOException;
 import java.io.StringReader;

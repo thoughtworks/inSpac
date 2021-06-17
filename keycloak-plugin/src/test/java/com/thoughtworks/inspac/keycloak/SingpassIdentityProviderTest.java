@@ -1,10 +1,9 @@
-package com.thoughtworks.provider.inspac;
+package com.thoughtworks.inspac.keycloak;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.thoughtworks.provider.inspac.SingpassIdentityProviderConfig.LinkToType;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -145,9 +144,9 @@ public class SingpassIdentityProviderTest {
     // given
     config.getConfig().put("supportFieldForCP", "customFields.fullName");
     config.getConfig().put("autoRegister", "true");
-    config.getConfig().put("userNameLinkToType", LinkToType.CP_INFO.name());
-    config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
-    config.getConfig().put("lastNameLinkToType", LinkToType.SUB.name());
+    config.getConfig().put("userNameLinkToType", SingpassIdentityProviderConfig.LinkToType.CP_INFO.name());
+    config.getConfig().put("firstNameLinkToType", SingpassIdentityProviderConfig.LinkToType.NRIC.name());
+    config.getConfig().put("lastNameLinkToType", SingpassIdentityProviderConfig.LinkToType.SUB.name());
     String nric = "R12312312D";
     String sub = "s=" + nric;
     String username = "li bobo";
@@ -248,9 +247,9 @@ public class SingpassIdentityProviderTest {
     config.setPrivateKey(
         IOUtils.toString(
             this.getClass().getResourceAsStream("/keycloakEncryptedPrivateKey.txt"), "UTF-8"));
-    config.getConfig().put("firstNameLinkToType", LinkToType.NRIC.name());
-    config.getConfig().put("userNameLinkToType", LinkToType.UUID.name());
-    config.getConfig().put("lastNameLinkToType", LinkToType.SUB.name());
+    config.getConfig().put("firstNameLinkToType", SingpassIdentityProviderConfig.LinkToType.NRIC.name());
+    config.getConfig().put("userNameLinkToType", SingpassIdentityProviderConfig.LinkToType.UUID.name());
+    config.getConfig().put("lastNameLinkToType", SingpassIdentityProviderConfig.LinkToType.SUB.name());
     config.getConfig().put("autoRegister", "true");
   }
 }

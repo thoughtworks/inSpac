@@ -1,4 +1,4 @@
-package com.thoughtworks.provider.inspac;
+package com.thoughtworks.inspac.keycloak;
 
 import java.io.IOException;
 import java.io.InputStream;

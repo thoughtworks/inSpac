@@ -13,7 +13,7 @@ The plugin runs on Keycloak platform as the Service Provider.
 
 ## Documentation
 - [KeyCloak Basic Introduction](documents/KeyCloak-Basic-Introduction.md)
-- [How to Start SEA-SC-Integration-Demo Locally](documents/How-To-Start-SEA-SC-Integration-Demo-Locally.md)
+- [How to start inSpac-integration-sample Locally](documents/How-to-start-inSpac-integration-sample-locally.md)
 - [Integration Keycloak Plugin With SP](documents/Install-And-Config-Keycloak-Plugin.md)
 - [Common Error](documents/Common-Error.md)
 

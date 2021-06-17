@@ -1,9 +1,9 @@
-# How to Start SEA-SC-Integration-Demo-Locally
+# How to Start inspac-integration-sample-Locally
 
 - [Run keycloak](#Run-keycloak)
 - [Import json config into keycloak](#import-json-config-into-keycloak)
 - [Setup Mockpass](#Set-up-Mockpass)
-- [Run SEA-SC-Integration-Demo](#run-sea-sc-integration-demo)
+- [Run inspac-integration-sample](#run-inspac-integration-sample)
 
 ## Run keycloak
 ### Install Keycloak
@@ -22,33 +22,33 @@ there are two ways to install and start keycloak:
 ![import](../images/import_realm_setting.png)
 
 ## Set up Mockpass
-1. download [mockpass](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/tree/mockpass)
+1. download [mockpass](https://github.com/thoughtworks/inSpac/tree/mockpass)
 1. start mockpass service in local:
    ```
    npm install
    export SHOW_LOGIN_PAGE=true
    npm start
    ```
-1. If want to know more detail about how to sign and encrypt - refer to mockpass readme and [lib/express/oidc.js](https://github.com/ThoughtWorksInc/SEA-SC-OpenID/tree/mockpass/lib/express/oidc.js)
+1. If want to know more detail about how to sign and encrypt - refer to mockpass readme and [lib/express/oidc.js](https://github.com/thoughtworks/inSpac/tree/mockpass/lib/express/oidc.js)
 
-## Run SEA-SC-Integration-Demo
+## Run inspac-integration-sample
 
-1. download [SEA-SC-Integration-Demo](https://github.com/ThoughtWorksInc/SEA-SC-Integration-Demo);
+1. download [inspac-integration-sample](https://github.com/thoughtworks/inspac-integration-sample);
    this project achieves `login with roles` and `logout`
 
-1. SEA-SC-Integration-Demo provides 5 APIs, you can check in project -> KeycloakController.kt
-    1. `http://localhost:8080/sso/keycloak/user`: allow `app-user` role login
-    2. `http://localhost:8080/sso/keycloak/admin`: allow `app-admin` role login
-    3. `http://localhost:8080/sso/keycloak/all-user`: allow `app-admin` and `app-user` role login
-    4. `http://localhost:8080/sso/keycloak/logout`: user logout
+1. inspac-integration-sample provides 5 APIs, you can check in project -> KeycloakController.kt
+    1. `http://localhost:8080/inspac/keycloak/user`: allow `app-user` role login
+    2. `http://localhost:8080/inspac/keycloak/admin`: allow `app-admin` role login
+    3. `http://localhost:8080/inspac/keycloak/all-user`: allow `app-admin` and `app-user` role login
+    4. `http://localhost:8080/inspac/keycloak/logout`: user logout
 
-1. start `SEA-SC-Integration-Demo`
-    1. visit `http://localhost:8080/sso/keycloak/user`, you will be redirect to keycloak, and choose singpass IDP
+1. start `inspac-integration-sample`
+    1. visit `http://localhost:8080/inspac/keycloak/user`, you will be redirect to keycloak, and choose singpass IDP
     ![login](../images/keycloak_login_with_idp.png)
     
     2. you will be redirect to mockpass login page, click login button and choose a user.
     
-    3. once login success, you will be redirect to `SEA-SC-Integration-Demo`, and see the basic user info, for example: 
+    3. once login success, you will be redirect to `inspac-integration-sample`, and see the basic user info, for example: 
     ```
     {
         "name": "0 s=S8979373D,u=0",
