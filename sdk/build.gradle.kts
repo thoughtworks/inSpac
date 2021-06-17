@@ -10,10 +10,10 @@ plugins {
     id("org.owasp.dependencycheck") version "5.3.2.1"
 }
 
-group = "com.thoughtworks.gac"
+group = "com.thoughtworks.inspac"
 
 base {
-    archivesBaseName = "com.thoughtworks.gac.oidc-sdk"
+    archivesBaseName = "com.thoughtworks.inspac.sdk"
 }
 
 apply {
@@ -25,7 +25,7 @@ repositories {
 }
 
 base {
-    archivesBaseName = "com.thoughtworks.gac.oidc-sdk"
+    archivesBaseName = "com.thoughtworks.inspac.sdk"
 }
 
 dependencies {
@@ -43,7 +43,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/thoughtworks/GAC-OpenID-Connect")
+            url = uri("https://maven.pkg.github.com/thoughtworks/inSpac")
             credentials {
                 username = project.findProperty("github.package.user") as String? ?: System.getenv("USERNAME")
                 password = project.findProperty("github.package.key") as String? ?: System.getenv("TOKEN")
@@ -53,9 +53,9 @@ publishing {
 
     publications {
         create<MavenPublication>("mavenJava") {
-            groupId = "com.thoughtworks.gac"
-            artifactId = "oidc-sdk"
-            version = project.findProperty("gac.oidc.version") as String? ?: System.getenv("GAC_SDK_VERSION")
+            groupId = "com.thoughtworks.inspac"
+            artifactId = "sdk"
+            version = project.findProperty("inspac.version") as String? ?: System.getenv("INSPAC_SDK_VERSION")
             from(components["java"])
         }
     }

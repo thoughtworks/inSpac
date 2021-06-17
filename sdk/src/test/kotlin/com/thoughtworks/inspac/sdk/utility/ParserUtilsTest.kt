@@ -1,9 +1,9 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.inspac.sdk.utility
 
 import com.nimbusds.jwt.SignedJWT
-import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
-import com.thoughtworks.sea.oidc.model.ParseTokenParams
-import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
+import com.thoughtworks.inspac.sdk.exception.InvalidJWTClaimException
+import com.thoughtworks.inspac.sdk.model.ParseTokenParams
+import com.thoughtworks.inspac.sdk.model.ParsedSubjectInfo
 import java.time.Instant
 import java.util.UUID
 import net.minidev.json.JSONObject

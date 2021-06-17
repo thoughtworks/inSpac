@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.inspac.sdk.utility
 
 import com.nimbusds.jose.EncryptionMethod
 import com.nimbusds.jose.JWEAlgorithm

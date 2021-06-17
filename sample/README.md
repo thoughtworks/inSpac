@@ -1,5 +1,5 @@
 # GAC-OIDC Integration Sample
-[![Integration sample test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sample-test.yaml)
+[![Integration sample test](https://github.com/thoughtworks/inSpac/actions/workflows/sample-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/sample-test.yaml)
 
 ## About
 This project is a demo project for demonstrating the way to integrate SDK / Keycloak plugin into your project.
@@ -22,7 +22,7 @@ dependencies {
     }
 ```
 
-1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage
+1. Check the latest version of [Releases](https://github.com/thoughtworks/inSpac/releases/latest) at project homepage
 2. Create `lib` folder under the `sample` folder (base on the above gradle configuration), put the SDK under `lib` folder.
 
 ## Run Application

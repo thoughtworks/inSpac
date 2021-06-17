@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.model
+package com.thoughtworks.inspac.sdk.model
 
 /**
  * @description The subject information from OIDC response

@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.model
+package com.thoughtworks.inspac.sdk.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

@@ -1,4 +1,4 @@
-name: Publish GAC-OIDC SDK to GitHub Packages
+name: Publish inSpac SDK to GitHub Packages
 
 on:
   release:
@@ -38,7 +38,7 @@ jobs:
       - uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: sdk/build/libs/com.thoughtworks.gac.oidc-sdk.jar
+          asset_path: sdk/build/libs/com.thoughtworks.inspac.sdk.jar
 
 #      - name: Publish package
 #        run: gradle publish

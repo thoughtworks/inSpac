@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.model
+package com.thoughtworks.inspac.sdk.model
 
 /** Those are used to decrypt, verify signature, verify payload */
 data class ParseTokenParams(

@@ -1,1 +1,1 @@
-rootProject.name = "gac-oidc-sdk"
+rootProject.name = "inspac-sdk"

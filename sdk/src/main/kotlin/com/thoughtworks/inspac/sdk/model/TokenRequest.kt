@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.model
+package com.thoughtworks.inspac.sdk.model
 
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap

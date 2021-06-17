@@ -1,11 +1,11 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.inspac.sdk.utility
 
 import com.nimbusds.jwt.SignedJWT
-import com.thoughtworks.sea.oidc.exception.JWSSignatureVerifyException
-import com.thoughtworks.sea.oidc.model.ParseTokenParams
-import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
-import com.thoughtworks.sea.oidc.model.TokenRequestParams
-import com.thoughtworks.sea.oidc.model.TokenResponse
+import com.thoughtworks.inspac.sdk.exception.JWSSignatureVerifyException
+import com.thoughtworks.inspac.sdk.model.ParseTokenParams
+import com.thoughtworks.inspac.sdk.model.ParsedSubjectInfo
+import com.thoughtworks.inspac.sdk.model.TokenRequestParams
+import com.thoughtworks.inspac.sdk.model.TokenResponse
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.junit5.MockKExtension

@@ -1,6 +1,6 @@
-# GAC-OIDC SDK
+# inSpac SDK
 
-[![SDK test](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/GAC-OpenID-Connect/actions/workflows/sdk-test.yaml)
+[![SDK test](https://github.com/thoughtworks/inSpac/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/sdk-test.yaml)
 
 ## About
 An SDK for fast integrating with SingPass platform on `OpenID Connect 1.0` auth scheme.
@@ -73,11 +73,11 @@ To get the package, use the `build` gradle task:
 ./gradlew build
 ```
 
-After the `build` gradle task, you can get the SDK artifact at `./build/libs/com.thoughtworks.gac.oidc-sdk.jar`.
+After the `build` gradle task, you can get the SDK artifact at `./build/libs/com.thoughtworks.inspac.sdk.jar`.
 
 #### Selection 2: Download from GitHub Releases
-1. Check the latest version of [Releases](https://github.com/thoughtworks/GAC-OpenID-Connect/releases/latest) at project homepage
-2. Download the SDK (`com.thoughtworks.gac.oidc-sdk.jar`)
+1. Check the latest version of [Releases](https://github.com/thoughtworks/inSpac/releases/latest) at project homepage
+2. Download the SDK (`com.thoughtworks.inspac.sdk.jar`)
 
 ### Use the SDK
 Put it under `lib` directory under the root of project folder (base on the gradle configuration in Preparation session).

@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.inspac.sdk.utility
 
 import com.nimbusds.jose.JWEObject
 import com.nimbusds.jose.crypto.RSADecrypter
@@ -6,9 +6,9 @@ import com.nimbusds.jose.crypto.RSASSAVerifier
 import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import com.thoughtworks.sea.oidc.exception.InvalidJWTClaimException
-import com.thoughtworks.sea.oidc.model.ParseTokenParams
-import com.thoughtworks.sea.oidc.model.ParsedSubjectInfo
+import com.thoughtworks.inspac.sdk.exception.InvalidJWTClaimException
+import com.thoughtworks.inspac.sdk.model.ParseTokenParams
+import com.thoughtworks.inspac.sdk.model.ParsedSubjectInfo
 import java.time.Instant
 
 /** A utility class for parsing token. */

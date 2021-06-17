@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.oidc.utility
+package com.thoughtworks.inspac.sdk.utility
 
-import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
+import com.thoughtworks.inspac.sdk.model.dto.InitAuthRequest
 
 /** A utility class for handling and processing URL. */
 object URLUtils {
