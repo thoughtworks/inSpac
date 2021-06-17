@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.ssointegrationdemo.controller
+package com.thoughtworks.inspac.integration.sample.controller
 
-import com.thoughtworks.sea.ssointegrationdemo.service.TokenService
+import com.thoughtworks.inspac.integration.sample.service.TokenService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.annotation.Validated

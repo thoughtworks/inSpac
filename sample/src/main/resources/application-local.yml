@@ -2,7 +2,7 @@ oidc:
   host: http://localhost
   client-id: SINGPASS-001
   client-secret: xxxx
-  redirect-uri: http://localhost:8080/sso/token/oidc
+  redirect-uri: http://localhost:8080/inspac/token/oidc
   login:
     endpoint: /singpass/authorize
   token:

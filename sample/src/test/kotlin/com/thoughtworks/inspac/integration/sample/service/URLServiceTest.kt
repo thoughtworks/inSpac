@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.ssointegrationdemo.service
+package com.thoughtworks.inspac.integration.sample.service
 
-import com.thoughtworks.sea.ssointegrationdemo.model.property.OIDCProperty
+import com.thoughtworks.inspac.integration.sample.model.property.OIDCProperty
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK

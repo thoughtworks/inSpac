@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /sso
+    context-path: /inspac
 
 management:
   endpoints:

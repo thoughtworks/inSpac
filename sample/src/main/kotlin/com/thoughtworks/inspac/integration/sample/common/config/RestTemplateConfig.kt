@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.ssointegrationdemo.common.config
+package com.thoughtworks.inspac.integration.sample.common.config
 
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean

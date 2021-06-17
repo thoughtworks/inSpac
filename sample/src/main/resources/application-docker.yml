@@ -4,7 +4,7 @@ oidc:
   host: http://${HOSTNAME}:5156
   client-id: SINGPASS-001
   client-secret: xxxx
-  redirect-uri: http://${HOSTNAME}:10086/sso/token/oidc
+  redirect-uri: http://${HOSTNAME}:10086/inspac/token/oidc
   login:
     endpoint: /singpass/authorize
   token:
@@ -19,7 +19,7 @@ oidc:
       -----END PRIVATE KEY-----
 saml:
   authn-request:
-    assertion-consumer-service-url: http://${HOSTNAME}:10086/sso/token/saml
+    assertion-consumer-service-url: http://${HOSTNAME}:10086/inspac/token/saml
   logout-request:
     name-id:
       sp-name-qualifier: http://sp.example.com/demo1/metadata.php

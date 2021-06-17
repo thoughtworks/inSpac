@@ -1,11 +1,11 @@
-package com.thoughtworks.sea.ssointegrationdemo.service
+package com.thoughtworks.inspac.integration.sample.service
 
-import com.thoughtworks.sea.oidc.model.ParseTokenParams
-import com.thoughtworks.sea.oidc.model.TokenRequestParams
-import com.thoughtworks.sea.oidc.model.TokenResponse
-import com.thoughtworks.sea.oidc.utility.TokenUtils
-import com.thoughtworks.sea.ssointegrationdemo.client.TokenClient
-import com.thoughtworks.sea.ssointegrationdemo.model.property.OIDCProperty
+import com.thoughtworks.inspac.integration.sample.client.TokenClient
+import com.thoughtworks.inspac.integration.sample.model.property.OIDCProperty
+import com.thoughtworks.inspac.sdk.model.ParseTokenParams
+import com.thoughtworks.inspac.sdk.model.TokenRequestParams
+import com.thoughtworks.inspac.sdk.model.TokenResponse
+import com.thoughtworks.inspac.sdk.utility.TokenUtils
 import javax.servlet.ServletContext
 import org.springframework.stereotype.Service
 

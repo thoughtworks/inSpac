@@ -1,8 +1,8 @@
-package com.thoughtworks.sea.ssointegrationdemo.service
+package com.thoughtworks.inspac.integration.sample.service
 
-import com.thoughtworks.sea.oidc.model.dto.InitAuthRequest
-import com.thoughtworks.sea.oidc.utility.URLUtils
-import com.thoughtworks.sea.ssointegrationdemo.model.property.OIDCProperty
+import com.thoughtworks.inspac.integration.sample.model.property.OIDCProperty
+import com.thoughtworks.inspac.sdk.model.dto.InitAuthRequest
+import com.thoughtworks.inspac.sdk.utility.URLUtils
 import javax.servlet.ServletContext
 import org.springframework.stereotype.Service
 

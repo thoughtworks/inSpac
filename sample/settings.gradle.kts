@@ -1,1 +1,1 @@
-rootProject.name = "gac-oidc-integration-sample"
+rootProject.name = "inspac-integration-sample"

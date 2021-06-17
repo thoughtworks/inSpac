@@ -1,6 +1,6 @@
-package com.thoughtworks.sea.ssointegrationdemo.controller
+package com.thoughtworks.inspac.integration.sample.controller
 
-import com.thoughtworks.sea.ssointegrationdemo.service.URLService
+import com.thoughtworks.inspac.integration.sample.service.URLService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

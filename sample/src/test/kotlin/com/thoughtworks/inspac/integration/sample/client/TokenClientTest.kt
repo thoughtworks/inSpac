@@ -1,9 +1,9 @@
-package com.thoughtworks.sea.ssointegrationdemo.client
+package com.thoughtworks.inspac.integration.sample.client
 
-import com.thoughtworks.sea.oidc.model.TokenRequest
-import com.thoughtworks.sea.oidc.model.TokenRequestParams
-import com.thoughtworks.sea.oidc.model.TokenResponse
-import com.thoughtworks.sea.oidc.utility.TokenUtils
+import com.thoughtworks.inspac.sdk.model.TokenRequest
+import com.thoughtworks.inspac.sdk.model.TokenRequestParams
+import com.thoughtworks.inspac.sdk.model.TokenResponse
+import com.thoughtworks.inspac.sdk.utility.TokenUtils
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs

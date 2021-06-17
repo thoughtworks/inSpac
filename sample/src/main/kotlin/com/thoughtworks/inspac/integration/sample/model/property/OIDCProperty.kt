@@ -1,11 +1,11 @@
-package com.thoughtworks.sea.ssointegrationdemo.model.property
+package com.thoughtworks.inspac.integration.sample.model.property
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
 /*
 * if you use the @ConfigurationProperties annotation, you should add @EnableConfigurationProperties
-* into your application class, like `SSOIntegrationDemoApplication.kt`
+* into your application class, like `InspacIntegrationSampleApplication.kt`
 * */
 @ConstructorBinding
 @ConfigurationProperties(prefix = "oidc")

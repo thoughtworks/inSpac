@@ -1,4 +1,4 @@
-# GAC-OIDC Integration Sample
+# inSpac Integration Sample
 [![Integration sample test](https://github.com/thoughtworks/inSpac/actions/workflows/sample-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/sample-test.yaml)
 
 ## About
@@ -34,18 +34,18 @@ All environment config profiles could be found under the folder `src/main/resour
 The string between brackets `[ ]` is the environment name, (e.g., `local`, `dev`)
 
 #### IntelliJ IDEA Ultimate
-1. Import the project, open the `SSOIntegrationDemoApplication` located at `src/main/kotlin/com/thoughtworks/sea/ssointegrationdemo/SSOIntegrationDemoApplication.kt`
+1. Import the project, open the `InspacIntegrationSampleApplication` located at `src/main/kotlin/com/thoughtworks/inspac/sample/InspacIntegrationSampleApplication.kt`
 2. Click ▶️ icon on left of the main function `fun main(args: Array<String>)`
-3. Click the last selection in the popup menu  `Create SSOIntegrationDemoA...`
-4. In `Create Run Configuration: 'SSOIntegrationDemoApplication'` window, input the environment name in `Active Profile` text box.
+3. Click the last selection in the popup menu  `Create InspacIntegrationSampleA...`
+4. In `Create Run Configuration: 'InspacIntegrationSampleApplication'` window, input the environment name in `Active Profile` text box.
 5. Click OK to apply the Settings.
 6. Run the Application.
 
 #### IntelliJ IDEA Community
-1. Import the project, open the `SSOIntegrationDemoApplication.kt` located at `src/main/kotlin/com/thoughtworks/sea/ssointegrationdemo/SSOIntegrationDemoApplication.kt`
+1. Import the project, open the `InspacIntegrationSampleApplication.kt` located at `src/main/kotlin/com/thoughtworks/inspac/integration/sample/InspacIntegrationSampleApplication.kt`
 2. Click ▶️ icon on left of the main function `fun main(args: Array<String>)`
-3. Click the last selection in the popup menu  `Create SSOIntegrationDemoA...`
-4. In `Create Run Configuration: 'SSOIntegrationDemoApplicationKt'` window, paste the command below in the `VM Options` text box and replace the `ENV_NAME` with the environment name that you would like to select:
+3. Click the last selection in the popup menu  `Create InspacIntegrationSampleA...`
+4. In `Create Run Configuration: 'InspacIntegrationSampleApplicationKt'` window, paste the command below in the `VM Options` text box and replace the `ENV_NAME` with the environment name that you would like to select:
 
     ```
    -Dspring.profiles.active=ENV_NAME
@@ -56,9 +56,9 @@ The string between brackets `[ ]` is the environment name, (e.g., `local`, `dev`
 ### Swagger UI
 _Swagger UI 2_ has been integrated into the project for conveniently testing APIs.
 
-Visit `http://localhost:8080/sso/swagger-ui.html` to access _Swagger UI_. You could change the _Swagger UI_ default URL by modifying context path configuration in the environment profile.
+Visit `http://localhost:8080/inspac/swagger-ui.html` to access _Swagger UI_. You could change the _Swagger UI_ default URL by modifying context path configuration in the environment profile.
 
-_Swagger UI_ related configurations are saved and controlled by `SwaggerConfiguration` class which is under the package `com.thoughtworks.sea.ssointegrationdemo.common.config.SwaggerConfiguration`.
+_Swagger UI_ related configurations are saved and controlled by `SwaggerConfiguration` class which is under the package `com.thoughtworks.inspac.integration.sample.common.config.SwaggerConfiguration`.
 
 
 ### MockPass local config

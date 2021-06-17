@@ -1,8 +1,8 @@
-package com.thoughtworks.sea.ssointegrationdemo.service
+package com.thoughtworks.inspac.integration.sample.service
 
-import com.thoughtworks.sea.oidc.model.TokenResponse
-import com.thoughtworks.sea.ssointegrationdemo.client.TokenClient
-import com.thoughtworks.sea.ssointegrationdemo.model.property.OIDCProperty
+import com.thoughtworks.inspac.integration.sample.client.TokenClient
+import com.thoughtworks.inspac.integration.sample.model.property.OIDCProperty
+import com.thoughtworks.inspac.sdk.model.TokenResponse
 import io.mockk.Runs
 import io.mockk.confirmVerified
 import io.mockk.every

@@ -1,4 +1,4 @@
-package com.thoughtworks.sea.ssointegrationdemo.common.config
+package com.thoughtworks.inspac.integration.sample.common.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -22,11 +22,11 @@ class SwaggerConfiguration {
         .apiInfo(apiInfo())
 
     private fun apiInfo(): ApiInfo = ApiInfoBuilder()
-            .title("SSO Integration Demo API")
+            .title("inSpac Integration Demo API")
             .description(
-                "SSO Integration Demo API," +
+                "inSpac Integration Sample API," +
                         "for more information please refer the link:" +
-                        "https://github.com/ThoughtWorksInc/SEA-SC-Integration-Demo"
+                        "https://github.com/ThoughtWorks/inSpac"
             )
             .version("1.0")
             .build()

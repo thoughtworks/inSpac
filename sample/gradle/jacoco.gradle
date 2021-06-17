@@ -1,11 +1,11 @@
 apply plugin: 'jacoco'
 
 def coverageExclusions = [
-        'com/thoughtworks/sea/ssointegrationdemo/common/config/**',
-        'com/thoughtworks/sea/ssointegrationdemo/model/property/**',
-        'com/thoughtworks/sea/ssointegrationdemo/advice/**',
-        'com/thoughtworks/sea/ssointegrationdemo/controller/**',
-        'com/thoughtworks/sea/ssointegrationdemo/SSOIntegrationDemoApplication.kt',
+        'com/thoughtworks/inspac/integration/sample/common/config/**',
+        'com/thoughtworks/inspac/integration/sample/model/property/**',
+        'com/thoughtworks/inspac/integration/sample/advice/**',
+        'com/thoughtworks/inspac/integration/sample/controller/**',
+        'com/thoughtworks/inspac/integration/sample/InspacIntegrationSample.kt',
 ]
 
 jacocoTestCoverageVerification {

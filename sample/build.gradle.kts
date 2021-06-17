@@ -15,11 +15,11 @@ apply{
     from("gradle/jacoco.gradle")
 }
 
-group = "com.thoughtworks.gac"
+group = "com.thoughtworks.inspac"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 base {
-    archivesBaseName = "com.thoughtworks.gac.oidc-integration-sample"
+    archivesBaseName = "com.thoughtworks.inspac.integration-sample"
 }
 
 repositories {

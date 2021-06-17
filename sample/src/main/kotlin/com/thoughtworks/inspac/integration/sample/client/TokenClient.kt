@@ -1,8 +1,8 @@
-package com.thoughtworks.sea.ssointegrationdemo.client
+package com.thoughtworks.inspac.integration.sample.client
 
-import com.thoughtworks.sea.oidc.model.TokenRequestParams
-import com.thoughtworks.sea.oidc.model.TokenResponse
-import com.thoughtworks.sea.oidc.utility.TokenUtils
+import com.thoughtworks.inspac.sdk.model.TokenRequestParams
+import com.thoughtworks.inspac.sdk.model.TokenResponse
+import com.thoughtworks.inspac.sdk.utility.TokenUtils
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClientException
