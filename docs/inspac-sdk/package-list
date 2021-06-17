@@ -1,0 +1,65 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.thoughtworks.inspac.sdk.exception////PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.exception/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.exception/InvalidJWTClaimException///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.exception/-invalid-j-w-t-claim-exception/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.exception/InvalidJWTClaimException/InvalidJWTClaimException/#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.exception/-invalid-j-w-t-claim-exception/-invalid-j-w-t-claim-exception.html
+$dokka.location:com.thoughtworks.inspac.sdk.exception/JWSSignatureVerifyException///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.exception/-j-w-s-signature-verify-exception/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.exception/JWSSignatureVerifyException/JWSSignatureVerifyException/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.exception/-j-w-s-signature-verify-exception/-j-w-s-signature-verify-exception.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto////PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/InitAuthRequest/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/-init-auth-request.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/clientId/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/client-id.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/endPoint/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/end-point.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/host/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/host.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/nonce/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/nonce.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/redirectURI/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/redirect-u-r-i.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/responseType/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/response-type.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/scope/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/scope.html
+$dokka.location:com.thoughtworks.inspac.sdk.model.dto/InitAuthRequest/state/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model.dto/-init-auth-request/state.html
+$dokka.location:com.thoughtworks.inspac.sdk.model////PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/ParseTokenParams/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/-parse-token-params.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/clientId/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/client-id.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/host/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/host.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/idpPublicKey/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/idp-public-key.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/nonce/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/nonce.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParseTokenParams/servicePrivateKey/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parse-token-params/service-private-key.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParsedSubjectInfo///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parsed-subject-info/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParsedSubjectInfo/ParsedSubjectInfo/#kotlin.String?#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parsed-subject-info/-parsed-subject-info.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParsedSubjectInfo/nricNumber/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parsed-subject-info/nric-number.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/ParsedSubjectInfo/uuid/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-parsed-subject-info/uuid.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequest///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequest/TokenRequest/#kotlin.String#org.springframework.http.HttpEntity[org.springframework.util.LinkedMultiValueMap[kotlin.String,kotlin.String]]/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request/-token-request.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequest/httpEntity/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request/http-entity.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequest/url/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request/url.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/TokenRequestParams/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/-token-request-params.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/clientId/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/client-id.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/clientSecret/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/client-secret.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/code/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/code.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/contentType/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/content-type.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/endPoint/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/end-point.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/grantType/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/grant-type.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/host/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/host.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenRequestParams/redirectUri/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-request-params/redirect-uri.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/TokenResponse/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/-token-response.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/accessToken/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/access-token.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/expiresIn/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/expires-in.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/idToken/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/id-token.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/refreshToken/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/refresh-token.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/scope/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/scope.html
+$dokka.location:com.thoughtworks.inspac.sdk.model/TokenResponse/tokenType/#/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.model/-token-response/token-type.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility////PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/ParserUtils///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-parser-utils/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/TokenUtils///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-token-utils/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/TokenUtils/buildTokenRequest/#com.thoughtworks.inspac.sdk.model.TokenRequestParams/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-token-utils/build-token-request.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/TokenUtils/parseTokenToJsonObject/#com.thoughtworks.inspac.sdk.model.TokenResponse#com.thoughtworks.inspac.sdk.model.ParseTokenParams#kotlin.String/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-token-utils/parse-token-to-json-object.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/TokenUtils/parseTokenToSubjectInfo/#com.thoughtworks.inspac.sdk.model.TokenResponse#com.thoughtworks.inspac.sdk.model.ParseTokenParams/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-token-utils/parse-token-to-subject-info.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/URLUtils///PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-u-r-l-utils/index.html
+$dokka.location:com.thoughtworks.inspac.sdk.utility/URLUtils/generateInitAuthURL/#com.thoughtworks.inspac.sdk.model.dto.InitAuthRequest/PointingToDeclaration/inspac-sdk/com.thoughtworks.inspac.sdk.utility/-u-r-l-utils/generate-init-auth-u-r-l.html
+com.thoughtworks.inspac.sdk.exception
+com.thoughtworks.inspac.sdk.model
+com.thoughtworks.inspac.sdk.model.dto
+com.thoughtworks.inspac.sdk.utility
+
