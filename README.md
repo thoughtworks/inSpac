@@ -1,5 +1,5 @@
 <h1 align="center">
-inSpac for<br> OpenID-Connect
+inSpac
 </h1>
 <p align="center">
 <img  src=""
@@ -37,7 +37,7 @@ dependencies {
     }
 ```
 
-1. Download the latest version of SDK artifact (`com.thoughtworks.inspac.oidc-sdk.jar`) at [GitHub Releases](https://github.com/thoughtworks/inSpac/releases/latest)
+1. Download the latest version of SDK artifact (`com.thoughtworks.inspac.sdk.jar`) at [GitHub Releases](https://github.com/thoughtworks/inSpac/releases/latest)
 2. Create `lib` folder under the root directory of project (base on the above gradle configuration), put the SDK under `lib` folder.
 
 📖 We also offer detailed **API documentations** for developers' reference: https://thoughtworks.github.io/inSpac/
@@ -60,6 +60,8 @@ This is a demo project for demonstrating how to use SDK / Keycloak plugin. If yo
 
 ## Credits
 This is project is licensed under [`MIT`](https://github.com/thoughtworks/inSpac/blob/main/LICENSE).
+
+[SingPass](https://www.singpass.gov.sg/) logo, brand, trademark and all related services belong to _Government of Singapore_
 
 [MockPass](https://github.com/opengovsg/mockpass) is developed by GovTech, used to assist development and testing.
 
