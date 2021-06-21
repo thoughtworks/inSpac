@@ -27,7 +27,7 @@ npm run start
 
 ## API
 
-SingPass:
+Singpass:
 
 - http://localhost:5156/singpass/authorize - OIDC login redirect with optional page
 - http://localhost:5156/singpass/token - receives OIDC authorization code and returns id_token

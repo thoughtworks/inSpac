@@ -2,13 +2,13 @@
 [![Keycloak plugin test](https://github.com/thoughtworks/inSpac/actions/workflows/keycloak-plugin-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/keycloak-plugin-test.yaml)
 
 ## About
-A Keycloak plugin for faster integration with SingPass platform on `OpenID-Connect 1.0` auth scheme.
+A Keycloak plugin for faster integration with Singpass platform on `OpenID-Connect 1.0` auth scheme.
 
 The plugin runs on Keycloak platform as the Service Provider.
 
 ### Feature
 
-- Support auto register with singpass id_token info
+- Support auto register with Singpass id_token info
 - Support encrypted private key config
 
 ## Documentation
@@ -25,7 +25,7 @@ Please check the [tutorial](documents/Install-And-Config-Keycloak-Plugin.md#inst
 ### Auto redirect configuration
 Keycloak support automatically redirect to a [default identity provider](https://www.keycloak.org/docs/latest/server_admin/#default_identity_provider) instead of displaying the login form.
 
-### SingPass Note
+### Singpass Note
 
 JWE header include:
 

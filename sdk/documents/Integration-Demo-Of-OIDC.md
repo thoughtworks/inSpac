@@ -15,8 +15,8 @@
 
 Please see ![OIDC flow](../images/oidc_flow.png):
 
-1. When User browser sends a Login request, Service received it and redirect to SingPass.
-    You need to generate an initiated authentication URL to redirect to SingPass. Code example:
+1. When User browser sends a Login request, Service received it and redirect to Singpass.
+    You need to generate an initiated authentication URL to redirect to Singpass. Code example:
     ```
     fun generateOIDCLoginURL(): String {
         val initAuthRequest = InitAuthRequest(

@@ -7,7 +7,7 @@
     <groupId>com.thoughtworks.inspac</groupId>
     <artifactId>keycloak-plugin</artifactId>
     <version>1.0.2</version>
-    <name>Keycloak plugin for SingPass authentication</name>
+    <name>Keycloak plugin for Singpass authentication</name>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>

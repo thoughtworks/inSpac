@@ -3,7 +3,7 @@
 [![SDK test](https://github.com/thoughtworks/inSpac/actions/workflows/sdk-test.yaml/badge.svg)](https://github.com/thoughtworks/inSpac/actions/workflows/sdk-test.yaml)
 
 ## About
-An SDK for fast integrating with SingPass platform on `OpenID Connect 1.0` auth scheme.
+An SDK for fast integrating with Singpass platform on `OpenID Connect 1.0` auth scheme.
 
 ## Documentation
 

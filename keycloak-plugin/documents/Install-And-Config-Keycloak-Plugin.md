@@ -18,10 +18,10 @@
 
 Before starting, generate SP's PrivateKey and PublicKey in [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo/), *generate config **Key Size** you can choose `2048bit`*
 
-- Authorization URL: place singpass authentication request url like `https://host/authorize`
-- Token URL: place singpass exchange token url like `https://host/token`
+- Authorization URL: place Singpass authentication request url like `https://host/authorize`
+- Token URL: place Singpass exchange token url like `https://host/token`
 - Client ID: your client id registered to identity provider
-- Client Secret: A shared secret code mutually agreed between SingPass OP and your RP, provided by singpass.
+- Client Secret: A shared secret code mutually agreed between Singpass OP and your RP, provided by Singpass.
 - Validate Signatures: turn on
 - Use JWKS URL: turn off
 - Validating Public Key: [Singpass public key OR certificate(SPK)](#how-to-exchanged-singpass-public-key)
@@ -29,10 +29,10 @@ Before starting, generate SP's PrivateKey and PublicKey in [Online RSA Key Gener
 
 ### Tips
 
-#### how to exchanged singpass public key
-singpass public key exchanged in two ways:
+#### how to exchanged Singpass public key
+Singpass public key exchanged in two ways:
 
-    1. X509 certificate – this can be obtained via email by making a request to SingPass
+    1. X509 certificate – this can be obtained via email by making a request to Singpass
     2. JWKS URL – this is a set of keys containing signing public keys. This can be obtained via JWKS URL(https://stg-saml-internet.singpass.gov.sg/mga/sps/oauth/oauth20/jwks/SingPassOP). The signing key which should be used for verification will be indicated by KID in the header of JWS message
 
 #### how to encrypt SP's private key
