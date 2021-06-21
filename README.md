@@ -1,11 +1,11 @@
 <h1 align="center">
-<img  src="assets/images/inSpac-logo.png"
-      height=30%
-      width=30%>
-inSpac
+      inSpac
 </h1>
 <p align="center">
-<br>
+      <img  src="assets/images/inSpac-logo.png"
+      height=10%
+      width=10%>
+<br><br>
 <sup>
      Developed by ThoughtWorks, Inc.
 </sup>
