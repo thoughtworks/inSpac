@@ -1,7 +1,8 @@
 FROM adoptopenjdk/openjdk11:jre-11.0.11_9-alpine
 
+ARG DEMO_HOSTNAME
 ENV APP_ENV docker
-ENV HOSTNAME ${HOSTNAME}
+ENV HOSTNAME $DEMO_HOSTNAME
 
 # copy files files
 ADD build/libs/*.jar /app/com.thoughtworks.inspac.integration-sample.jar
