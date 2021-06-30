@@ -1,0 +1,93 @@
+name: Sample service deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: 'Target host IP or hostname'
+        required: true
+      sshPort:
+        description: 'SSH port of Target host'
+        required: true
+        default: '22'
+      sshUser:
+        description: 'SSH user of Target host'
+        required: true
+        default: 'ubuntu'
+
+jobs:
+  test:
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup timezone
+        run: sudo timedatectl set-timezone "Asia/Shanghai"
+
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-package: 'jdk'
+          java-version: '11'
+          check-latest: true
+
+      - name: Create dependency folder
+        run: mkdir lib
+        working-directory: sample
+
+      - name: Fetch latest release
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          file: "com.thoughtworks.inspac.sdk.jar"
+          target: "sample/lib/com.thoughtworks.inspac.sdk.jar"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('sample/build.gradle.kts', 'sample/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run tests
+        run: ./gradlew build
+        working-directory: sample
+
+      - name: Build Docker image
+        run: |
+          docker build --build-arg HOSTNAME=${{ github.event.inputs.host }} -f Dockerfile -t thoughtworks/inspac-sample:latest .
+          docker save thoughtworks/inspac-sample:latest | gzip > inspac-sample.tgz
+        working-directory: sample
+
+      - name: Transfer Docker image
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ github.event.inputs.host }}
+          username: ${{ github.event.inputs.sshUser }}
+          port: ${{ github.event.inputs.sshPort }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "sample/inspac-sample.tgz"
+          target: "/home/ubuntu/inspac"
+
+      - name: Deploy inSpac sample service
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ github.event.inputs.host }}
+          username: ${{ github.event.inputs.sshUser }}
+          port: ${{ github.event.inputs.sshPort }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker stop inspac-sample
+            docker system prune -a -f
+            gunzip | docker load && docker-compose -f /home/ubuntu/inspac/docker-compose.yaml up -d
+
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
+#        with:
+#          sudo: true
