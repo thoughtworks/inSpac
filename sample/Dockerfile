@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:jre-11.0.11_9-alpine
 
 ENV APP_ENV docker
 ENV HOSTNAME ${HOSTNAME}
