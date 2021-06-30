@@ -86,9 +86,9 @@ jobs:
           script: |
             docker stop inspac-sample
             docker system prune -a -f
-            gunzip /home/ubuntu/inspac/inspac-sample.tgz | docker load
+            gunzip -c /home/ubuntu/inspac/inspac-sample.tgz | docker load
             docker-compose -f /home/ubuntu/inspac/docker-compose.yaml up -d
-            rm -f /home/ubuntu/inspac/inspac-sample.tgz
+            rm -f /home/ubuntu/inspac/inspac-sample.t*
 
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
