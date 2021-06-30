@@ -61,7 +61,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --build-arg HOSTNAME=${{ github.event.inputs.host }} -f Dockerfile -t thoughtworks/inspac-sample:latest .
+          docker build --build-arg DEMO_HOSTNAME=${{ github.event.inputs.host }} -f Dockerfile -t thoughtworks/inspac-sample:latest .
           docker save thoughtworks/inspac-sample:latest | gzip > inspac-sample.tgz
         working-directory: sample
 
@@ -74,6 +74,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "sample/inspac-sample.tgz"
           target: "/home/ubuntu/inspac"
+          strip_components: 1
 
       - name: Deploy inSpac sample service
         uses: appleboy/ssh-action@v0.1.4
@@ -85,7 +86,9 @@ jobs:
           script: |
             docker stop inspac-sample
             docker system prune -a -f
-            gunzip | docker load && docker-compose -f /home/ubuntu/inspac/docker-compose.yaml up -d
+            gunzip /home/ubuntu/inspac/inspac-sample.tgz | docker load
+            docker-compose -f /home/ubuntu/inspac/docker-compose.yaml up -d
+            rm -f /home/ubuntu/inspac/inspac-sample.tgz
 
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
