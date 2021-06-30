@@ -14,11 +14,11 @@
 
 ## About
 
-**inSpac** is the abbreviation of **In Singpass Authentication Components**.
+**inSpac** is the abbreviation of **in Singpass Authentication Components**.
 
-**inSpac** offers an SDK and a Keycloak plugin that can help developers fast integrate *OpenID-Connect 1.0* auth scheme into project to interact with Singapore government digital platform, such as *Singpass*.
+**inSpac** offers an SDK and a Keycloak plugin that can help developers fast integrate *OpenID-Connect 1.0* auth scheme into project to interact with Singapore government digital platform -- *Singpass*.
 
-inSpacs are implemented based on the official public documents: [Singpass Login Specifications](https://public.cloud.myinfo.gov.sg/sglogin/Singpass-login-specs-v0.1.html#section/Overview)
+inSpac is implemented based on the official public documents: [Singpass Login Specifications](https://public.cloud.myinfo.gov.sg/sglogin/Singpass-login-specs-v0.1.html#section/Overview)
 
 ## Artifacts & Usage
 ### SDK
@@ -59,7 +59,7 @@ This is a demo project for demonstrating how to use SDK / Keycloak plugin. If yo
 
 
 ## Credits
-This is project is licensed under [`MIT`](https://github.com/thoughtworks/inSpac/blob/main/LICENSE).
+The project is licensed under [`MIT`](https://github.com/thoughtworks/inSpac/blob/main/LICENSE).
 
 * [Singpass](https://www.singpass.gov.sg/) logo, brand, shape and all related services are owned by _Government of Singapore_.
 * All Singpass spellings strictly follow the official guidelines: [_Logo download & Brand guidelines - Naming Usage session_](https://api.singpass.gov.sg/library/myinfo/business/implementation-display-guidelines).
