@@ -7,18 +7,18 @@
       width=10%>
 <br><br>
 <sup>
-     Developed by ThoughtWorks, Inc.
+     Developed by Thoughtworks, Inc.
 </sup>
 <br>
 </p>
 
 ## About
 
-**inSpac** is the abbreviation of **in Singpass Authentication Components**.
+**inSpac** is the abbreviation for **in Singpass Authentication Components**, developed and maintained by _Thoughtworks, Inc_.
 
 **inSpac** offers an SDK and a Keycloak plugin that can help developers fast integrate *OpenID-Connect 1.0* auth scheme into project to interact with Singapore government digital platform -- *Singpass*.
 
-inSpac is implemented based on the official public documents: [Singpass Login Specifications](https://public.cloud.myinfo.gov.sg/sglogin/Singpass-login-specs-v0.1.html#section/Overview)
+inSpac is implemented based on the official public documents: [For Developers {Login} / Overview](https://api.singpass.gov.sg/library/login/developers/overview-at-a-glance)
 
 ## Artifacts & Usage
 ### SDK
